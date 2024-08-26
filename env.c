@@ -9,6 +9,8 @@ char	*get_env_key(char *env)
 	while (env[i] != '=')
 		i++;
 	key = malloc(sizeof(char) * (i));
+	if (key == NULL)
+		exit(1);
 	i = -1;
 	while (env[++i] != '=')
 		key[i] = env[i];
@@ -29,6 +31,8 @@ char	*get_env_value(char *env)
 	while (env[j + i + 1])
 		j++;
 	value = malloc(sizeof(char) * (j));
+	if (value == NULL)
+		exit(1);
 	j = 0;
 	while (env[i + 1])
 	{
