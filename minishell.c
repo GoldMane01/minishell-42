@@ -47,6 +47,7 @@ int	main(int argc, char **argv, char **env)
 		dir = get_dir();
 		line = NULL;
 		line = readline(dir);
+		add_history(line);
 		parse_line(line);
 		free(line);
 		free(dir);
