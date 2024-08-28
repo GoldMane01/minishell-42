@@ -26,6 +26,7 @@ char	*concat_quote(char *line)
 {
 	char	*concat_line;
 
+	ft_strlcat(line, "\n", ft_strlen(line) + 2);
 	concat_line = ft_strjoin(line, readline("quote> "));
 	return(concat_line);
 }
