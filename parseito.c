@@ -6,7 +6,7 @@
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 18:34:42 by crmunoz-          #+#    #+#             */
-/*   Updated: 2024/08/27 19:15:23 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/08/28 17:45:35 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,42 @@ int	close_quote(char *str) // comprobamos si hay comillas y están cerradas. Si 
 		return (0);
 	else
 		return (1);
+}
+
+t_cmd	save_cmd(char *str)
+{
+	int		i;
+	int		j;
+	char	quote;
+	int		esc;
+
+	i = 0;
+	quote = '\0';
+	esc = 0;
+	while (ft_isspace(str[i]) && !quote && !esc)
+		i++;
+	while (str[i])
+	{
+		while (str[i] != ' ' || str[i] != '\t')
+		{
+			if (!esc && str[i] == '\\')
+				esc = 1;
+			else if (!esc && !quote && (str[i] == '\'' || str[i] == '\"'))
+			{
+				quote = str[i];
+				j = i + 1;
+			}
+			else if (!esc && quote == str[i])
+				quote = '\0';
+			else if (!esc && !quote && ((str[i] == '<' && str[i + 1] == '<')
+					|| (str[i] == '>' && str[i + 1] == '>')
+					|| (str[i] == '<' || str[i] == '>')))
+				j = i;
+			else if (esc)
+				esc = 0;
+			i++;
+		}
+
+		
+	}
 }
