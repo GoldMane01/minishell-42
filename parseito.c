@@ -51,6 +51,7 @@ void	save_cmd(char *str)
 	int		i;
 	int		j;
 	char	quote;
+	t_redir	*redir;
 
 	i = 0;
 	quote = '\0';
@@ -59,7 +60,7 @@ void	save_cmd(char *str)
 	j = i;
 	while (str[i])
 	{
-		while (str[i] != ' ' || str[i] != '\t' || quote != str[i])
+		while (str[i] != ' ' && str[i] != '\t' && quote != str[i])
 		{
 			j = i;
 			if (str[i] == '\\')
@@ -72,8 +73,8 @@ void	save_cmd(char *str)
 			else if (!quote && ((str[i] == '<' && str[i + 1] == '<')
 					|| (str[i] == '>' && str[i + 1] == '>')
 					|| (str[i] == '<' || str[i] == '>')))
-				create_redir(str, i);
-			else if (str == "|")
+				redir = create_redir(str, i);
+			else if (str == "|") {
 				//node->type = pipe;
 			}
 			i++;
@@ -86,7 +87,7 @@ void	save_cmd(char *str)
 		}
 		i++;
 	}
-	
+}
 /*Cosas:
 1. pasarle la línea (si lo hacemos con & podemos ir recorriendolo desde distintas funciones)
 2. Creamos la lista y añadimos nodos (los inicializamos)

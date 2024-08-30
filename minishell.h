@@ -61,6 +61,7 @@ t_env	*create_env(char **env);
 //PARSEITO
 int		ft_isspace(char c);
 int		close_quote(char *str);
+void	save_cmd(char *str);
 
 //JOIN
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);

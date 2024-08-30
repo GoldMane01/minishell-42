@@ -47,6 +47,7 @@ void	parse_line(char *line)
 {
 	while (close_quote(line))
 		line = concat_quote(line);
+	save_cmd(line);
 }
 
 int	main(int argc, char **argv, char **env)
