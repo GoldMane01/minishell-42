@@ -17,6 +17,7 @@ SRCS		:=	env.c \
 				minishell.c \
 				parseito.c \
 				join.c	\
+				nodes.c \
 
 OBJS		:= $(SRCS:.c=.o)
 

@@ -71,3 +71,8 @@ char	*ft_strjoin(char const *s1, char const *s2);
 //NODE
 t_cmd	*ft_lstnew(void);
 void	ft_lstadd_back(t_cmd **lst, t_cmd *new);
+
+//REDIR
+char	*get_redir_file(char *file, int i, int type);
+t_redir	*init_redir(char *file, int i, int type);
+t_redir	*create_redir(char *line, int i);

@@ -49,8 +49,6 @@ void	parse_line(char *line)
 		line = concat_quote(line);
 }
 
-
-
 int	main(int argc, char **argv, char **env)
 {
 	char	*line;
