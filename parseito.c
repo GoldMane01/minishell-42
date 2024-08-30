@@ -46,7 +46,7 @@ int	close_quote(char *str) // comprobamos si hay comillas y están cerradas. Si 
 		return (1);
 }
 
-void	save_cmd(char *str) // está por terminar porque hay que despedazarlo en distintas funciones, John me ha enseñado cómo lo ha hecho exactamente.
+/*void	save_cmd(char *str) // está por terminar porque hay que despedazarlo en distintas funciones, John me ha enseñado cómo lo ha hecho exactamente.
 {
 	int		i;
 	int		j;
@@ -91,7 +91,7 @@ void	save_cmd(char *str) // está por terminar porque hay que despedazarlo en di
 			ft_lstadd_back(node->cmd, ft_lstnew);
 		}
 		i++;
-	}
+	}*/
 /*Cosas:
 1. pasarle la línea (si lo hacemos con & podemos ir recorriendolo desde distintas funciones)
 2. Creamos la lista y añadimos nodos (los inicializamos)
