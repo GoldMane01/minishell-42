@@ -12,41 +12,57 @@
 
 #include "minishell.h"
 
-t_cmd	*ft_lstnew(void)
+char	*get_redir_file(char *file, int i, int type)
 {
-	t_cmd	*node;
+	char	*name;
+	int		j;
 
-	node = malloc(sizeof(t_cmd) * 1);
-	if (node == NULL)
-		return (NULL);
-	node -> cmd = NULL;
-	node -> type = 0;
-	node ->redir = NULL;
-	node -> prev = NULL;
-	node -> next = NULL;
-	return (node);
-}
-
-t_cmd	*ft_lstlast(t_cmd *lst)
-{
-	while (lst)
-	{
-		if (lst -> next == NULL)
-			break ;
-		lst = lst -> next;
-	}
-	return (lst);
-}
-
-void	ft_lstadd_back(t_cmd **lst, t_cmd *new)
-{
-	t_cmd	*node;
-
-	if (lst == NULL)
-		lst = &new;
-	node = ft_lstlast(*lst);
-	if (node)
-		node -> next = new;
+	j = 0;
+	if (type == INN || type == OUTT)
+		i += 2;
 	else
-		*lst = new;
+		i += 1;
+	while (ft_isspace(file[i]))
+		i++;
+	while (!ft_isspace(file[i++]))
+		j++;
+	name = malloc(sizeof(char) * (j + 1));
+	if (!name)
+		exit(1);
+	i = i - j - 1;
+	j = 0;
+	while (!ft_isspace(file[i]))
+	{
+		name[j] = file[i];
+		j++;
+		i++;
+	}
+	name[j] = '\0';
+	return (name);
+}
+
+t_redir	*init_redir(char *file, int i, int type)
+{
+	t_redir	*redir;
+
+	redir = malloc(sizeof(redir));
+	if (!redir)
+		exit(1);
+	redir->name = get_redir_file(file, i, type);
+	redir->type = type;
+	redir->next = NULL;
+	return (redir);
+}
+
+t_redir	*create_redir(char *line, int i)
+{
+	if (line[i] == '<' && line[i + 1] == '<')
+		return (init_redir(line, i, INN));
+	if (line[i] == '<' && line[i + 1] != '<')
+		return (init_redir(line, i, IN));
+	if (line[i] == '>' && line[i + 1] == '>')
+		return (init_redir(line, i, OUTT));
+	if (line[i] == '>' && line[i + 1] != '>')
+		return (init_redir(line, i, OUT));
+	return (NULL);
 }
