@@ -6,7 +6,7 @@
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 18:34:42 by crmunoz-          #+#    #+#             */
-/*   Updated: 2024/08/28 21:00:52 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/08/30 18:00:37 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,24 @@ int	close_quote(char *str) // comprobamos si hay comillas y están cerradas. Si 
 		return (1);
 }
 
+void	save_pipe(char *str)
+{
+	while (str)
+	{
+		if (str == "|")
+			node->type = pipe;
+		else
+			save_cmd(&str);
+		str++;
+	}
+}
+
 void	save_cmd(char *str) // está por terminar porque hay que despedazarlo en distintas funciones, John me ha enseñado cómo lo ha hecho exactamente.
 {
 	int		i;
 	int		j;
 	char	quote;
-	t_cmd	*node;
 
-	node = ft_lstnew();
 	i = 0;
 	quote = '\0';
 	while (ft_isspace(str[i]))
@@ -79,8 +89,6 @@ void	save_cmd(char *str) // está por terminar porque hay que despedazarlo en di
 				node->redir = t_redir-> //crear los nodos para guardarlos
 				// crear función para guardar el redir
 			}
-			else if (!quote && str[i] == '|')
-				node->type = pipe;
 			i++;
 		}
 		if (quote == str[i])
@@ -88,15 +96,24 @@ void	save_cmd(char *str) // está por terminar porque hay que despedazarlo en di
 		if (quote == '\0')
 		{	
 			//node->cmd = (crear funcion para guardar el array)
-			ft_lstadd_back(node->cmd, ft_lstnew);
 		}
 		i++;
 	}
+	
 /*Cosas:
 1. pasarle la línea (si lo hacemos con & podemos ir recorriendolo desde distintas funciones)
 2. Creamos la lista y añadimos nodos (los inicializamos)
 3. Miramos si es pipe o no.
 	Si es un cmd buscamos las comillas y contamos nº de args para hacer el malloc al cmd y posteriormente en otra función guardarlo por trozos.
 4. Si es un redir hacemos otra función para crear los nodos y cambiamos el tipo.
+
+*/
+/*###########################################################
+##################COSAS A TENER EN CUENTA####################
+#############################################################
+
+1. Hay que cambiar los exit que hay en los mallocs y protegerlos y hacer free correctamente.
+2. Hay que mirar el caso en el que haya espacios en el redir. (Ej: >>            hola). Debemos saltarnos los espacios para guardarlo.
+
 
 */
