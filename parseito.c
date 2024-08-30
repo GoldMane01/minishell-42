@@ -6,7 +6,7 @@
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 18:34:42 by crmunoz-          #+#    #+#             */
-/*   Updated: 2024/08/30 18:00:37 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/08/30 19:12:34 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	close_quote(char *str) // comprobamos si hay comillas y están cerradas. Si 
 		return (1);
 }
 
-/*void	save_cmd(char *str) // está por terminar porque hay que despedazarlo en distintas funciones, John me ha enseñado cómo lo ha hecho exactamente.
+void	save_cmd(char *str)
 {
 	int		i;
 	int		j;
@@ -59,7 +59,7 @@ int	close_quote(char *str) // comprobamos si hay comillas y están cerradas. Si 
 	j = i;
 	while (str[i])
 	{
-		while (str[i] != ' ' || str[i] != '\t' || quote != str[i]) // -> desde la i hasta la j tengo situado el trozo que hay que guardar
+		while (str[i] != ' ' || str[i] != '\t' || quote != str[i])
 		{
 			j = i;
 			if (str[i] == '\\')
@@ -72,10 +72,9 @@ int	close_quote(char *str) // comprobamos si hay comillas y están cerradas. Si 
 			else if (!quote && ((str[i] == '<' && str[i + 1] == '<')
 					|| (str[i] == '>' && str[i + 1] == '>')
 					|| (str[i] == '<' || str[i] == '>')))
-			{
-				j = i;
-				node->redir = t_redir-> //crear los nodos para guardarlos
-				// crear función para guardar el redir
+				create_redir(str, i);
+			else if (str == "|")
+				//node->type = pipe;
 			}
 			i++;
 		}
@@ -86,7 +85,8 @@ int	close_quote(char *str) // comprobamos si hay comillas y están cerradas. Si 
 			//node->cmd = (crear funcion para guardar el array)
 		}
 		i++;
-	}*/
+	}
+	
 /*Cosas:
 1. pasarle la línea (si lo hacemos con & podemos ir recorriendolo desde distintas funciones)
 2. Creamos la lista y añadimos nodos (los inicializamos)
