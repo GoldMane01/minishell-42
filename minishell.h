@@ -21,6 +21,7 @@ typedef enum s_type
 {
 	PIPE,
 	COMMAND,
+	BUILD,
 	IN,
 	INN,
 	OUT,
