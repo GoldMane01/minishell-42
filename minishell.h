@@ -77,3 +77,11 @@ void	ft_lstadd_back(t_cmd **lst, t_cmd *new);
 char	*get_redir_file(char *file, int i, int type);
 t_redir	*init_redir(char *file, int i, int type);
 t_redir	*create_redir(char *line, int i);
+
+//CMD-NODES
+int		count_pipes(t_cmd *cmd);
+
+//SPLIT
+size_t	count_strs(char const *s, char c);
+char	**free_ptr(char	**ptr);
+char	**ft_split(char const *s, char c);

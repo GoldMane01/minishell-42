@@ -54,6 +54,7 @@ void	save_cmd(char *str)
 	t_redir	*redir;
 
 	i = 0;
+	redir = NULL;
 	quote = '\0';
 	while (ft_isspace(str[i]))
 		i++;
@@ -71,7 +72,7 @@ void	save_cmd(char *str)
 				j = i;
 			}
 			else if (!quote && (str[i] == '<' || str[i] == '>'))
-				redir = create_redir(str, i);
+				add_next_redir(redir, create_redir(str, i));
 			else if (str == "|") {
 				//node->type = pipe;
 			}
