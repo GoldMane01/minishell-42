@@ -41,6 +41,18 @@ char	*get_redir_file(char *file, int i, int type)
 	return (name);
 }
 
+void	add_next_redir(t_redir *head, t_redir *new)
+{
+	t_redir	*node;
+
+	node = head;
+	if (!node)
+		node = new;
+	while (node)
+		node = node->next;
+	node->next = new;
+}
+
 t_redir	*init_redir(char *file, int i, int type)
 {
 	t_redir	*redir;

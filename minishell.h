@@ -6,7 +6,7 @@
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 18:23:41 by crmunoz-          #+#    #+#             */
-/*   Updated: 2024/08/28 19:45:38 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/09/02 20:49:40 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ t_env	*create_env(char **env);
 int		ft_isspace(char c);
 int		close_quote(char *str);
 void	save_cmd(char *str);
+char	**quote_split(char *str);
 
 //JOIN
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
@@ -77,3 +78,13 @@ void	ft_lstadd_back(t_cmd **lst, t_cmd *new);
 char	*get_redir_file(char *file, int i, int type);
 t_redir	*init_redir(char *file, int i, int type);
 t_redir	*create_redir(char *line, int i);
+
+//CMD-NODES
+int		count_pipes(t_cmd *cmd);
+
+//SPLIT
+size_t	count_strs(char const *s, char c);
+char	**free_ptr(char	**ptr);
+char	**ft_split(char const *s, char c);
+char	*ft_strdup(char *s1);
+void	free_arrays(char **awks, char **flags);
