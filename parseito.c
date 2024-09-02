@@ -6,7 +6,7 @@
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 18:34:42 by crmunoz-          #+#    #+#             */
-/*   Updated: 2024/08/30 19:45:16 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/09/02 17:47:26 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,8 @@ void	save_cmd(char *str)
 	j = i;
 	while (str[i])
 	{
-		while (str[i] != ' ' && str[i] != '\t' && quote != str[i])
+		while ((str[i] != ' ' && str[i] != '\t' && quote != str[i]) || str[i] == '|')
 		{
-			j = i;
 			if (str[i] == '\\')
 				i++;
 			else if (!quote && (str[i] == '\'' || str[i] == '\"'))
@@ -72,11 +71,10 @@ void	save_cmd(char *str)
 			}
 			else if (!quote && (str[i] == '<' || str[i] == '>'))
 				redir = create_redir(str, i);
-			else if (str == "|") {
-				//node->type = pipe;
-			}
 			i++;
 		}
+		if (str[i] == '|')
+			//función de guardar pipe
 		if (quote == str[i])
 			quote = '\0';
 		if (quote == '\0')
