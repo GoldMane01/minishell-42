@@ -6,7 +6,7 @@
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 18:34:42 by crmunoz-          #+#    #+#             */
-/*   Updated: 2024/08/30 19:12:34 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/08/30 19:45:16 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,7 @@ void	save_cmd(char *str)
 				quote = str[i];
 				j = i;
 			}
-			else if (!quote && ((str[i] == '<' && str[i + 1] == '<')
-					|| (str[i] == '>' && str[i + 1] == '>')
-					|| (str[i] == '<' || str[i] == '>')))
+			else if (!quote && (str[i] == '<' || str[i] == '>'))
 				redir = create_redir(str, i);
 			else if (str == "|") {
 				//node->type = pipe;
