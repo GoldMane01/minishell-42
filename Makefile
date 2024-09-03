@@ -18,6 +18,7 @@ SRCS		:=	env.c \
 				parseito.c \
 				join.c	\
 				nodes.c \
+				ft_split.c \
 
 OBJS		:= $(SRCS:.c=.o)
 

@@ -55,7 +55,24 @@ int	main(int argc, char **argv, char **env)
 	char	*line;
 	char	*dir;
 
-	while (1 + 1 == 2)
+	char **ennove;
+
+	line = NULL;
+	dir = get_dir();
+	line = readline(dir);
+	ennove = quote_split(line);
+	
+	int i;
+
+	i = 0;
+	while (ennove[i])
+	{
+		printf("%s\n", ennove[i]);
+		i++;
+	}
+
+
+	/*while (1 + 1 == 2)
 	{
 		dir = get_dir();
 		line = NULL;
@@ -64,7 +81,7 @@ int	main(int argc, char **argv, char **env)
 		parse_line(line);
 		free(line);
 		free(dir);
-	}
+	}*/
 }
 
 //1-	cmd

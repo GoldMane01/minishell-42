@@ -73,6 +73,7 @@ char	*ft_strjoin(char const *s1, char const *s2);
 //NODE
 t_cmd	*ft_lstnew(void);
 void	ft_lstadd_back(t_cmd **lst, t_cmd *new);
+void	add_next_redir(t_redir *head, t_redir *new);
 
 //REDIR
 char	*get_redir_file(char *file, int i, int type);
@@ -88,3 +89,4 @@ char	**free_ptr(char	**ptr);
 char	**ft_split(char const *s, char c);
 char	*ft_strdup(char *s1);
 void	free_arrays(char **awks, char **flags);
+char	*ft_substr(char const *s, unsigned int start, size_t len);

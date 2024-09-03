@@ -79,8 +79,54 @@ char	**quote_split(char *str) /*-> podemos hacer primero un split por pipe, y lu
 	i = 0;
 	quote = ft_split(str, return_quote(str));
 	cmd = ft_split(quote[0], ' ');
+	if (!quote[1])
+		return (cmd);
+	else
+	{
+			char **totalcmd;
+	
+		int j = 0;
+		while (cmd[j])
+			j++;
+
+		char **cmd2;
+			int k = 0;
+		if (quote[2])
+		{
+			cmd2 = ft_split(quote[2], ' ');
+
+
+			while (cmd2[k])
+				k++;
+		}
+
+		totalcmd = malloc(sizeof(char *) * (j + k + 1));
+		k = 0;
+		j = 0;
+		while (cmd[j])
+		{
+			totalcmd[j] = cmd[j];
+			j++;
+		}
+		totalcmd[j++] = quote[1];
+		if (quote[2])
+		{	while (cmd2[k])
+			{
+				totalcmd[j] = cmd2[k];
+				k++;
+				j++;
+			}}
+		totalcmd[j] = NULL;
+
+		if (1 + 1 == 2)
+			return (totalcmd);
+	}
+
 	while (cmd[i])
+	{	
 		len++;
+		i++;
+	}
 	if (quote[1])
 		len++;
 	final_split = malloc(sizeof(char *) * len);
@@ -128,7 +174,6 @@ void	save_cmd(char *str)
 			i++;
 		}
 		i++;
-		return (quote)
 		if (quote == str[i])
 			quote = '\0';
 		if (quote == '\0')
