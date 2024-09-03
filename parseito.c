@@ -6,7 +6,7 @@
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 18:34:42 by crmunoz-          #+#    #+#             */
-/*   Updated: 2024/09/02 20:47:28 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/09/03 18:14:08 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,43 +71,30 @@ char	**quote_split(char *str) /*-> podemos hacer primero un split por pipe, y lu
 {
 	char	**quote;
 	char	**cmd;
-	char	**final_split;
-	int		i;
-	int		len;
-
-	len = 1;
-	i = 0;
+	char	**cmd2;
+	char	**totalcmd;
+	int 	j;
+	int		k;
+	
+	k = -1;
+	j = -1;
 	quote = ft_split(str, return_quote(str));
 	cmd = ft_split(quote[0], ' ');
 	if (!quote[1])
 		return (cmd);
 	else
 	{
-			char **totalcmd;
-	
-		int j = 0;
-		while (cmd[j])
-			j++;
-
-		char **cmd2;
-			int k = 0;
+		while (cmd[++j])
 		if (quote[2])
 		{
 			cmd2 = ft_split(quote[2], ' ');
-
-
-			while (cmd2[k])
-				k++;
+			while (cmd2[++k])
 		}
-
 		totalcmd = malloc(sizeof(char *) * (j + k + 1));
 		k = 0;
-		j = 0;
-		while (cmd[j])
-		{
+		j = -1;
+		while (cmd[++j])
 			totalcmd[j] = cmd[j];
-			j++;
-		}
 		totalcmd[j++] = quote[1];
 		if (quote[2])
 		{	while (cmd2[k])
@@ -117,30 +104,8 @@ char	**quote_split(char *str) /*-> podemos hacer primero un split por pipe, y lu
 				j++;
 			}}
 		totalcmd[j] = NULL;
-
-		if (1 + 1 == 2)
-			return (totalcmd);
+		return (totalcmd);
 	}
-
-	while (cmd[i])
-	{	
-		len++;
-		i++;
-	}
-	if (quote[1])
-		len++;
-	final_split = malloc(sizeof(char *) * len);
-	i = 0;
-	while (cmd[i])
-	{
-		final_split[i] = ft_strdup(cmd[i]);
-		i++;
-	}
-	if (quote[1])
-		final_split[i++] = ft_strdup(quote[1]);
-	final_split[i] = NULL;
-	free_arrays(quote, cmd);
-	return (final_split);
 }
 
 void	save_cmd(char *str)
