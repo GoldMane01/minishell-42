@@ -6,7 +6,7 @@
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 18:34:42 by crmunoz-          #+#    #+#             */
-/*   Updated: 2024/09/03 18:14:08 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/09/05 15:41:02 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,73 +45,24 @@ int	close_quote(char *str) // comprobamos si hay comillas y están cerradas. Si 
 	else
 		return (1);
 }
-
-char	return_quote(char *str)
+void	**get_pipe_split(char *str) /*ESTA FUNCIÓN NO LA LLAMAMOS AÚN DESDE NINGÚN SITIO*/
 {
-	int		i;
-	int		j;
-	char	quote;
+	char **nopipe;
+	t_cmd	cmd;
+	int i;
 
 	i = 0;
-	quote = '\0';
-	while (ft_isspace(str[i]))
-		i++;
-	while (quote != str[i])
+	nopipe = ft_split(str, '|');
+	while (nopipe[i])
 	{
-		if (str[i] == '\\')
-			i++;
-		else if (!quote && (str[i] == '\'' || str[i] == '\"'))
-			quote = str[i];
+		add_next_cmd(cmd, create_cmd(nopipe[i]));
 		i++;
-	}
-	return (quote);
-}
-
-char	**quote_split(char *str) /*-> podemos hacer primero un split por pipe, y luego pasar cada trozo aquí, para hacer el final split */
-{
-	char	**quote;
-	char	**cmd;
-	char	**cmd2;
-	char	**totalcmd;
-	int 	j;
-	int		k;
-	
-	k = -1;
-	j = -1;
-	quote = ft_split(str, return_quote(str));
-	cmd = ft_split(quote[0], ' ');
-	if (!quote[1])
-		return (cmd);
-	else
-	{
-		while (cmd[++j])
-		if (quote[2])
-		{
-			cmd2 = ft_split(quote[2], ' ');
-			while (cmd2[++k])
-		}
-		totalcmd = malloc(sizeof(char *) * (j + k + 1));
-		k = 0;
-		j = -1;
-		while (cmd[++j])
-			totalcmd[j] = cmd[j];
-		totalcmd[j++] = quote[1];
-		if (quote[2])
-		{	while (cmd2[k])
-			{
-				totalcmd[j] = cmd2[k];
-				k++;
-				j++;
-			}}
-		totalcmd[j] = NULL;
-		return (totalcmd);
 	}
 }
 
 void	save_cmd(char *str)
 {
 	int		i;
-	int		j;
 	char	quote;
 	t_redir	*redir;
 
@@ -120,7 +71,6 @@ void	save_cmd(char *str)
 	quote = '\0';
 	while (ft_isspace(str[i]))
 		i++;
-	j = i;
 	while (str[i])
 	{
 		while ((str[i] != ' ' && str[i] != '\t' && quote != str[i]) || (str[i] == '|' && !quote))
@@ -128,23 +78,16 @@ void	save_cmd(char *str)
 			if (str[i] == '\\')
 				i++;
 			else if (!quote && (str[i] == '\'' || str[i] == '\"'))
-			{
 				quote = str[i];
-				j = i;
-			}
 			else if (!quote && (str[i] == '<' || str[i] == '>'))
 				add_next_redir(redir, create_redir(str, i));
-			else if (str == "|" && !quote)
+			else if (str == '|' && !quote)
 				//node->type = pipe;
 			i++;
 		}
-		i++;
-		if (quote == str[i])
+		if (str[i] == quote)
 			quote = '\0';
-		if (quote == '\0')
-		{	
-			//node->cmd = (crear funcion para guardar el array)
-		}
+		i++;
 	}
 }
 

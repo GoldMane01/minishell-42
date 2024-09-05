@@ -6,47 +6,72 @@
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 18:51:09 by crmunoz-          #+#    #+#             */
-/*   Updated: 2024/09/02 18:22:24 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/09/05 15:45:18 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	count_pipes(t_cmd *cmd)
+char	return_quote(char *str)
 {
-	t_cmd	*node;
-	int		count;
+	int		i;
+	int		j;
+	char	quote;
 
-	node = cmd;
-	count = 0;
-	if (!node)
-		return (0);
-	while (node)
+	i = 0;
+	quote = '\0';
+	while (ft_isspace(str[i]))
+		i++;
+	while (quote != str[i])
 	{
-		if (node->type == PIPE)
-			count++;
-		node = node->next;
+		if (str[i] == '\\')
+			i++;
+		else if (!quote && (str[i] == '\'' || str[i] == '\"'))
+			quote = str[i];
+		i++;
 	}
-	return (count);
+	return (quote);
 }
 
-char	*ft_strchr(const char *s, int c)
+char	**quote_split(char *str)
 {
-	char	*ptr;
-
-	ptr = 0;
-	while (*s != '\0')
+	char	**quote;
+	char	**cmd;
+	char	**cmd2;
+	char	**totalcmd;
+	int 	j;
+	int		k;
+	
+	k = -1;
+	j = -1;
+	quote = ft_split(str, return_quote(str));
+	cmd = ft_split(quote[0], ' ');
+	if (!quote[1])
+		return (cmd);
+	else
 	{
-		if (*s == (char)c)
+		while (cmd[++j])
+		if (quote[2])
 		{
-			ptr = (char *) s;
-			return (ptr);
+			cmd2 = ft_split(quote[2], ' ');
+			while (cmd2[++k])
 		}
-		s++;
+		totalcmd = malloc(sizeof(char *) * (j + k + 1));
+		k = 0;
+		j = -1;
+		while (cmd[++j])
+			totalcmd[j] = cmd[j];
+		totalcmd[j++] = quote[1];
+		if (quote[2])
+		{	while (cmd2[k])
+			{
+				totalcmd[j] = cmd2[k];
+				k++;
+				j++;
+			}}
+		totalcmd[j] = NULL;
+		return (totalcmd);
 	}
-	if ((char)c == '\0')
-		ptr = (char *) s;
-	return (ptr);
 }
 
 char	**create_new_cmd(char **cmd, int count)
@@ -104,6 +129,70 @@ char	**remove_redirs(char **cmd)
 	return (new);
 }
 
+t_cmd	*init_cmd(char *str) /*-> ESTÁ A MEDIO HACER, SÓLO LO PONGO POR TENERLO EN CUENTA */
+{
+	t_cmd	*command;
+
+	command = malloc(sizeof(command));
+	if (!command)
+		exit(1);
+	command->cmd = remove_redirs(quote_split(str));
+	command->type = command;
+	command->next = NULL;
+	return (command);
+}
+
+
+void	add_next_cmd(t_cmd *head, t_cmd *new) /* HAY QUE REVISARLO*/
+{
+	t_cmd	*node;
+
+	node = head;
+	if (!node)
+		node = new;
+	while (node)
+		node = node->next;
+	node->next = new;
+}
+/*
+int	count_pipes(t_cmd *cmd)
+{
+	t_cmd	*node;
+	int		count;
+
+	node = cmd;
+	count = 0;
+	if (!node)
+		return (0);
+	while (node)
+	{
+		if (node->type == PIPE)
+			count++;
+		node = node->next;
+	}
+	return (count);
+}
+
+
+char	*ft_strchr(const char *s, int c)
+{
+	char	*ptr;
+
+	ptr = 0;
+	while (*s != '\0')
+	{
+		if (*s == (char)c)
+		{
+			ptr = (char *) s;
+			return (ptr);
+		}
+		s++;
+	}
+	if ((char)c == '\0')
+		ptr = (char *) s;
+	return (ptr);
+}
+
 char	**get_cmd(char *file)
 {
 	int		i;
@@ -133,4 +222,4 @@ t_cmd *init_cmd(char *file, int i, int j, int type)
 	cmd->type = type;
 	cmd->next = NULL;
 }
-
+*/

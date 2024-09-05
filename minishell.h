@@ -6,7 +6,7 @@
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 18:23:41 by crmunoz-          #+#    #+#             */
-/*   Updated: 2024/09/02 20:49:40 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/09/05 15:45:21 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ t_env	*create_env(char **env);
 int		ft_isspace(char c);
 int		close_quote(char *str);
 void	save_cmd(char *str);
-char	**quote_split(char *str);
+void	**get_pipe_split(char *str);
 
 //JOIN
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
@@ -70,7 +70,7 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 int		ft_strlen(const char *s);
 char	*ft_strjoin(char const *s1, char const *s2);
 
-//NODE
+//REDIR-NODES
 t_cmd	*ft_lstnew(void);
 void	ft_lstadd_back(t_cmd **lst, t_cmd *new);
 void	add_next_redir(t_redir *head, t_redir *new);
@@ -82,6 +82,9 @@ t_redir	*create_redir(char *line, int i);
 
 //CMD-NODES
 int		count_pipes(t_cmd *cmd);
+char	**quote_split(char *str);
+char	return_quote(char *str);
+t_cmd	*init_cmd(char *str);
 
 //SPLIT
 size_t	count_strs(char const *s, char c);
