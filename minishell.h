@@ -6,7 +6,7 @@
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 18:23:41 by crmunoz-          #+#    #+#             */
-/*   Updated: 2024/09/05 15:45:21 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/09/05 19:34:54 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,3 +93,6 @@ char	**ft_split(char const *s, char c);
 char	*ft_strdup(char *s1);
 void	free_arrays(char **awks, char **flags);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
+
+//SPLITEO
+char	**spliteo_cmd(char *s, char c);

@@ -6,7 +6,7 @@
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 18:51:09 by crmunoz-          #+#    #+#             */
-/*   Updated: 2024/09/05 15:45:18 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/09/05 19:45:24 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ char	**quote_split(char *str)
 	
 	k = 0;
 	j = 0;
-	quote = ft_split(str, return_quote(str));
-	cmd = ft_split(quote[0], ' ');
+	quote = spliteo_cmd(str, return_quote(str));
+	cmd = spliteo_cmd(quote[0], ' ');
 	if (!quote[1])
 		return (cmd);
 	else
@@ -54,7 +54,7 @@ char	**quote_split(char *str)
 			j++;
 		if (quote[2])
 		{
-			cmd2 = ft_split(quote[2], ' ');
+			cmd2 = spliteo_cmd(quote[2], ' ');
 			while (cmd2[k])
 				k++;
 		}

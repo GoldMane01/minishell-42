@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dramos-n <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 18:18:28 by dramos-n          #+#    #+#             */
-/*   Updated: 2024/08/30 18:18:29 by dramos-n         ###   ########.fr       */
+/*   Updated: 2024/09/05 20:06:23 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*get_dir(void)
 	return (dir);
 }
 
-char	*concat_quote(char *line)
+char	*concat_quote(char *line) /*NO FUNCIONA T_T */
 {
 	char	*concat_line;
 

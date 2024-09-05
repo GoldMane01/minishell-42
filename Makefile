@@ -6,7 +6,7 @@
 #    By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/28 16:44:54 by crmunoz-          #+#    #+#              #
-#    Updated: 2024/09/05 15:57:36 by crmunoz-         ###   ########.fr        #
+#    Updated: 2024/09/05 19:33:28 by crmunoz-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRCS		:=	env.c \
 				redir-nodes.c \
 				ft_split.c \
 				cmd-nodes.c \
+				spliteo.c \
 
 OBJS		:= $(SRCS:.c=.o)
 
