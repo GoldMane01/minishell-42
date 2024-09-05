@@ -71,8 +71,6 @@ int		ft_strlen(const char *s);
 char	*ft_strjoin(char const *s1, char const *s2);
 
 //REDIR-NODES
-t_cmd	*ft_lstnew(void);
-void	ft_lstadd_back(t_cmd **lst, t_cmd *new);
 void	add_next_redir(t_redir *head, t_redir *new);
 
 //REDIR
@@ -84,7 +82,9 @@ t_redir	*create_redir(char *line, int i);
 int		count_pipes(t_cmd *cmd);
 char	**quote_split(char *str);
 char	return_quote(char *str);
-t_cmd	*init_cmd(char *str);
+t_cmd	*init_cmd(char *str, int type);
+void	add_next_cmd(t_cmd *head, t_cmd *new);
+char	*ft_strchr(const char *s, int c);
 
 //SPLIT
 size_t	count_strs(char const *s, char c);

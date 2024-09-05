@@ -60,17 +60,23 @@ int	main(int argc, char **argv, char **env)
 	line = NULL;
 	dir = get_dir();
 	line = readline(dir);
-	ennove = quote_split(line);
 	
-	int i;
+	t_cmd *cmd;
+	cmd = init_cmd(line, COMMAND);
 
-	i = 0;
-	while (ennove[i])
+	t_cmd *node;
+	node = cmd;
+	int i = 0;
+	while (node)
 	{
-		printf("%s\n", ennove[i]);
-		i++;
-	}
+		while (cmd->cmd[i])
+		{
+			printf("%d- %s\n", i, cmd->cmd[i]);
+			i++;
+		}
 
+		node = node->next;
+	}
 
 	/*while (1 + 1 == 2)
 	{

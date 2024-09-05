@@ -55,7 +55,7 @@ void	**get_pipe_split(char *str) /*ESTA FUNCIÓN NO LA LLAMAMOS AÚN DESDE NING�
 	nopipe = ft_split(str, '|');
 	while (nopipe[i])
 	{
-		add_next_cmd(cmd, create_cmd(nopipe[i]));
+		//add_next_cmd(cmd, create_cmd(nopipe[i]));
 		i++;
 	}
 }
@@ -81,7 +81,7 @@ void	save_cmd(char *str)
 				quote = str[i];
 			else if (!quote && (str[i] == '<' || str[i] == '>'))
 				add_next_redir(redir, create_redir(str, i));
-			else if (str == '|' && !quote)
+			else if (str[i] == '|' && !quote)
 				//node->type = pipe;
 			i++;
 		}

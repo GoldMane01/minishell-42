@@ -42,19 +42,21 @@ char	**quote_split(char *str)
 	int 	j;
 	int		k;
 	
-	k = -1;
-	j = -1;
+	k = 0;
+	j = 0;
 	quote = ft_split(str, return_quote(str));
 	cmd = ft_split(quote[0], ' ');
 	if (!quote[1])
 		return (cmd);
 	else
 	{
-		while (cmd[++j])
+		while (cmd[j])
+			j++;
 		if (quote[2])
 		{
 			cmd2 = ft_split(quote[2], ' ');
-			while (cmd2[++k])
+			while (cmd2[k])
+				k++;
 		}
 		totalcmd = malloc(sizeof(char *) * (j + k + 1));
 		k = 0;
@@ -79,32 +81,37 @@ char	**create_new_cmd(char **cmd, int count)
 	char	**new;
 	int		i;
 	int		j;
+	int		k;
 
-	new = malloc(sizeof(char *) * count + 1);
+	new = malloc(sizeof(char *) * (count + 1));
 	if (!new)
 		return (NULL);
 	i = 0;
+	k = 0;
 	while (cmd[i])
 	{
 		if (cmd[i][0] == '<' || cmd[i][0] == '>')
 		{
-			if (ft_strchr(cmd[i], ' '))
-				i++;
 			i++;
+			if ((ft_strlen(cmd[i]) <= 2))
+				i++;
+			if (cmd[i][1] != '\0' && cmd[i][1] != '<' && cmd[i][1] != '>')
+				i++;
 		}
-		new[i] = malloc(sizeof(char) * ft_strlen(cmd[i]));
-		if (!new[i])
+		new[k] = malloc(sizeof(char) * (ft_strlen(cmd[i]) + 1));
+		if (!new[k])
 			free_ptr(new);
 		j = 0;
 		while (cmd[i][j])
 		{
-			new[i][j] = cmd[i][j];
+			new[k][j] = cmd[i][j];
 			j++;
 		}
-		cmd[i][j] = '\0';
+		new[k][j] = '\0';
 		i++;
+		k++;
 	}
-	new[i] = NULL;
+	new[k] = NULL;
 	return (new);
 }
 
@@ -115,35 +122,43 @@ char	**remove_redirs(char **cmd)
 	int		count;
 
 	count = 0;
+	i = 0;
 	while (cmd[i])
 	{
 		if (cmd[i][0] == '<' || cmd[i][0] == '>')
 		{
 			count--;
-			if (ft_strchr(cmd[i], ' '))
+			if ((ft_strlen(cmd[i]) <= 2))
 				count--;
+			if (cmd[i][1] != '\0' && cmd[i][1] != '<' && cmd[i][1] != '>')
+				count++;
 		}
 		count++;
+		i++;
 	}
 	new = create_new_cmd(cmd, count);
 	return (new);
 }
 
-t_cmd	*init_cmd(char *str) /*-> ESTÁ A MEDIO HACER, SÓLO LO PONGO POR TENERLO EN CUENTA */
+t_cmd	*init_cmd(char *str, int type)
 {
 	t_cmd	*command;
 
 	command = malloc(sizeof(command));
 	if (!command)
 		exit(1);
-	command->cmd = remove_redirs(quote_split(str));
-	command->type = command;
+	if (type != PIPE)
+		command->cmd = remove_redirs(quote_split(str));
+	else
+		command->cmd = NULL;
+	command->type = type;
 	command->next = NULL;
+	command->prev = NULL;
 	return (command);
 }
 
 
-void	add_next_cmd(t_cmd *head, t_cmd *new) /* HAY QUE REVISARLO*/
+void	add_next_cmd(t_cmd *head, t_cmd *new)
 {
 	t_cmd	*node;
 
@@ -153,26 +168,8 @@ void	add_next_cmd(t_cmd *head, t_cmd *new) /* HAY QUE REVISARLO*/
 	while (node)
 		node = node->next;
 	node->next = new;
+	new->prev = node;
 }
-/*
-int	count_pipes(t_cmd *cmd)
-{
-	t_cmd	*node;
-	int		count;
-
-	node = cmd;
-	count = 0;
-	if (!node)
-		return (0);
-	while (node)
-	{
-		if (node->type == PIPE)
-			count++;
-		node = node->next;
-	}
-	return (count);
-}
-
 
 char	*ft_strchr(const char *s, int c)
 {
@@ -191,6 +188,24 @@ char	*ft_strchr(const char *s, int c)
 	if ((char)c == '\0')
 		ptr = (char *) s;
 	return (ptr);
+}
+
+/*int	count_pipes(t_cmd *cmd)
+{
+	t_cmd	*node;
+	int		count;
+
+	node = cmd;
+	count = 0;
+	if (!node)
+		return (0);
+	while (node)
+	{
+		if (node->type == PIPE)
+			count++;
+		node = node->next;
+	}
+	return (count);
 }
 
 char	**get_cmd(char *file)
