@@ -175,6 +175,7 @@ t_cmd	*init_cmd(char *str, int type)
 void	add_next_cmd(t_cmd *head, t_cmd *new)
 {
 	t_cmd	*node;
+	t_cmd	*aux;
 
 	node = head;
 	if (!node)
@@ -182,9 +183,12 @@ void	add_next_cmd(t_cmd *head, t_cmd *new)
 	else
 	{
 		while (node)
+		{
+			aux = node;
 			node = node->next;
-		node->next = new;
-		new->prev = node;
+		}
+		node = new;
+		new->prev = aux;
 	}
 }
 
