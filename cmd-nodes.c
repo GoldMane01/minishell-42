@@ -6,7 +6,7 @@
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 18:51:09 by crmunoz-          #+#    #+#             */
-/*   Updated: 2024/09/06 10:29:06 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/09/06 10:31:16 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,26 +33,10 @@ char	return_quote(char *str)
 	return (quote);
 }
 
-char	**quote_split(char *str)
+char **cont_quo_split(char **cmd, char **quote, char ** cmd2, int j, int k)
 {
-	char	**quote;
-	char	**cmd;
-	char	**cmd2;
-	char	**totalcmd;
-	int 	j;
-	int		k;
-	
-	k = 0;
-	j = 0;
-	quote = spliteo_cmd(str, return_quote(str));
-	if (quote[0][0] != '\'' && quote[0][0] != '\"')
-		cmd = spliteo_cmd(quote[0], ' ');
-	else
-		cmd = ft_split(quote[0], '\0');
-	if (!quote[1])
-		return (cmd);
-	else
-	{
+	char ** totalcmd;
+
 		while (cmd[j])
 			j++;
 		if (quote[2])
@@ -76,8 +60,31 @@ char	**quote_split(char *str)
 			}}
 		totalcmd[j] = NULL;
 		return (totalcmd);
-	}
 }
+
+char	**quote_split(char *str)
+{
+	char	**quote;
+	char	**cmd;
+	char	**cmd2;
+	char	**totalcmd;
+	int 	j;
+	int		k;
+	
+	k = 0;
+	j = 0;
+	quote = spliteo_cmd(str, return_quote(str));
+	if (quote[0][0] != '\'' && quote[0][0] != '\"')
+		cmd = spliteo_cmd(quote[0], ' ');
+	else
+		cmd = ft_split(quote[0], '\0');
+	if (!quote[1])
+		return (cmd);
+	else
+		totalcmd = cont_quo_split(cmd, quote, cmd2, j, k);
+	return (totalcmd);
+}
+
 
 char	**create_new_cmd(char **cmd, int count)
 {
