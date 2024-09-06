@@ -6,7 +6,7 @@
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 18:51:09 by crmunoz-          #+#    #+#             */
-/*   Updated: 2024/09/06 10:24:05 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/09/06 10:29:06 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,26 @@ char	return_quote(char *str)
 	return (quote);
 }
 
-char **cont_quo_split(char **cmd, char **quote, char ** cmd2, int j, int k)
+char	**quote_split(char *str)
 {
-	char ** totalcmd;
-
+	char	**quote;
+	char	**cmd;
+	char	**cmd2;
+	char	**totalcmd;
+	int 	j;
+	int		k;
+	
+	k = 0;
+	j = 0;
+	quote = spliteo_cmd(str, return_quote(str));
+	if (quote[0][0] != '\'' && quote[0][0] != '\"')
+		cmd = spliteo_cmd(quote[0], ' ');
+	else
+		cmd = ft_split(quote[0], '\0');
+	if (!quote[1])
+		return (cmd);
+	else
+	{
 		while (cmd[j])
 			j++;
 		if (quote[2])
@@ -60,29 +76,7 @@ char **cont_quo_split(char **cmd, char **quote, char ** cmd2, int j, int k)
 			}}
 		totalcmd[j] = NULL;
 		return (totalcmd);
-}
-
-char	**quote_split(char *str)
-{
-	char	**quote;
-	char	**cmd;
-	char	**cmd2;
-	char	**totalcmd;
-	int 	j;
-	int		k;
-	
-	k = 0;
-	j = 0;
-	quote = spliteo_cmd(str, return_quote(str));
-	if (quote[0][0] != '\'' && quote[0][0] != '\"')
-		cmd = spliteo_cmd(quote[0], ' ');
-	else
-		cmd = ft_split(quote[0], '\0');
-	if (!quote[1])
-		return (cmd);
-	else
-		totalcmd = cont_quo_split(cmd, quote, cmd2, j, k);
-	return (totalcmd);
+	}
 }
 
 char	**create_new_cmd(char **cmd, int count)
@@ -101,6 +95,12 @@ char	**create_new_cmd(char **cmd, int count)
 	{
 		while (cmd[i][0] == '<' || cmd[i][0] == '>')
 		{
+			if (ft_strlen(cmd[i]) == 2 && cmd[i][0] != '<' && cmd[i][0] != '>' 
+				&& cmd[i][0] != '\0')
+			{
+				i++;
+				break;
+			}
 			i++;
 			if ((cmd[i - 1][0] == '<' || cmd[i - 1][0] == '>') && (ft_strlen(cmd[i - 1]) <= 2))
 				i++;
