@@ -93,12 +93,10 @@ char	**create_new_cmd(char **cmd, int count)
 	k = 0;
 	while (cmd[i])
 	{
-		if (cmd[i][0] == '<' || cmd[i][0] == '>')
+		while (cmd[i][0] == '<' || cmd[i][0] == '>')
 		{
 			i++;
-			if ((ft_strlen(cmd[i]) <= 2))
-				i++;
-			if (cmd[i][1] != '\0' && cmd[i][1] != '<' && cmd[i][1] != '>')
+			if ((cmd[i - 1][0] == '<' || cmd[i - 1][0] == '>') && (ft_strlen(cmd[i - 1]) <= 2))
 				i++;
 		}
 		new[k] = malloc(sizeof(char) * (ft_strlen(cmd[i]) + 1));

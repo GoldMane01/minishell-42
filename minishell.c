@@ -74,6 +74,7 @@ int	main(int argc, char **argv, char **env)
 			printf("%d- %s\n", i, cmd->cmd[i]);
 			i++;
 		}
+		printf("type- %d\n", cmd->type);
 
 		node = node->next;
 	}
