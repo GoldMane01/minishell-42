@@ -6,7 +6,7 @@
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 18:34:42 by crmunoz-          #+#    #+#             */
-/*   Updated: 2024/09/05 15:41:02 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/09/06 11:54:13 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ void	save_cmd(char *str)
 
 1. Hay que cambiar los exit que hay en los mallocs y protegerlos y hacer free correctamente.
 2. Hay que mirar el caso en el que haya espacios en el redir. (Ej: >>            hola). Debemos saltarnos los espacios para guardarlo.
+3. Revisar 	que en el Makefile tengamos puestas las flags (sin comentar) y quitemos el -g
 
 
 */
