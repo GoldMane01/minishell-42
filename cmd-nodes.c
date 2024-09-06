@@ -95,6 +95,12 @@ char	**create_new_cmd(char **cmd, int count)
 	{
 		while (cmd[i][0] == '<' || cmd[i][0] == '>')
 		{
+			if (ft_strlen(cmd[i]) == 2 && cmd[i][0] != '<' && cmd[i][0] != '>' 
+				&& cmd[i][0] != '\0')
+			{
+				i++;
+				break;
+			}
 			i++;
 			if ((cmd[i - 1][0] == '<' || cmd[i - 1][0] == '>') && (ft_strlen(cmd[i - 1]) <= 2))
 				i++;
