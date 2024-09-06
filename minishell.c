@@ -34,7 +34,7 @@ char	*get_dir(void)
 	return (dir);
 }
 
-char	*concat_quote(char *line) /*NO FUNCIONA T_T */
+char	*concat_quote(char *line) /*NO FUNCIONA T_T */ /*COMO QUE NO, CLARO QUE SI :^)*/
 {
 	char	*concat_line;
 
