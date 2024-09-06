@@ -179,10 +179,13 @@ void	add_next_cmd(t_cmd *head, t_cmd *new)
 	node = head;
 	if (!node)
 		node = new;
-	while (node)
-		node = node->next;
-	node->next = new;
-	new->prev = node;
+	else
+	{
+		while (node)
+			node = node->next;
+		node->next = new;
+		new->prev = node;
+	}
 }
 
 char	*ft_strchr(const char *s, int c)
