@@ -33,46 +33,110 @@ char	return_quote(char *str)
 	return (quote);
 }
 
-char **cont_quo_split(char **cmd, char **quote, char ** cmd2, int j, int k)
+char	**add_cmd2(char **totalcmd, char **cmd2, char **quote, int *j)
 {
-	char ** totalcmd;
+	int	k;
+	int	i;
 
-		while (cmd[j])
-			j++;
-		if (quote[2])
+	k = 0;
+	if (quote[2])
+	{
+		while (cmd2[k])
 		{
-			cmd2 = spliteo_cmd(quote[2], ' ');
-			while (cmd2[k])
-				k++;
-		}
-		totalcmd = malloc(sizeof(char *) * (j + k + 1));
-		k = 0;
-		j = -1;
-		while (cmd[++j])
-			totalcmd[j] = cmd[j];
-		totalcmd[j++] = quote[1];
-		if (quote[2])
-		{	while (cmd2[k])
+			totalcmd[*j] = malloc((sizeof(char) * (ft_strlen(cmd2[k] + 1))));
+			if (!totalcmd[*j])
+				free_ptr(totalcmd);
+			i = 0;
+			while (cmd2[k][i])
 			{
-				totalcmd[j] = cmd2[k];
-				k++;
-				j++;
-			}}
-		totalcmd[j] = NULL;
-		return (totalcmd);
+				totalcmd[*j][i] = cmd2[k][i];
+				i++;
+			}
+			totalcmd[*j][i] = '\0';
+			k++;
+			j++;
+		}
+	}
+	return (totalcmd);
+}
+
+char	**add_cmd1(char **totalcmd, char **cmd, int *j)
+{
+	int	i;
+
+	while (cmd[*j])
+	{
+		totalcmd[*j] = malloc((sizeof(char) * (ft_strlen(cmd[*j] + 1))));
+		if (!totalcmd[*j])
+			free_ptr(totalcmd);
+		i = 0;
+		while (cmd[*j][i])
+		{
+			totalcmd[*j][i] = cmd[*j][i];
+			i++;
+		}
+		totalcmd[*j][i] = '\0';
+		*j = *j + 1;
+	}
+	return (totalcmd);
+}
+
+char	**fill_total_cmd(char **totalcmd, char **cmd, char **cmd2, char **quote)
+{
+	int	j;
+	int	i;
+
+	j = 0;
+	totalcmd = add_cmd1(totalcmd, cmd, &j);
+	if (quote[1])
+	{
+		totalcmd[j] = malloc((sizeof(char) * (ft_strlen(quote[1] + 1))));
+		if (!totalcmd[j])
+			free_ptr(totalcmd);
+	}
+	i = 0;
+	while (quote[1][i])
+	{
+		totalcmd[j][i] = quote[1][i];
+		i++;
+	}
+	totalcmd[j][i] = '\0';
+	j++;
+	totalcmd = add_cmd2(totalcmd, cmd2, quote, &j);
+	totalcmd[++j] = NULL;
+	return (totalcmd);
+}
+
+char **cont_quo_split(char **cmd, char **quote)
+{
+	char	**totalcmd;
+	char	**cmd2;
+	int		j;
+	int		k;
+
+	j = 0;
+	k = 0;
+	while (cmd[j])
+		j++;
+	if (quote[2])
+	{
+		cmd2 = spliteo_cmd(quote[2], ' ');
+		while (cmd2[k])
+			k++;
+	}
+	totalcmd = malloc(sizeof(char *) * (j + k + 1));
+	totalcmd = fill_total_cmd(totalcmd, cmd, cmd2, quote);
+	return (totalcmd);
 }
 
 char	**quote_split(char *str)
 {
 	char	**quote;
 	char	**cmd;
-	char	**cmd2;
 	char	**totalcmd;
 	int 	j;
 	int		k;
-	
-	k = 0;
-	j = 0;
+
 	quote = spliteo_cmd(str, return_quote(str));
 	if (quote[0][0] != '\'' && quote[0][0] != '\"')
 		cmd = spliteo_cmd(quote[0], ' ');
@@ -81,7 +145,7 @@ char	**quote_split(char *str)
 	if (!quote[1])
 		return (cmd);
 	else
-		totalcmd = cont_quo_split(cmd, quote, cmd2, j, k);
+		totalcmd = cont_quo_split(cmd, quote);
 	return (totalcmd);
 }
 
