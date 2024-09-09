@@ -6,7 +6,7 @@
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 18:23:41 by crmunoz-          #+#    #+#             */
-/*   Updated: 2024/09/05 19:34:54 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/09/09 19:52:13 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int		ft_isspace(char c);
 int		close_quote(char *str);
 void	save_cmd(char *str);
 void	**get_pipe_split(char *str);
+char 	**split_pipe(char *str);
 
 //JOIN
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);

@@ -6,7 +6,7 @@
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 18:34:42 by crmunoz-          #+#    #+#             */
-/*   Updated: 2024/09/06 11:54:13 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/09/09 19:48:13 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,19 +45,61 @@ int	close_quote(char *str) // comprobamos si hay comillas y están cerradas. Si 
 	else
 		return (1);
 }
-void	**get_pipe_split(char *str) /*ESTA FUNCIÓN NO LA LLAMAMOS AÚN DESDE NINGÚN SITIO*/
+
+char **split_pipe(char *str) /* ESTO ES LO QUE LE TENEMOS QUE PASAR A QUOTE SPLIT */
 {
-	char **nopipe;
+	char **commands;
+	int i;
+	char quote;
+	int j;
+	int k;
+	
+	i = 0;
+	quote = '\0';
+	j = 0;
+	k = 0;
+	commands = malloc(sizeof(char *) * (get_n_pipe(str) + 1));
+	while (str[i])
+	{
+		j = i;
+		while (str[i] != '|' && str[i - 1] == '\\' && quote)
+		{
+			if (str[i] == '\\')
+				i++;
+			else if (quote == str[i])
+				quote = '\0';
+			else if (!quote && (str[i] == '\'' || str[i] == '\"'))
+				quote = str[i];
+			i++;
+		}
+		commands[k++] = ft_substr(str, j, (j - i));
+		i++;
+	}
+	commands[k] = '\0';
+	return (commands);
+}
+
+int	get_n_pipe(char *str)
+{
+	int pipes;
 	t_cmd	cmd;
+	char quote;
 	int i;
 
 	i = 0;
-	nopipe = ft_split(str, '|');
-	while (nopipe[i])
+	quote = '\0';
+	pipes = 1;
+	while(str[i])
 	{
-		//add_next_cmd(cmd, create_cmd(nopipe[i]));
+		if (!quote && (str[i] == '\'' || str[i] == '\"'))
+			quote = str[i];
+		else if (str[i] == '|' && !quote)
+			pipes++;
 		i++;
+		if (quote == str[i] && str[i - 1] != '\\')
+			quote = '\0';
 	}
+	return (pipes);
 }
 
 void	save_cmd(char *str)
@@ -106,6 +148,7 @@ void	save_cmd(char *str)
 1. Hay que cambiar los exit que hay en los mallocs y protegerlos y hacer free correctamente.
 2. Hay que mirar el caso en el que haya espacios en el redir. (Ej: >>            hola). Debemos saltarnos los espacios para guardarlo.
 3. Revisar 	que en el Makefile tengamos puestas las flags (sin comentar) y quitemos el -g
+4. Tener en cuenta que nos pueden pasar dos tipos de comillas
 
 
 */
