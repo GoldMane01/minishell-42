@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minishell.h"
 
 void quote_state(int *state, char c)
 {
@@ -76,24 +77,16 @@ int	arg_cnt(char *cmd)
 	return (n);
 }
 
-int	ft_isspace(char c)
-{
-	if (c == ' ' || c == '\t' || c == '\n'
-		|| c == '\v' || c == '\r' || c == '\f')
-		return (1);
-	else
-		return (0);
-}
-
 char	**args_split(char *cmd)
 {
 	char	**args;
 	int		n_args;
 	int		len_arg;
 	int		i;
+	int		start;
 
 	i = 0;
-	while (cmd && ft_isspace(*cmd))
+	while (*cmd && ft_isspace(*cmd))
 		cmd++;
 	n_args = arg_cnt(cmd);
 	args = malloc(sizeof(char *) * (n_args + 1));
@@ -102,7 +95,7 @@ char	**args_split(char *cmd)
 	{
 		len_arg = next_arg_len(cmd);
 		args[i] = ft_substr(cmd, 0, len_arg);
-		cmd == cmd + len_arg + (cmd[len_arg] != '\0');
+		cmd += len_arg;
 		while (*cmd && ft_isspace(*cmd))
 			cmd++;
 		i++;

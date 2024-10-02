@@ -56,15 +56,23 @@ int	main(int argc, char **argv, char **env)
 	char	*dir;
 
 	char **ennove;
+	char **a;
+	char **b;
+	char **c;
 
 	line = NULL;
 	dir = get_dir();
 	line = readline(dir);
 	
-	t_cmd *cmd;
-	cmd = init_cmd(line, COMMAND);
 
-	t_cmd *node;
+	ennove = split_pipe(line);
+	a = args_split(ennove[0]);
+	b = args_split(ennove[1]);
+	c = args_split(ennove[2]);
+	/*t_cmd *cmd;
+	cmd = init_cmd(line, COMMAND);*/
+
+	/*t_cmd *node;
 	node = cmd;
 	int i = 0;
 	while (node)
@@ -77,7 +85,7 @@ int	main(int argc, char **argv, char **env)
 		printf("type- %d\n", cmd->type);
 
 		node = node->next;
-	}
+	}*/
 
 	/*while (1 + 1 == 2)
 	{

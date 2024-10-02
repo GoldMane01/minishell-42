@@ -46,39 +46,6 @@ int	close_quote(char *str) // comprobamos si hay comillas y están cerradas. Si 
 		return (1);
 }
 
-char **split_pipe(char *str) /* ESTO ES LO QUE LE TENEMOS QUE PASAR A QUOTE SPLIT */
-{
-	char **commands;
-	int i;
-	char quote;
-	int j;
-	int k;
-	
-	i = 0;
-	quote = '\0';
-	j = 0;
-	k = 0;
-	commands = malloc(sizeof(char *) * (get_n_pipe(str) + 1));
-	while (str[i])
-	{
-		j = i;
-		while (str[i] != '|' && str[i - 1] == '\\' && quote)
-		{
-			if (str[i] == '\\')
-				i++;
-			else if (quote == str[i])
-				quote = '\0';
-			else if (!quote && (str[i] == '\'' || str[i] == '\"'))
-				quote = str[i];
-			i++;
-		}
-		commands[k++] = ft_substr(str, j, (j - i));
-		i++;
-	}
-	commands[k] = '\0';
-	return (commands);
-}
-
 int	get_n_pipe(char *str)
 {
 	int pipes;
@@ -101,6 +68,43 @@ int	get_n_pipe(char *str)
 	}
 	return (pipes);
 }
+
+char **split_pipe(char *str)
+{
+    char **commands;
+    int i;
+    char quote;
+    int j;
+    int k;
+
+    i = 0;
+    quote = '\0';
+    j = 0;
+    k = 0;
+    commands = malloc(sizeof(char *) * (get_n_pipe(str) + 1));
+    while (str[i])
+    {
+        j = i;
+        
+        while (str[i] && (str[i] != '|' || quote))
+        {
+            if (str[i] == '\\' && str[i + 1])
+                i++;
+            else if (!quote && (str[i] == '\'' || str[i] == '\"'))
+                quote = str[i];
+            else if (quote && str[i] == quote)
+                quote = '\0';
+            i++;
+        }
+        commands[k++] = ft_substr(str, j, i - j);
+        if (str[i] == '|')
+            i++;
+    }
+    
+    commands[k] = NULL;
+    return (commands);
+}
+
 
 void	save_cmd(char *str)
 {

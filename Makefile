@@ -21,6 +21,7 @@ SRCS		:=	env.c \
 				ft_split.c \
 				cmd-nodes.c \
 				spliteo.c \
+				parsing.c \
 
 OBJS		:= $(SRCS:.c=.o)
 
