@@ -83,8 +83,8 @@ t_redir	*create_redir(char *line, int i);
 int		count_pipes(t_cmd *cmd);
 char	**quote_split(char *str);
 char	return_quote(char *str);
-t_cmd	*init_cmd(char *str, int type);
-void	add_next_cmd(t_cmd *head, t_cmd *new);
+
+t_cmd	*add_next_cmd(t_cmd **head, t_cmd *new);
 char	*ft_strchr(const char *s, int c);
 
 //SPLIT
@@ -100,3 +100,6 @@ char	**spliteo_cmd(char *s, char c);
 
 char	**args_split(char *cmd);
 char	**remove_redirs(char **cmd);
+
+
+t_cmd	*init_cmd(char **cmd, int type);

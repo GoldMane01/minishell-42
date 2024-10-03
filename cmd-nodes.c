@@ -214,14 +214,15 @@ char	**remove_redirs(char **cmd)
 	return (new);
 }
 
-void	add_next_cmd(t_cmd *head, t_cmd *new)
+t_cmd	*add_next_cmd(t_cmd **head, t_cmd *new)
 {
 	t_cmd	*node;
 	t_cmd	*aux;
 
-	node = head;
-	if (!node)
-		node = new;
+	node = *head;
+	aux = NULL;
+	if (!(*head))
+		*head = new;
 	else
 	{
 		while (node)
@@ -232,6 +233,7 @@ void	add_next_cmd(t_cmd *head, t_cmd *new)
 		node = new;
 		new->prev = aux;
 	}
+	return (*head);
 }
 
 char	*ft_strchr(const char *s, int c)
@@ -251,4 +253,22 @@ char	*ft_strchr(const char *s, int c)
 	if ((char)c == '\0')
 		ptr = (char *) s;
 	return (ptr);
+}
+
+t_cmd	*init_cmd(char **cmd, int type)
+{
+	t_cmd	*command;
+
+	command = malloc(sizeof(command));
+	if (!command)
+		exit(1);
+	if (type != PIPE)
+		command->cmd = cmd;
+	else
+		command->cmd = NULL;
+	command->type = type;
+	command->next = NULL;
+	command->prev = NULL;
+	command->redir = NULL;
+	return (command);
 }

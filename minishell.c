@@ -53,6 +53,7 @@ int	main(int argc, char **argv, char **env)
 {
 	char	*line;
 	char	*dir;
+	t_cmd	*cmd;
 
 	char **ennove;
 	char **red1;
@@ -61,6 +62,7 @@ int	main(int argc, char **argv, char **env)
 	char **a;
 	char **b;
 	char **c;
+	cmd = NULL;
 
 	line = NULL;
 	dir = get_dir();
@@ -70,29 +72,10 @@ int	main(int argc, char **argv, char **env)
 	a = args_split(ennove[0]);
 	b = args_split(ennove[1]);
 	c = args_split(ennove[2]);
-
-
-
 	red1 = remove_redirs(a);
 	red2 = remove_redirs(b);
 	red3 = remove_redirs(c);
-	/*t_cmd *cmd;
-	cmd = init_cmd(line, COMMAND);*/
-
-	/*t_cmd *node;
-	node = cmd;
-	int i = 0;
-	while (node)
-	{
-		while (cmd->cmd[i])
-		{
-			printf("%d- %s\n", i, cmd->cmd[i]);
-			i++;
-		}
-		printf("type- %d\n", cmd->type);
-
-		node = node->next;
-	}*/
+	add_next_cmd(&cmd, init_cmd(red1, COMMAND));
 
 	/*while (1 + 1 == 2)
 	{
