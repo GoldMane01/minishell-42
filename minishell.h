@@ -61,9 +61,8 @@ t_env	*create_env(char **env);
 //PARSEITO
 int		ft_isspace(char c);
 int		close_quote(char *str);
-void	save_cmd(char *str);
-void	**get_pipe_split(char *str);
-char 	**split_pipe(char *str);
+int		get_n_pipe(char *str);
+char	 **split_pipe(char *str);
 
 //JOIN
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
@@ -72,18 +71,17 @@ int		ft_strlen(const char *s);
 char	*ft_strjoin(char const *s1, char const *s2);
 
 //REDIR-NODES
-void	add_next_redir(t_redir *head, t_redir *new);
-
-//REDIR
 char	*get_redir_file(char *file, int i, int type);
+void	add_next_redir(t_redir *head, t_redir *new);
 t_redir	*init_redir(char *file, int i, int type);
 t_redir	*create_redir(char *line, int i);
 
 //CMD-NODES
-int		count_pipes(t_cmd *cmd);
-char	**quote_split(char *str);
 char	return_quote(char *str);
-t_cmd	*init_cmd(char *str, int type);
+char	**add_cmd1(char **totalcmd, char **cmd, int *j);
+char	**fill_total_cmd(char **totalcmd, char **cmd, char **cmd2, char **quote);
+char	**create_new_cmd(char **cmd, int count);
+char	**remove_redirs(char **cmd);
 void	add_next_cmd(t_cmd *head, t_cmd *new);
 char	*ft_strchr(const char *s, int c);
 
@@ -92,10 +90,10 @@ size_t	count_strs(char const *s, char c);
 char	**free_ptr(char	**ptr);
 char	**ft_split(char const *s, char c);
 char	*ft_strdup(char *s1);
-void	free_arrays(char **awks, char **flags);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 
 //SPLITEO
+size_t	n_str(char *s, char c);
 char	**spliteo_cmd(char *s, char c);
 
 char	**args_split(char *cmd);
