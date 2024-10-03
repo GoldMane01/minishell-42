@@ -107,49 +107,6 @@ char	**fill_total_cmd(char **totalcmd, char **cmd, char **cmd2, char **quote)
 	return (totalcmd);
 }
 
-char **cont_quo_split(char **cmd, char **quote)
-{
-	char	**totalcmd;
-	char	**cmd2;
-	int		j;
-	int		k;
-
-	j = 0;
-	k = 0;
-	while (cmd[j])
-		j++;
-	if (quote[2])
-	{
-		cmd2 = spliteo_cmd(quote[2], ' ');
-		while (cmd2[k])
-			k++;
-	}
-	totalcmd = malloc(sizeof(char *) * (j + k + 1));
-	totalcmd = fill_total_cmd(totalcmd, cmd, cmd2, quote);
-	return (totalcmd);
-}
-
-char	**quote_split(char *str)
-{
-	char	**quote;
-	char	**cmd;
-	char	**totalcmd;
-	int 	j;
-	int		k;
-
-	quote = spliteo_cmd(str, return_quote(str));
-	if (quote[0][0] != '\'' && quote[0][0] != '\"')
-		cmd = spliteo_cmd(quote[0], ' ');
-	else
-		cmd = ft_split(quote[0], '\0');
-	if (!quote[1])
-		return (cmd);
-	else
-		totalcmd = cont_quo_split(cmd, quote);
-	return (totalcmd);
-}
-
-
 char	**create_new_cmd(char **cmd, int count)
 {
 	char	**new;
