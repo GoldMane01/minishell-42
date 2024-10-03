@@ -30,7 +30,7 @@ void quote_state(int *state, char c)
 	}
 }
 
-int    next_arg_len(char *cmd)
+int    len_each_arg(char *cmd)
 {
     int    i;
     int    stateq;
@@ -50,7 +50,7 @@ int    next_arg_len(char *cmd)
     return (i);
 }
 
-int	arg_cnt(char *cmd)
+int	args_cnt(char *cmd)
 {
 	int	i;
 	int	n;
@@ -90,12 +90,12 @@ char	**args_split(char *cmd)
 	i = 0;
 	while (*cmd && ft_isspace(*cmd))
 		cmd++;
-	n_args = arg_cnt(cmd);
+	n_args = args_cnt(cmd);
 	args = malloc(sizeof(char *) * (n_args + 1));
 	args[n_args] = NULL;
 	while (i < n_args)
 	{
-		len_arg = next_arg_len(cmd);
+		len_arg = len_each_arg(cmd);
 		args[i] = ft_substr(cmd, 0, len_arg);
 		cmd += len_arg;
 		while (*cmd && ft_isspace(*cmd))
