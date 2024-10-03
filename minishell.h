@@ -99,3 +99,4 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	**spliteo_cmd(char *s, char c);
 
 char	**args_split(char *cmd);
+char	**remove_redirs(char **cmd);

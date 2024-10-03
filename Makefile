@@ -18,7 +18,7 @@ SRCS		:=	env.c \
 				parseito.c \
 				join.c	\
 				redir-nodes.c \
-				ft_split.c \
+				split.c \
 				cmd-nodes.c \
 				spliteo.c \
 				parsing.c \

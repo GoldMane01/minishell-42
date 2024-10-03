@@ -47,7 +47,6 @@ void	parse_line(char *line)
 {
 	while (close_quote(line))
 		line = concat_quote(line);
-	save_cmd(line);
 }
 
 int	main(int argc, char **argv, char **env)
@@ -56,6 +55,9 @@ int	main(int argc, char **argv, char **env)
 	char	*dir;
 
 	char **ennove;
+	char **red1;
+	char **red2;
+	char **red3;
 	char **a;
 	char **b;
 	char **c;
@@ -64,11 +66,16 @@ int	main(int argc, char **argv, char **env)
 	dir = get_dir();
 	line = readline(dir);
 	
-
 	ennove = split_pipe(line);
 	a = args_split(ennove[0]);
 	b = args_split(ennove[1]);
 	c = args_split(ennove[2]);
+
+
+
+	red1 = remove_redirs(a);
+	red2 = remove_redirs(b);
+	red3 = remove_redirs(c);
 	/*t_cmd *cmd;
 	cmd = init_cmd(line, COMMAND);*/
 
@@ -98,7 +105,3 @@ int	main(int argc, char **argv, char **env)
 		free(dir);
 	}*/
 }
-
-//1-	cmd
-//2-	cmd | cmd | cmd
-//3-	</> file cmd | cmd

@@ -21,7 +21,7 @@ int	ft_isspace(char c)
 		return (0);
 }
 
-int	close_quote(char *str) // comprobamos si hay comillas y están cerradas. Si falta el cierre devuelve 1.
+int	close_quote(char *str)
 {
 	int		i;
 	char	quote;
@@ -104,56 +104,3 @@ char **split_pipe(char *str)
     commands[k] = NULL;
     return (commands);
 }
-
-/*   CREO QUE ESTA FUNCIÓN NO NOS SIRVE, COMENTO MIENTRAS
-void	save_cmd(char *str)
-{
-	int		i;
-	char	quote;
-	t_redir	*redir;
-
-	i = 0;
-	redir = NULL;
-	quote = '\0';
-	while (ft_isspace(str[i]))
-		i++;
-	while (str[i])
-	{
-		while ((str[i] != ' ' && str[i] != '\t' && quote != str[i]) || (str[i] == '|' && !quote))
-		{
-			if (str[i] == '\\')
-				i++;
-			else if (!quote && (str[i] == '\'' || str[i] == '\"'))
-				quote = str[i];
-			else if (!quote && (str[i] == '<' || str[i] == '>'))
-				add_next_redir(redir, create_redir(str, i));
-			else if (str[i] == '|' && !quote)
-				//node->type = pipe;
-			i++;
-		}
-		if (str[i] == quote)
-			quote = '\0';
-		i++;
-	}
-}
-
-*/
-/*Cosas:
-1. pasarle la línea (si lo hacemos con & podemos ir recorriendolo desde distintas funciones)
-2. Creamos la lista y añadimos nodos (los inicializamos)
-3. Miramos si es pipe o no.
-	Si es un cmd buscamos las comillas y contamos nº de args para hacer el malloc al cmd y posteriormente en otra función guardarlo por trozos.
-4. Si es un redir hacemos otra función para crear los nodos y cambiamos el tipo.
-
-*/
-/*###########################################################
-##################COSAS A TENER EN CUENTA####################
-#############################################################
-
-1. Hay que cambiar los exit que hay en los mallocs y protegerlos y hacer free correctamente.
-2. Hay que mirar el caso en el que haya espacios en el redir. (Ej: >>            hola). Debemos saltarnos los espacios para guardarlo.
-3. Revisar 	que en el Makefile tengamos puestas las flags (sin comentar) y quitemos el -g
-4. Tener en cuenta que nos pueden pasar dos tipos de comillas
-
-
-*/

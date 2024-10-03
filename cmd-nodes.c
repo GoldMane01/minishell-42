@@ -164,18 +164,14 @@ char	**create_new_cmd(char **cmd, int count)
 	k = 0;
 	while (cmd[i])
 	{
-		while (cmd[i][0] == '<' || cmd[i][0] == '>')
+		while (cmd[i] && (cmd[i][0] == '<' || cmd[i][0] == '>'))
 		{
-			if (ft_strlen(cmd[i]) == 2 && cmd[i][0] != '<' && cmd[i][0] != '>' 
-				&& cmd[i][0] != '\0')
-			{
-				i++;
-				break;
-			}
 			i++;
-			if ((cmd[i - 1][0] == '<' || cmd[i - 1][0] == '>') && (ft_strlen(cmd[i - 1]) <= 2))
+			if (ft_strlen(cmd[i - 1]) <= 2)
 				i++;
 		}
+		if (!cmd[i])
+			break;
 		new[k] = malloc(sizeof(char) * (ft_strlen(cmd[i]) + 1));
 		if (!new[k])
 			free_ptr(new);
@@ -218,24 +214,6 @@ char	**remove_redirs(char **cmd)
 	return (new);
 }
 
-t_cmd	*init_cmd(char *str, int type)
-{
-	t_cmd	*command;
-
-	command = malloc(sizeof(command));
-	if (!command)
-		exit(1);
-	if (type != PIPE)
-		command->cmd = remove_redirs(quote_split(str));
-	else
-		command->cmd = NULL;
-	command->type = type;
-	command->next = NULL;
-	command->prev = NULL;
-	return (command);
-}
-
-
 void	add_next_cmd(t_cmd *head, t_cmd *new)
 {
 	t_cmd	*node;
@@ -274,52 +252,3 @@ char	*ft_strchr(const char *s, int c)
 		ptr = (char *) s;
 	return (ptr);
 }
-
-/*int	count_pipes(t_cmd *cmd)
-{
-	t_cmd	*node;
-	int		count;
-
-	node = cmd;
-	count = 0;
-	if (!node)
-		return (0);
-	while (node)
-	{
-		if (node->type == PIPE)
-			count++;
-		node = node->next;
-	}
-	return (count);
-}
-
-char	**get_cmd(char *file)
-{
-	int		i;
-	char	**cmd;
-
-	i = 0;
-	while (file[i] != '|' && file[i] != '\0')
-		i++;
-	if (file[i] == '|')
-		file[i] = '\0';
-	cmd = ft_split(file, ' ');
-	cmd = remove_redirs(cmd);
-	return (cmd);
-}
-
-t_cmd *init_cmd(char *file, int i, int j, int type)
-{
-	t_cmd	*cmd;
-
-	cmd = malloc(sizeof(cmd));
-	if (!cmd)
-		exit(1);
-	if (cmd != PIPE)
-		cmd->cmd = get_cmd(file, i, j);
-	else
-		cmd->cmd = NULL;
-	cmd->type = type;
-	cmd->next = NULL;
-}
-*/
