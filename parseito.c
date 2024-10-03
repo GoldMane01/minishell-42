@@ -105,7 +105,7 @@ char **split_pipe(char *str)
     return (commands);
 }
 
-
+/*   CREO QUE ESTA FUNCIÓN NO NOS SIRVE, COMENTO MIENTRAS
 void	save_cmd(char *str)
 {
 	int		i;
@@ -137,6 +137,7 @@ void	save_cmd(char *str)
 	}
 }
 
+*/
 /*Cosas:
 1. pasarle la línea (si lo hacemos con & podemos ir recorriendolo desde distintas funciones)
 2. Creamos la lista y añadimos nodos (los inicializamos)
