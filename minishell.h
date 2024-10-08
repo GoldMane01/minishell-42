@@ -52,8 +52,8 @@ typedef struct s_cmd
 }					t_cmd;
 
 //ENV
-char	*get_env_key(char *env);
-char	*get_env_value(char *env);
+char	*set_env_key(char *env);
+char	*set_env_value(char *env);
 t_env	*new_env(char *key_data, char *val_data);
 void	add_env(t_env *head, t_env *new);
 t_env	*create_env(char **env);

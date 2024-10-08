@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-char	*get_env_key(char *env)
+char	*set_env_key(char *env)
 {
 	char	*key;
 	int		i;
@@ -30,7 +30,7 @@ char	*get_env_key(char *env)
 	return (key);
 }
 
-char	*get_env_value(char *env)
+char	*set_env_value(char *env)
 {
 	char	*value;
 	int		i;
@@ -85,11 +85,27 @@ t_env	*create_env(char **env)
 	int		i;
 
 	i = 1;
-	struct_env = new_env(get_env_key(env[0]), get_env_value(env[0]));
+	struct_env = new_env(set_env_key(env[0]), set_env_value(env[0]));
 	while (env[i])
 	{
-		add_env(struct_env, new_env(get_env_key(env[i]), get_env_value(env[i])));
+		add_env(struct_env, new_env(set_env_key(env[i]), set_env_value(env[i])));
 		i++;
 	}
 	return (struct_env);
+}
+
+
+char	*get_env_value(char *key, t_env *head)
+{
+	t_env	*node;
+	int		i;
+
+	node = head;
+	while (node)
+	{
+		if (node->key = key)
+			return (node->value);
+		node = node->next;
+	}
+	return (NULL);
 }
