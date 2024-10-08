@@ -36,7 +36,7 @@ char *expand_arg(char *arg, t_env *env)
 
     i = 0;
     stateq = 0;
-    while (arg)
+    while (*arg)
     {
         if (*arg == '\\')
             arg++;
