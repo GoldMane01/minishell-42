@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cris <cris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 18:23:41 by crmunoz-          #+#    #+#             */
-/*   Updated: 2024/09/09 19:52:13 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/10/08 20:43:38 by cris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ char	*set_env_value(char *env);
 t_env	*new_env(char *key_data, char *val_data);
 void	add_env(t_env *head, t_env *new);
 t_env	*create_env(char **env);
+char	*get_env_value(char *key, t_env *head);
 
 //PARSEITO
 int		ft_isspace(char c);
@@ -104,3 +105,9 @@ char	**remove_redirs(char **cmd);
 t_cmd	*init_cmd(char **cmd, int type);
 
 t_cmd	*ft_lstlast(t_cmd *lst);
+
+/* PARSING */
+void quote_state(int *state, char c);
+
+/* EXPAND ARG*/
+char *expand_arg(char *arg, t_env *env);

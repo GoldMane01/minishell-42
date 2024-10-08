@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cris <cris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 18:18:28 by dramos-n          #+#    #+#             */
-/*   Updated: 2024/09/05 20:06:23 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/10/08 20:40:46 by cris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int	main(int argc, char **argv, char **env)
 	//line = readline(dir);
 	line = "ls -alh >>out < in | grep <<inn mini | wc -l > out";
 	
+	expand_arg(line, create_env(env));
 	ennove = split_pipe(line);
 	a = args_split(ennove[0]);
 	add_next_cmd(&cmd, init_cmd(remove_redirs(a), COMMAND));
