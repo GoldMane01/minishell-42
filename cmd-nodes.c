@@ -171,24 +171,33 @@ char	**remove_redirs(char **cmd)
 	return (new);
 }
 
+t_cmd	*ft_lstlast(t_cmd *lst)
+{
+	t_cmd	*node;
+
+	node = lst;
+	while (node)
+	{
+		if (node->next)
+			node = node->next;
+		else
+			break ;
+	}
+	return (node);
+}
+
 t_cmd	*add_next_cmd(t_cmd **head, t_cmd *new)
 {
 	t_cmd	*node;
-	t_cmd	*aux;
 
 	node = *head;
-	aux = NULL;
 	if (!(*head))
 		*head = new;
 	else
 	{
-		while (node)
-		{
-			aux = node;
-			node = node->next;
-		}
-		node = new;
-		new->prev = aux;
+		node = ft_lstlast(*head);
+		node->next = new;
+		node->next->prev = node;
 	}
 	return (*head);
 }
@@ -216,7 +225,8 @@ t_cmd	*init_cmd(char **cmd, int type)
 {
 	t_cmd	*command;
 
-	command = malloc(sizeof(command));
+	command = NULL;
+	command = malloc(sizeof(t_cmd));
 	if (!command)
 		exit(1);
 	if (type != PIPE)

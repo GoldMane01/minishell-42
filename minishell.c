@@ -66,16 +66,19 @@ int	main(int argc, char **argv, char **env)
 
 	line = NULL;
 	dir = get_dir();
-	line = readline(dir);
+	//line = readline(dir);
+	line = "ls -alh >>out < in | grep <<inn mini | wc -l > out";
 	
 	ennove = split_pipe(line);
 	a = args_split(ennove[0]);
+	add_next_cmd(&cmd, init_cmd(remove_redirs(a), COMMAND));
+	cmd->redir = get_redirs(a);
 	b = args_split(ennove[1]);
+	add_next_cmd(&cmd, init_cmd(remove_redirs(b), COMMAND));
+	cmd->next->redir = get_redirs(b);
 	c = args_split(ennove[2]);
-	red1 = remove_redirs(a);
-	red2 = remove_redirs(b);
-	red3 = remove_redirs(c);
-	add_next_cmd(&cmd, init_cmd(red1, COMMAND));
+	add_next_cmd(&cmd, init_cmd(remove_redirs(c), COMMAND));
+	cmd->next->next->redir = get_redirs(c);
 
 	/*while (1 + 1 == 2)
 	{

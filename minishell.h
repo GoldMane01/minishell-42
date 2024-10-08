@@ -71,10 +71,11 @@ int		ft_strlen(const char *s);
 char	*ft_strjoin(char const *s1, char const *s2);
 
 //REDIR-NODES
-char	*get_redir_file(char *file, int i, int type);
-void	add_next_redir(t_redir *head, t_redir *new);
-t_redir	*init_redir(char *file, int i, int type);
-t_redir	*create_redir(char *line, int i);
+char	*get_redir_file(char *file);
+void	add_next_redir(t_redir **head, t_redir *new);
+t_redir	*init_redir(char *file);
+t_redir	*get_redirs(char **str);
+//t_redir	*create_redir(char *line, int i);
 
 //CMD-NODES
 char	return_quote(char *str);
@@ -101,3 +102,5 @@ char	**remove_redirs(char **cmd);
 
 
 t_cmd	*init_cmd(char **cmd, int type);
+
+t_cmd	*ft_lstlast(t_cmd *lst);

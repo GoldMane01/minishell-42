@@ -12,69 +12,132 @@
 
 #include "minishell.h"
 
-char	*get_redir_file(char *file, int i, int type)
+char	*str_redir(char *str)
 {
-	char	*name;
-	int		j;
+	char	*redir;
+	int		i;
 
-	j = 0;
-	if (type == INN || type == OUTT)
-		i += 2;
-	else
-		i += 1;
-	while (ft_isspace(file[i]))
-		i++;
-	while (!ft_isspace(file[i++]))
-		j++;
-	name = malloc(sizeof(char) * (j + 1));
-	if (!name)
+	redir = malloc(sizeof(char) * ft_strlen(str) + 1);
+	if (!redir)
 		exit(1);
-	i = i - j - 1;
-	j = 0;
-	while (!ft_isspace(file[i]))
+	i = 0;
+	while (str[i])
 	{
-		name[j] = file[i];
-		j++;
+		redir[i] = str[i];
 		i++;
 	}
-	name[j] = '\0';
-	return (name);
+	redir[i] = '\0';
+	return (redir);
 }
 
-void	add_next_redir(t_redir *head, t_redir *new)
+t_redir	*ft_lstlast_redir(t_redir *lst)
 {
 	t_redir	*node;
 
-	node = head;
-	if (!node)
-		node = new;
+	node = lst;
 	while (node)
-		node = node->next;
-	node->next = new;
+	{
+		if (node->next)
+			node = node->next;
+		else
+			break ;
+	}
+	return (node);
 }
 
-t_redir	*init_redir(char *file, int i, int type)
+void	add_next_redir(t_redir **head, t_redir *new)
+{
+	t_redir	*node;
+
+	node = *head;
+	if (!(*head))
+		*head = new;
+	else
+	{
+		node = ft_lstlast_redir(*head);
+		node->next = new;
+	}
+}
+
+char	*get_redir_file(char *str)
+{
+	int		i;
+	int		j;
+	char	*file;
+
+	i = 0;
+	j = 0;
+	while (str[i] == '<' || str[i] == '>')
+		i++;
+	file = malloc(sizeof(char) * ft_strlen(str) - i + 1);
+	while (str[i])
+	{
+		file[j] = str[i];
+		i++;
+		j++;
+	}
+	file[j] = '\0';
+	return (file);
+}
+
+int	get_redir_type(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str[i] == '>' && str[i + 1] == '>')
+		return (OUTT);
+	if (str[i] == '<' && str[i + 1] == '<')
+		return (INN);
+	if (str[i] == '>' && str[i + 1] != '>')
+		return (OUT);
+	if (str[i] == '<' && str[i + 1] != '<')
+		return (IN);
+}
+
+t_redir	*init_redir(char *str)
 {
 	t_redir	*redir;
 
-	redir = malloc(sizeof(redir));
+	redir = NULL;
+	redir = malloc(sizeof(t_redir));
 	if (!redir)
 		exit(1);
-	redir->name = get_redir_file(file, i, type);
-	redir->type = type;
+	redir->name = get_redir_file(str);
+	redir->type = get_redir_type(str);
 	redir->next = NULL;
 	return (redir);
 }
 
-t_redir	*create_redir(char *line, int i)
+t_redir	*get_redirs(char **str)
 {
-	if (line[i] == '<' && line[i + 1] == '<')
-		return (init_redir(line, i, INN));
-	if (line[i] == '<' && line[i + 1] != '<')
-		return (init_redir(line, i, IN));
-	if (line[i] == '>' && line[i + 1] == '>')
-		return (init_redir(line, i, OUTT));
-	if (line[i] == '>' && line[i + 1] != '>')
-		return (init_redir(line, i, OUT));
-	return (NULL);
+	int		i;
+	t_redir	*redirs;
+	char	*join;
+
+	redirs = NULL;
+	join = NULL;
+	i = 0;
+	while (str[i])
+	{
+		if (str[i][0] == '<' || str[i][0] == '>')
+		{
+			if ((ft_strlen(str[i]) <= 2) && str[i + 1])
+			{
+				join = ft_strjoin(str[i], str[i + 1]);
+				i++;
+			}
+			else
+				join = str_redir(str[i]);
+			add_next_redir(&redirs, init_redir(join));
+		}
+		i++;
+	}
+	return (redirs);
+}
+
+
+t_redir	*create_redir()
+{
+	//TODO
 }
