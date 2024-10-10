@@ -6,7 +6,7 @@
 /*   By: cris <cris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 18:18:28 by dramos-n          #+#    #+#             */
-/*   Updated: 2024/10/08 20:40:46 by cris             ###   ########.fr       */
+/*   Updated: 2024/10/10 11:41:24 by cris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,10 @@ int	main(int argc, char **argv, char **env)
 	line = NULL;
 	dir = get_dir();
 	//line = readline(dir);
-	line = "ls -alh >>out < in | grep <<inn mini | wc -l > out";
+	line = "ls -alh >>out < in $USER | grep <<inn mini | wc -l > out";
 	
 	expand_arg(line, create_env(env));
+	int i = 0;
 	ennove = split_pipe(line);
 	a = args_split(ennove[0]);
 	add_next_cmd(&cmd, init_cmd(remove_redirs(a), COMMAND));

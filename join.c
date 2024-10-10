@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   join.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cris <cris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 16:22:41 by dramos-n          #+#    #+#             */
-/*   Updated: 2024/09/02 20:38:33 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/10/09 20:46:06 by cris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,23 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		ft_strlcat(ptr, s2, ft_strlen(s2) + ft_strlen(s1) + 1);
 	}
 	return (ptr);
+}
+
+int	ft_isalnum(char c)
+{
+	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')
+		|| (c >= '0' && c <= '9'))
+		return (1);
+	else
+		return (0);
+}
+
+int	ft_strcmp(char *s1, char *s2)
+{
+	while (*s1 && *s2 && *s1 == *s2)
+	{
+		s1++;
+		s2++;
+	}
+	return (*s1 - *s2);
 }
