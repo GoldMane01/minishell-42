@@ -6,7 +6,7 @@
 /*   By: cris <cris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 18:23:41 by crmunoz-          #+#    #+#             */
-/*   Updated: 2024/10/08 20:43:38 by cris             ###   ########.fr       */
+/*   Updated: 2024/10/09 20:46:24 by cris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 int		ft_strlen(const char *s);
 char	*ft_strjoin(char const *s1, char const *s2);
+int		ft_isalnum(char c);
+int		ft_strcmp(char *s1, char *s2);
 
 //REDIR-NODES
 char	*get_redir_file(char *file);
