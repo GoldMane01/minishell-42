@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parseito.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cris <cris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 18:34:42 by crmunoz-          #+#    #+#             */
-/*   Updated: 2024/09/09 19:48:13 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/10/08 20:49:17 by cris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ int	close_quote(char *str)
 int	get_n_pipe(char *str)
 {
 	int pipes;
-	t_cmd	cmd;
 	char quote;
 	int i;
 
@@ -104,3 +103,4 @@ char **split_pipe(char *str)
     commands[k] = NULL;
     return (commands);
 }
+

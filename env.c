@@ -6,7 +6,7 @@
 /*   By: cris <cris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 16:12:09 by dramos-n          #+#    #+#             */
-/*   Updated: 2024/10/08 20:37:52 by cris             ###   ########.fr       */
+/*   Updated: 2024/10/10 11:41:14 by cris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ t_env	*create_env(char **env)
 	return (struct_env);
 }
 
-
 char	*get_env_value(char *key, t_env *head)
 {
 	t_env	*node;
@@ -103,9 +102,9 @@ char	*get_env_value(char *key, t_env *head)
 	node = head;
 	while (node)
 	{
-		if (node->key = key)
+		if (ft_strcmp(node->key, key) == 0)
 			return (node->value);
 		node = node->next;
 	}
-	return (NULL);
+	return ("");
 }

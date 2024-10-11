@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cris <cris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 13:34:42 by crmunoz-          #+#    #+#             */
-/*   Updated: 2024/10/02 16:48:13 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/10/10 11:27:11 by cris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,24 +30,24 @@ void quote_state(int *state, char c)
 	}
 }
 
-int    len_each_arg(char *cmd)
+int	len_each_arg(char *cmd)
 {
-    int    i;
-    int    stateq;
+	int	i;
+	int	stateq;
 
-    stateq = 0;
-    i = 0;
-    while (cmd[i])
-    {
-        if (cmd[i] == '\\' && (cmd[i + 1] == '\'' || cmd[i + 1] == '\"'))
-            i+=2;
-        if (cmd[i] == '\'' || cmd[i] == '\"')
-            quote_state(&stateq, cmd[i]);
-        i++;
-        if (ft_isspace(cmd[i]) && !stateq)
-            break ;
-    }
-    return (i);
+	stateq = 0;
+	i = 0;
+	while (cmd[i])
+	{
+		if (cmd[i] == '\\' && (cmd[i + 1] == '\'' || cmd[i + 1] == '\"'))
+			i+=2;
+		if (cmd[i] == '\'' || cmd[i] == '\"')
+			quote_state(&stateq, cmd[i]);
+		i++;
+		if (ft_isspace(cmd[i]) && !stateq)
+			break ;
+	}
+	return (i);
 }
 
 int	args_cnt(char *cmd)

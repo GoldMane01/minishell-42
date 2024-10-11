@@ -6,7 +6,7 @@
 /*   By: cris <cris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 18:18:28 by dramos-n          #+#    #+#             */
-/*   Updated: 2024/10/08 20:40:46 by cris             ###   ########.fr       */
+/*   Updated: 2024/10/10 19:57:01 by cris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,38 @@ int	main(int argc, char **argv, char **env)
 	char	*line;
 	char	*dir;
 
+<<<<<<< HEAD
 	//line = "ls -alh >>out < in | grep <<inn mini | wc -l > out";
 	while (1 + 1 == 2)
+=======
+	char **ennove;
+	char **red1;
+	char **red2;
+	char **red3;
+	char **a;
+	char **b;
+	char **c;
+	cmd = NULL;
+
+	line = NULL;
+	dir = get_dir();
+	//line = readline(dir);
+	line = "ls -alh >>out < in $USER | grep <<inn mini | wc -l > out";
+	expand_arg(line, create_env(env));
+	int i = 0;
+	ennove = split_pipe(line);
+	a = args_split(ennove[0]);
+	add_next_cmd(&cmd, init_cmd(remove_redirs(a), COMMAND));
+	cmd->redir = get_redirs(a);
+	b = args_split(ennove[1]);
+	add_next_cmd(&cmd, init_cmd(remove_redirs(b), COMMAND));
+	cmd->next->redir = get_redirs(b);
+	c = args_split(ennove[2]);
+	add_next_cmd(&cmd, init_cmd(remove_redirs(c), COMMAND));
+	cmd->next->next->redir = get_redirs(c);
+
+	/*while (1 + 1 == 2)
+>>>>>>> 6df50d693a30357d244acfdf91e6748430da40ca
 	{
 		dir = get_dir();
 		line = NULL;
