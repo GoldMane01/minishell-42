@@ -24,7 +24,6 @@ char    *get_value(char *arg, t_env *env)
         i++;
     key = ft_substr(arg, 1, i - 1);
     value = get_env_value(key, env);
-    printf("%s", value);
     return (value);
 }
 

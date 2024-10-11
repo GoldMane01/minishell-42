@@ -239,3 +239,23 @@ t_cmd	*init_cmd(char **cmd, int type)
 	command->redir = NULL;
 	return (command);
 }
+
+t_cmd	*add_next_pipe(t_cmd **head)
+{
+	t_cmd	*command;
+	t_cmd	*node;
+
+	node = *head;
+	node = ft_lstlast(*head);
+	command = NULL;
+	command = malloc(sizeof(t_cmd));
+	if (!command)
+		exit(1);
+	command->cmd = NULL;
+	command->type = PIPE;
+	command->next = NULL;
+	command->prev = node;
+	command->redir = NULL;
+	node->next = command;
+	return (command);
+}

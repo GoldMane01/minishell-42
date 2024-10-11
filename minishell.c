@@ -34,7 +34,7 @@ char	*get_dir(void)
 	return (dir);
 }
 
-char	*concat_quote(char *line) /*NO FUNCIONA T_T */ /*COMO QUE NO, CLARO QUE SI :^)*/
+char	*concat_quote(char *line)
 {
 	char	*concat_line;
 
@@ -45,43 +45,32 @@ char	*concat_quote(char *line) /*NO FUNCIONA T_T */ /*COMO QUE NO, CLARO QUE SI 
 
 void	parse_line(char *line)
 {
+	char	**parsed;
+	char	**split;
+	int		i;
+	t_cmd	*cmd;
+
+	cmd = NULL;
 	while (close_quote(line))
 		line = concat_quote(line);
+	parsed = split_pipe(line);
+	i = 0;
+	while (parsed[i])
+	{
+		split = args_split(parsed[i++]);
+		add_next_cmd(&cmd, init_cmd(remove_redirs(split), COMMAND));
+		if (parsed[i])
+			add_next_pipe(&cmd);
+	}
 }
 
 int	main(int argc, char **argv, char **env)
 {
 	char	*line;
 	char	*dir;
-	t_cmd	*cmd;
 
-	char **ennove;
-	char **red1;
-	char **red2;
-	char **red3;
-	char **a;
-	char **b;
-	char **c;
-	cmd = NULL;
-
-	line = NULL;
-	dir = get_dir();
-	//line = readline(dir);
-	line = "ls -alh >>out < in | grep <<inn mini | wc -l > out";
-	
-	expand_arg(line, create_env(env));
-	ennove = split_pipe(line);
-	a = args_split(ennove[0]);
-	add_next_cmd(&cmd, init_cmd(remove_redirs(a), COMMAND));
-	cmd->redir = get_redirs(a);
-	b = args_split(ennove[1]);
-	add_next_cmd(&cmd, init_cmd(remove_redirs(b), COMMAND));
-	cmd->next->redir = get_redirs(b);
-	c = args_split(ennove[2]);
-	add_next_cmd(&cmd, init_cmd(remove_redirs(c), COMMAND));
-	cmd->next->next->redir = get_redirs(c);
-
-	/*while (1 + 1 == 2)
+	//line = "ls -alh >>out < in | grep <<inn mini | wc -l > out";
+	while (1 + 1 == 2)
 	{
 		dir = get_dir();
 		line = NULL;
@@ -90,5 +79,5 @@ int	main(int argc, char **argv, char **env)
 		parse_line(line);
 		free(line);
 		free(dir);
-	}*/
+	}
 }

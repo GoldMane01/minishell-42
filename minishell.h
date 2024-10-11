@@ -86,6 +86,7 @@ char	**create_new_cmd(char **cmd, int count);
 char	**remove_redirs(char **cmd);
 t_cmd	*add_next_cmd(t_cmd **head, t_cmd *new);
 char	*ft_strchr(const char *s, int c);
+t_cmd	*add_next_pipe(t_cmd **head);
 
 //SPLIT
 size_t	count_strs(char const *s, char c);
