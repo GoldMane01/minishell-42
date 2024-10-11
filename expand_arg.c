@@ -18,14 +18,6 @@ char	*get_value(char *arg, t_env *env)
 	char	*value;
 	int		i;
 
-<<<<<<< HEAD
-    i = 1;
-    while(!ft_isspace(arg[i]))
-        i++;
-    key = ft_substr(arg, 1, i - 1);
-    value = get_env_value(key, env);
-    return (value);
-=======
 	i = 1;
 	while(ft_isalnum(arg[i]))
 		i++;
@@ -63,7 +55,6 @@ char	*change_len(char *arg, char *value)
 	newarg = ft_strjoin(newarg, value);
 	newarg = ft_strjoin(newarg, chop);
 	return (newarg);
->>>>>>> 6df50d693a30357d244acfdf91e6748430da40ca
 }
 
 char *expand_arg(char *arg, t_env *env)
