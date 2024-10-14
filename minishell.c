@@ -43,6 +43,66 @@ char	*concat_quote(char *line)
 	return (concat_line);
 }
 
+t_redir	*get_fd_in(t_cmd *cmd)
+{
+	t_redir	*fd;
+	t_redir	*head;
+
+	fd = NULL;
+	head = cmd->redir;
+	while(cmd->redir)
+	{
+		if (cmd->redir->type == INN || cmd->redir->type == IN)
+		{
+			fd = cmd->redir;
+			open(fd->name, O_RDONLY, 0666);
+		}
+		cmd->redir = cmd->redir->next;
+	}
+	cmd->redir = head;
+	return (fd);
+}
+
+t_redir	*get_fd_out(t_cmd *cmd)
+{
+	t_redir	*fd;
+	t_redir	*head;
+
+	fd = NULL;
+	head = cmd->redir;
+	while(cmd->redir)
+	{
+		if (cmd->redir->type == OUTT || cmd->redir->type == OUT)
+		{
+			fd = cmd->redir;
+			open(fd->name, O_WRONLY | O_CREAT, 0666);
+		}
+		cmd->redir = cmd->redir->next;
+	}
+	cmd->redir = head;
+	return (fd);
+}
+
+void	execute_cmd(t_cmd **cmd)
+{
+	t_cmd		*node;
+	t_redir		*fdin;
+	t_redir		*fdout;
+
+	node = (*cmd);
+	fdin = NULL;
+	fdout = NULL;
+	while (node)
+	{
+		if (node->redir)
+		{
+			fdin = get_fd_in(node);
+			fdout = get_fd_out(node);
+		}
+		node = node->next;
+	}
+}
+
 void	parse_line(char *line)
 {
 	char	**parsed;
@@ -58,10 +118,11 @@ void	parse_line(char *line)
 	while (parsed[i])
 	{
 		split = args_split(parsed[i++]);
-		add_next_cmd(&cmd, init_cmd(remove_redirs(split), COMMAND));
+		add_next_cmd(&cmd, init_cmd(remove_redirs(split), COMMAND), get_redirs(split));
 		if (parsed[i])
 			add_next_pipe(&cmd);
 	}
+	execute_cmd(&cmd);
 }
 
 int	main(int argc, char **argv, char **env)

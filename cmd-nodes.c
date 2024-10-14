@@ -186,11 +186,12 @@ t_cmd	*ft_lstlast(t_cmd *lst)
 	return (node);
 }
 
-t_cmd	*add_next_cmd(t_cmd **head, t_cmd *new)
+t_cmd	*add_next_cmd(t_cmd **head, t_cmd *new, t_redir *redirs)
 {
 	t_cmd	*node;
 
 	node = *head;
+	new->redir = redirs;
 	if (!(*head))
 		*head = new;
 	else

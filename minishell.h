@@ -16,6 +16,7 @@
 #include <readline/history.h>
 #include <unistd.h>
 #include <stddef.h>
+#include <fcntl.h>
 
 typedef enum s_type
 {
@@ -86,9 +87,9 @@ char	**add_cmd1(char **totalcmd, char **cmd, int *j);
 char	**fill_total_cmd(char **totalcmd, char **cmd, char **cmd2, char **quote);
 char	**create_new_cmd(char **cmd, int count);
 char	**remove_redirs(char **cmd);
-t_cmd	*add_next_cmd(t_cmd **head, t_cmd *new);
 char	*ft_strchr(const char *s, int c);
 t_cmd	*add_next_pipe(t_cmd **head);
+t_cmd	*add_next_cmd(t_cmd **head, t_cmd *new, t_redir *redirs);
 
 //SPLIT
 size_t	count_strs(char const *s, char c);
