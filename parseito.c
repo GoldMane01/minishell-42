@@ -6,7 +6,7 @@
 /*   By: cris <cris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 18:34:42 by crmunoz-          #+#    #+#             */
-/*   Updated: 2024/10/08 20:49:17 by cris             ###   ########.fr       */
+/*   Updated: 2024/10/14 18:30:52 by cris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,37 +70,36 @@ int	get_n_pipe(char *str)
 
 char **split_pipe(char *str)
 {
-    char **commands;
-    int i;
-    char quote;
-    int j;
-    int k;
+	char **commands;
+	int i;
+	char quote;
+	int j;
+	int k;
 
-    i = 0;
-    quote = '\0';
-    j = 0;
-    k = 0;
-    commands = malloc(sizeof(char *) * (get_n_pipe(str) + 1));
-    while (str[i])
-    {
-        j = i;
-        
-        while (str[i] && (str[i] != '|' || quote))
-        {
-            if (str[i] == '\\' && str[i + 1])
-                i++;
-            else if (!quote && (str[i] == '\'' || str[i] == '\"'))
-                quote = str[i];
-            else if (quote && str[i] == quote)
-                quote = '\0';
-            i++;
-        }
-        commands[k++] = ft_substr(str, j, i - j);
-        if (str[i] == '|')
-            i++;
-    }
-    
-    commands[k] = NULL;
-    return (commands);
+	i = 0;
+	quote = '\0';
+	j = 0;
+	k = 0;
+	commands = malloc(sizeof(char *) * (get_n_pipe(str) + 1));
+	while (str[i])
+	{
+		j = i;
+		
+		while (str[i] && (str[i] != '|' || quote))
+		{
+			if (str[i] == '\\' && str[i + 1])
+				i++;
+			else if (!quote && (str[i] == '\'' || str[i] == '\"'))
+				quote = str[i];
+			else if (quote && str[i] == quote)
+				quote = '\0';
+			i++;
+		}
+		commands[k++] = ft_substr(str, j, i - j);
+		if (str[i] == '|')
+			i++;
+	}
+	commands[k] = NULL;
+	return (commands);
 }
 

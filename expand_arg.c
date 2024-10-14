@@ -6,7 +6,7 @@
 /*   By: cris <cris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 19:22:11 by cris              #+#    #+#             */
-/*   Updated: 2024/10/10 19:55:48 by cris             ###   ########.fr       */
+/*   Updated: 2024/10/14 18:37:34 by cris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,15 @@ char	*change_len(char *arg, char *value)
 	return (newarg);
 }
 
-char *expand_arg(char *arg, t_env *env)
+char *expand_arg(char *arg, t_env *env, int	i) //  la i hay que pasarla a 0, me faltaban variables
 {
-	int		i;
+	int		check;
 	int		stateq;
 	char	*value;
 	char	*newarg;
 	char	*cpyarg;
 
-	i = 0;
+	check = 0;
 	stateq = 0;
 	cpyarg = arg;
 	while (*arg)
@@ -75,9 +75,15 @@ char *expand_arg(char *arg, t_env *env)
 		else if (*arg == '\'' || *arg == '\"')
 			quote_state(&stateq, *arg);
 		else if (*arg == '$' && stateq != 1)
+		{
 			value = get_value(arg, env);
+			check = 1;
+		}
 		arg++;
 	}
-	newarg = change_len(cpyarg, value);
-	printf("%s\n", newarg);
+	if (check == 1)
+		newarg = change_len(cpyarg, value);
+	else
+		return (cpyarg);
+	return (newarg);
 }

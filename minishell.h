@@ -6,7 +6,7 @@
 /*   By: cris <cris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 18:23:41 by crmunoz-          #+#    #+#             */
-/*   Updated: 2024/10/09 20:46:24 by cris             ###   ########.fr       */
+/*   Updated: 2024/10/14 18:38:23 by cris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ t_cmd	*init_cmd(char **cmd, int type);
 t_cmd	*ft_lstlast(t_cmd *lst);
 
 /* PARSING */
-void quote_state(int *state, char c);
+void	quote_state(int *state, char c);
 
 /* EXPAND ARG*/
-char *expand_arg(char *arg, t_env *env);
+char	*expand_arg(char *arg, t_env *env, int	i);

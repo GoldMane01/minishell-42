@@ -6,7 +6,7 @@
 /*   By: cris <cris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 18:18:28 by dramos-n          #+#    #+#             */
-/*   Updated: 2024/10/10 19:57:01 by cris             ###   ########.fr       */
+/*   Updated: 2024/10/14 18:59:46 by cris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,10 @@ int	main(int argc, char **argv, char **env)
 {
 	char	*line;
 	char	*dir;
+	t_env	*str_env;
+	char	*expand_line;
 
+	str_env = create_env(env);
 	//line = "ls -alh >>out < in | grep <<inn mini | wc -l > out";
 	while (1 + 1 == 2)
 	{
@@ -137,7 +140,9 @@ int	main(int argc, char **argv, char **env)
 		line = NULL;
 		line = readline(dir);
 		add_history(line);
-		parse_line(line);
+		expand_line = expand_arg(line, str_env, 0);
+		printf("%s\n", expand_line);
+		parse_line(expand_line);
 		free(line);
 		free(dir);
 	}
