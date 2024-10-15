@@ -6,7 +6,7 @@
 #    By: cris <cris@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/28 16:44:54 by crmunoz-          #+#    #+#              #
-#    Updated: 2024/10/08 20:41:37 by cris             ###   ########.fr        #
+#    Updated: 2024/10/15 19:18:34 by cris             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRCS		:=	env.c \
 				spliteo.c \
 				parsing.c \
 				expand_arg.c \
+				builtins.c \
 
 OBJS		:= $(SRCS:.c=.o)
 
