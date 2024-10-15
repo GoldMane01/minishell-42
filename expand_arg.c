@@ -6,7 +6,7 @@
 /*   By: cris <cris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 19:22:11 by cris              #+#    #+#             */
-/*   Updated: 2024/10/14 18:37:34 by cris             ###   ########.fr       */
+/*   Updated: 2024/10/15 18:42:16 by cris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ char	*change_len(char *arg, char *value)
 			break;
 		i++;
 	}
-	j = i;
-	while (!ft_isspace(arg[j]))
+	j = i + 1;
+	while (ft_isalnum(arg[j]))
 		j++;
 	chop = ft_substr(arg, j, (ft_strlen(arg) - j));
 	newarg = ft_substr(arg, 0, i);
