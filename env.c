@@ -6,7 +6,7 @@
 /*   By: cris <cris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 16:12:09 by dramos-n          #+#    #+#             */
-/*   Updated: 2024/10/10 11:41:14 by cris             ###   ########.fr       */
+/*   Updated: 2024/10/15 18:13:11 by cris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*set_env_key(char *env)
 	i = 0;
 	while (env[i] != '=')
 		i++;
-	key = malloc(sizeof(char) * (i));
+	key = malloc(sizeof(char) * (i + 1));
 	if (key == NULL)
 		exit(1);
 	i = -1;
@@ -42,7 +42,7 @@ char	*set_env_value(char *env)
 		i++;
 	while (env[j + i + 1])
 		j++;
-	value = malloc(sizeof(char) * (j));
+	value = malloc(sizeof(char) * (j + 1));
 	if (value == NULL)
 		exit(1);
 	j = 0;
