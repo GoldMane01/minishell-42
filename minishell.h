@@ -40,6 +40,7 @@ typedef struct s_redir
 {
 	char			*name;
 	int				type;
+	int				fd;
 	struct s_redir	*next;
 }					t_redir;
 

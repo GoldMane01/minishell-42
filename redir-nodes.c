@@ -105,6 +105,7 @@ t_redir	*init_redir(char *str)
 		exit(1);
 	redir->name = get_redir_file(str);
 	redir->type = get_redir_type(str);
+	redir->fd = -1;
 	redir->next = NULL;
 	return (redir);
 }
