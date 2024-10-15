@@ -6,7 +6,7 @@
 /*   By: cris <cris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 19:06:58 by cris              #+#    #+#             */
-/*   Updated: 2024/10/15 19:53:40 by cris             ###   ########.fr       */
+/*   Updated: 2024/10/15 20:10:29 by cris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,13 @@ void	print_env(t_env *env)
 {
 	while (env)
 	{
-		printf("%s=%s\n", env->key, env->value);
+		if (env->value)
+			printf("%s=%s\n", env->key, env->value);
 		env = env->next;
 	}
 }
 
-void	export(t_env *env, char *key, char *value)
+void	export(t_env *env, char *key, char *value) // nos pueden pasar varios keys y values, así que hay que llamar a esta función por cada uno de ellos
 {
 	t_env	*current;
 
@@ -29,11 +30,12 @@ void	export(t_env *env, char *key, char *value)
 
 	while (current)
 	{
-		if (ft_strcmp(current->key, key) == 0)
+		if (ft_strcmp(current->key, key) == 0 && value)
 		{
-			free(current->value);
+			if (current->value)
+				free(current->value);
 			current->value = ft_strdup(value);
-			exit;
+			return;
 		}
 		current = current->next;
 	}
