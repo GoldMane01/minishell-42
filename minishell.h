@@ -6,7 +6,7 @@
 /*   By: cris <cris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 18:23:41 by crmunoz-          #+#    #+#             */
-/*   Updated: 2024/10/16 20:20:44 by cris             ###   ########.fr       */
+/*   Updated: 2024/10/23 19:34:45 by cris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <unistd.h>
 #include <stddef.h>
 #include <fcntl.h>
+#include <limits.h>
 
 typedef enum s_type
 {
@@ -119,5 +120,7 @@ char	*expand_arg(char *arg, t_env *env, int	i);
 
 /* BUILTINS */
 void	print_env(t_env *env);
-void	export(t_env *env, char *key, char *value);
-void	unset(t_env	*env, char	*key, char	*value);
+void	ft_export(t_env *env, char *key, char *value);
+void	ft_unset(t_env	*env, char	*key, char	*value);
+void	ft_echo(char **cmd);
+void	ft_pwd(void);

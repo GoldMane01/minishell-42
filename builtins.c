@@ -6,7 +6,7 @@
 /*   By: cris <cris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 19:06:58 by cris              #+#    #+#             */
-/*   Updated: 2024/10/16 20:43:28 by cris             ###   ########.fr       */
+/*   Updated: 2024/10/23 19:37:25 by cris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	print_env(t_env *env)
 	}
 }
 
-void	export(t_env *env, char *key, char *value) // nos pueden pasar varios keys y values, así que hay que llamar a esta función por cada uno de ellos
+void	ft_export(t_env *env, char *key, char *value) // nos pueden pasar varios keys y values, así que hay que llamar a esta función por cada uno de ellos
 {
 	t_env	*current;
 
@@ -42,7 +42,7 @@ void	export(t_env *env, char *key, char *value) // nos pueden pasar varios keys 
 	add_env(env, new_env(ft_strdup(key), ft_strdup(value)));
 }
 
-void	unset(t_env	**env, char	*key) // si lo borra bien devuelve 0, si no -1
+void	ft_unset(t_env	**env, char	*key) // si lo borra bien devuelve 0, si no -1
 {
 	t_env	*current;
 	t_env	*temp;
@@ -73,4 +73,36 @@ void	unset(t_env	**env, char	*key) // si lo borra bien devuelve 0, si no -1
 		current = current->next;
 	}
 	return (-1);
+}
+
+void	ft_echo(char **cmd)
+{
+	int i;
+	int newline;
+	
+	i = 1;
+	newline = 0;
+	if (ft_strcmp(cmd[1], "-n") == 0)
+	{
+		newline = 1;
+		i++;
+	}
+	while (cmd[i] && cmd[i + 1])
+	{
+		printf("%s ", cmd[i]);
+		i++;
+	}
+		printf("%s", cmd[i]);
+	if (!newline)
+		printf("\n");
+}
+
+void	ft_pwd(void)
+{
+	char current_directory[PATH_MAX];
+
+	if (getcwd(current_directory, sizeof(current_directory)) != NULL)
+		printf("Directorio actual: %s\n", current_directory);
+	else
+		perror("Error al obtener el directorio actual");
 }
