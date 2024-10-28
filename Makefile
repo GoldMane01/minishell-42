@@ -24,6 +24,7 @@ SRCS		:=	env.c \
 				parsing.c \
 				expand_arg.c \
 				builtins.c \
+				pipex.c \
 
 OBJS		:= $(SRCS:.c=.o)
 

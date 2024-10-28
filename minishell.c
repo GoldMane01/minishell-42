@@ -123,28 +123,29 @@ t_redir	*get_fd_out(t_cmd *cmd)
 	return (fd);
 }
 
-void	execute_cmd(t_cmd **cmd)
+void	execute_cmd(t_cmd **cmd, char **env)
 {
 	t_cmd		*node;
 	t_redir		*fdin;
 	t_redir		*fdout;
 
 	node = (*cmd);
-	fdin = NULL;
-	fdout = NULL;
 	while (node)
 	{
+		fdin = NULL;
+		fdout = NULL;
 		if (node->redir)
 		{
 			fdin = get_fd_in(node);
 			fdout = get_fd_out(node);
 		}
+		pipex(&node, fdin, fdout, env);
 		//unlink("temp");
 		node = node->next;
 	}
 }
 
-void	parse_line(char *line)
+void	parse_line(char *line, char **env)
 {
 	char	**parsed;
 	char	**split;
@@ -163,7 +164,7 @@ void	parse_line(char *line)
 		if (parsed[i])
 			add_next_pipe(&cmd);
 	}
-	execute_cmd(&cmd);
+	execute_cmd(&cmd, env);
 }
 
 int	main(int argc, char **argv, char **env)
@@ -183,7 +184,7 @@ int	main(int argc, char **argv, char **env)
 		add_history(line);
 		expand_line = expand_arg(line, str_env, 0);
 		//printf("%s\n", expand_line);
-		parse_line(expand_line);
+		parse_line(expand_line, env);
 		free(line);
 		free(dir);
 	}

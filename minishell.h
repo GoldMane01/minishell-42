@@ -18,6 +18,7 @@
 #include <stddef.h>
 #include <fcntl.h>
 #include <limits.h>
+#include <linux/limits.h>
 
 typedef enum s_type
 {
@@ -121,6 +122,11 @@ char	*expand_arg(char *arg, t_env *env, int	i);
 /* BUILTINS */
 void	print_env(t_env *env);
 void	ft_export(t_env *env, char *key, char *value);
-void	ft_unset(t_env	*env, char	*key, char	*value);
+void	ft_unset(t_env	**env, char	*key);
+//void	ft_unset(t_env	*env, char	*key, char	*value); ESTO PETABA
 void	ft_echo(char **cmd);
 void	ft_pwd(void);
+
+/* PIPEX */
+void	pipex(t_cmd **cmd, t_redir *fdin, t_redir *fdout, char **env);
+void	execute(t_cmd *cmd, t_redir *fdin, t_redir *fdout, int fd[]);
