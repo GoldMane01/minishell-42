@@ -124,7 +124,6 @@ void	read_input(int link[], t_redir *fdin)
 	int		bytes;
 	int		fd;
 
-	dup2(link[1], STDOUT_FILENO);
 	if (fdin)
 	{
 		if (access(fdin->name, R_OK) != 0)
@@ -132,8 +131,26 @@ void	read_input(int link[], t_redir *fdin)
 		fd = open(fdin->name, O_RDONLY);
 		bytes = read(fd, buffer, 4095);
 		buffer[bytes] = '\0';
-		write(STDOUT_FILENO, buffer, bytes);
+		//dup2(link[1], fd);
+		write(link[1], buffer, bytes);
 	}
+}
+
+void	write_output(int link[], t_cmd *cmd, t_redir *fdout, t_redir *fdin)
+{
+	int	fd;
+
+	close(link[1]);
+	if (fdin)
+		dup2(link[0], STDIN_FILENO);
+	if (fdout)
+	{
+		fd = open(fdout->name, O_RDWR | O_CREAT | O_TRUNC, 0644);
+		if (access(fdout->name, W_OK) != 0)
+			exit(1);
+		dup2(fd, STDOUT_FILENO);
+	}
+	close(link[0]);
 }
 
 void	execute(t_cmd *cmd, t_redir *fdin, t_redir *fdout, int fd[])
@@ -144,17 +161,19 @@ void	execute(t_cmd *cmd, t_redir *fdin, t_redir *fdout, int fd[])
 	if (pid == 0)
 	{
 		read_input(fd, fdin);
+		write_output(fd, cmd, fdout, fdin);
+		execve(cmd->path, cmd->cmd, NULL);
 	}
+	waitpid(pid, NULL, 0);
 }
 
 void	pipex(t_cmd **cmd, t_redir *fdin, t_redir *fdout, char **env)
 {
-	char	*path;
 	int		fd[2];
 	t_cmd	*node;
 
 	node = *cmd;
-	path = cmdpath(*cmd, env);
+	node->path = cmdpath(node, env);
 	if (pipe(fd) == -1)
 		exit(1);
 	//while (node)

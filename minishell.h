@@ -19,6 +19,7 @@
 #include <fcntl.h>
 #include <limits.h>
 #include <linux/limits.h>
+#include <sys/wait.h>
 
 typedef enum s_type
 {
@@ -50,6 +51,7 @@ typedef struct s_cmd
 {
 	char			**cmd;
 	int				type;
+	char			*path;
 	struct s_redir	*redir;
 	struct s_cmd	*prev;
 	struct s_cmd	*next;

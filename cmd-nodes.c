@@ -236,6 +236,7 @@ t_cmd	*init_cmd(char **cmd, int type)
 		command->cmd = NULL;
 	command->type = type;
 	command->next = NULL;
+	command->path = NULL;
 	command->prev = NULL;
 	command->redir = NULL;
 	return (command);
