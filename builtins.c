@@ -6,7 +6,7 @@
 /*   By: cris <cris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 19:06:58 by cris              #+#    #+#             */
-/*   Updated: 2024/10/23 19:37:25 by cris             ###   ########.fr       */
+/*   Updated: 2024/10/29 19:38:43 by cris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,13 @@ void	ft_export(t_env *env, char *key, char *value) // nos pueden pasar varios ke
 	add_env(env, new_env(ft_strdup(key), ft_strdup(value)));
 }
 
-//EL UNSET LO DESTRUYE TODO
-
-/*void	ft_unset(t_env	**env, char	*key) // si lo borra bien devuelve 0, si no -1
+void	ft_unset(t_env	**env, char	*key) // si lo borra bien devuelve 0, si no -1
 {
 	t_env	*current;
 	t_env	*temp;
 
+	if (!env)
+		return;
 	current = (*env);
 	if (ft_strcmp(current->key, key) == 0)
 	{
@@ -75,7 +75,7 @@ void	ft_export(t_env *env, char *key, char *value) // nos pueden pasar varios ke
 		current = current->next;
 	}
 	return (-1);
-}*/
+}
 
 void	ft_echo(char **cmd)
 {
@@ -108,3 +108,35 @@ void	ft_pwd(void)
 	else
 		perror("Error al obtener el directorio actual");
 }
+
+int changedir(char *path)
+{
+	if (chdir(path) != 0)
+	{
+		perror("Error al cambiar de directorio");
+		return (-1);
+	}
+	return (0);
+}
+
+int ft_cd(char **cmd) //estoy dando por hecho que cmd[0]= "cd", y que por siguiente, lo que haya en cmd[1] será la ruta
+{
+	char *home_dir;
+
+	if (cmd[1] == NULL) 
+	{
+		home_dir = getenv("HOME");
+		if (home_dir != NULL) 
+		{
+			changedir(home_dir);
+		} else 
+		{
+			printf("No se proporcionó directorio y no se pudo obtener HOME.\n");
+			return (-1);
+		}
+	}
+	else
+		changedir(cmd[1]);
+	return (0);
+}
+
