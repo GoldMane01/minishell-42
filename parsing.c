@@ -6,7 +6,7 @@
 /*   By: cris <cris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 13:34:42 by crmunoz-          #+#    #+#             */
-/*   Updated: 2024/10/14 18:56:09 by cris             ###   ########.fr       */
+/*   Updated: 2024/11/04 19:51:35 by cris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,11 +92,15 @@ char	**args_split(char *cmd)
 		cmd++;
 	n_args = args_cnt(cmd);
 	args = malloc(sizeof(char *) * (n_args + 1));
+	if (!args)
+		return (NULL);
 	args[n_args] = NULL;
 	while (i < n_args)
 	{
 		len_arg = len_each_arg(cmd);
 		args[i] = ft_substr(cmd, 0, len_arg);
+		if (!args[i])
+			return(free_ptr(args));
 		cmd += len_arg;
 		while (*cmd && ft_isspace(*cmd))
 			cmd++;

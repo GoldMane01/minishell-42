@@ -6,7 +6,7 @@
 /*   By: cris <cris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 19:22:11 by cris              #+#    #+#             */
-/*   Updated: 2024/10/15 18:42:16 by cris             ###   ########.fr       */
+/*   Updated: 2024/11/04 20:44:52 by cris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,11 @@ char	*get_value(char *arg, t_env *env)
 		i++;
 	key = ft_substr(arg, 1, i - 1);
 	value = get_env_value(key, env);
+	free_ptr(&key);
 	return (value);
 }
 
-char	*change_len(char *arg, char *value)
+char	*change_len(char *arg, char *value) //pendiente gestionar bien la memoria de newarg para evitar leaks
 {
 	char	*newarg;
 	int		i;
@@ -54,6 +55,7 @@ char	*change_len(char *arg, char *value)
 	newarg = ft_substr(arg, 0, i);
 	newarg = ft_strjoin(newarg, value);
 	newarg = ft_strjoin(newarg, chop);
+	free_ptr(&chop);
 	return (newarg);
 }
 
@@ -84,6 +86,7 @@ char *expand_arg(char *arg, t_env *env, int	i) //  la i hay que pasarla a 0, me 
 	if (check == 1)
 		newarg = change_len(cpyarg, value);
 	else
-		return (cpyarg);
+		newarg = cpyarg;
+	free_ptr(&cpyarg);
 	return (newarg);
 }

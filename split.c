@@ -6,7 +6,7 @@
 /*   By: cris <cris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 14:21:08 by dramos-n          #+#    #+#             */
-/*   Updated: 2024/10/15 20:08:17 by cris             ###   ########.fr       */
+/*   Updated: 2024/11/04 20:10:26 by cris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,8 @@ char	**free_ptr(char	**ptr)
 		free(ptr[i]);
 		i++;
 	}
-	free(ptr);
+	if (ptr)
+		free(ptr);
 	return (NULL);
 }
 
