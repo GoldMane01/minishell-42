@@ -118,41 +118,6 @@ char	*cmdpath(t_cmd *cmd, char **env)
 	return (path);
 }
 
-void	read_input(int link[], t_redir *fdin)
-{
-	char	buffer[4096];
-	int		bytes;
-	int		fd;
-
-	if (fdin)
-	{
-		if (access(fdin->name, R_OK) != 0)
-			exit(1);
-		fd = open(fdin->name, O_RDONLY);
-		bytes = read(fd, buffer, 4095);
-		buffer[bytes] = '\0';
-		//dup2(link[1], fd);
-		write(link[1], buffer, bytes);
-	}
-}
-
-void	write_output(int link[], t_cmd *cmd, t_redir *fdout, t_redir *fdin)
-{
-	int	fd;
-
-	close(link[1]);
-	if (fdin)
-		dup2(link[0], STDIN_FILENO);
-	if (fdout)
-	{
-		fd = open(fdout->name, O_RDWR | O_CREAT | O_TRUNC, 0644);
-		if (access(fdout->name, W_OK) != 0)
-			exit(1);
-		dup2(fd, STDOUT_FILENO);
-	}
-	close(link[0]);
-}
-
 void	execute(t_cmd *cmd, t_redir *fdin, t_redir *fdout, int fd[])
 {
 	int	pid;
@@ -160,9 +125,15 @@ void	execute(t_cmd *cmd, t_redir *fdin, t_redir *fdout, int fd[])
 	pid = fork();
 	if (pid == 0)
 	{
-		read_input(fd, fdin);
-		write_output(fd, cmd, fdout, fdin);
-		execve(cmd->path, cmd->cmd, NULL);
+		if (fdin)
+			dup2(fdin->fd, STDIN_FILENO);
+		if (fdout)
+			dup2(fdout->fd, STDOUT_FILENO);
+		if (cmd->next)
+			dup2(fd[1], STDOUT_FILENO);
+		close(fd[0]);
+		if (execve(cmd->path, cmd->cmd, NULL) == -1)
+			exit(1);
 	}
 	waitpid(pid, NULL, 0);
 }
@@ -176,11 +147,11 @@ void	pipex(t_cmd **cmd, t_redir *fdin, t_redir *fdout, char **env)
 	node->path = cmdpath(node, env);
 	if (pipe(fd) == -1)
 		exit(1);
-	//while (node)
-	//{
+	while (node)
+	{
 		execute(node, fdin, fdout, fd);
 		node = node->next;
-	//}
+	}
 	close(fd[0]);
 	close(fd[1]);
 }

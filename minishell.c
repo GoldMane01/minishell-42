@@ -116,6 +116,8 @@ t_redir	*get_fd_out(t_cmd *cmd)
 		{
 			fd = cmd->redir;
 			fd->fd = open(fd->name, O_WRONLY | O_CREAT, 0666);
+			if (fd->fd == -1)
+				return (NULL);
 		}
 		cmd->redir = cmd->redir->next;
 	}
