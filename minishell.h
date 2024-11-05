@@ -125,7 +125,7 @@ char	*expand_arg(char *arg, t_env *env, int	i);
 /* BUILTINS */
 void	print_env(t_env *env);
 void	ft_export(t_env *env, char *key, char *value);
-void	ft_unset(t_env	**env, char	*key);
+int		ft_unset(t_env	**env, char	*key);
 void	ft_echo(char **cmd);
 void	ft_pwd(void);
 int		ft_cd(char **cmd);

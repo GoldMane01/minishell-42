@@ -42,7 +42,7 @@ void	ft_export(t_env *env, char *key, char *value) // nos pueden pasar varios ke
 	add_env(env, new_env(ft_strdup(key), ft_strdup(value)));
 }
 
-void	ft_unset(t_env	**env, char	*key) // si lo borra bien devuelve 0, si no -1
+int	ft_unset(t_env	**env, char	*key) // si lo borra bien devuelve 0, si no -1
 {
 	t_env	*current;
 	t_env	*temp;
