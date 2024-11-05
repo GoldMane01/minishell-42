@@ -6,7 +6,7 @@
 /*   By: cris <cris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 19:06:58 by cris              #+#    #+#             */
-/*   Updated: 2024/10/29 19:38:43 by cris             ###   ########.fr       */
+/*   Updated: 2024/11/05 18:52:25 by cris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void	ft_unset(t_env	**env, char	*key) // si lo borra bien devuelve 0, si no -1
 	t_env	*current;
 	t_env	*temp;
 
-	if (!env)
-		return;
+	if (!env || !*env || !key)
+		return (-1);
 	current = (*env);
 	if (ft_strcmp(current->key, key) == 0)
 	{
