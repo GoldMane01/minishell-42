@@ -131,5 +131,7 @@ void	ft_pwd(void);
 int		ft_cd(char **cmd);
 
 /* PIPEX */
-void	pipex(t_cmd **cmd, t_redir *fdin, t_redir *fdout, char **env);
-void	execute(t_cmd *cmd, t_redir *fdin, t_redir *fdout, int fd[]);
+void	pipex(t_cmd **cmd, char **env);
+//void	execute(t_cmd *cmd, t_redir *fdin, t_redir *fdout, int fd[]);
+t_redir	*get_fd_in(t_cmd *cmd);
+t_redir	*get_fd_out(t_cmd *cmd);

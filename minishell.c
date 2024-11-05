@@ -70,11 +70,12 @@ int	open_here_doc(t_redir *fd)
 	int		temp_fd;
 	char	*line;
 	
-	temp_fd = open("temp", O_RDWR | O_CREAT, 0666);
+	temp_fd = open("temp", O_RDWR | O_CREAT | O_TRUNC, 0666);
 	line = readline("> ");
 	while (here_doc_eof(line, fd->name))
 		line = concat_quote(line, "> ");
 	write(temp_fd, line, ft_strlen(line));
+	close(temp_fd);
 	return (temp_fd);
 }
 
@@ -90,7 +91,8 @@ t_redir	*get_fd_in(t_cmd *cmd)
 		if (cmd->redir->type == INN)
 		{
 			fd = cmd->redir;
-			fd->fd = open_here_doc(fd);
+			open_here_doc(fd);
+			fd->fd = open("temp", O_RDONLY, 0666);
 		}
 		if (cmd->redir->type == IN)
 		{
@@ -115,7 +117,7 @@ t_redir	*get_fd_out(t_cmd *cmd)
 		if (cmd->redir->type == OUTT || cmd->redir->type == OUT)
 		{
 			fd = cmd->redir;
-			fd->fd = open(fd->name, O_WRONLY | O_CREAT, 0666);
+			fd->fd = open(fd->name, O_WRONLY | O_CREAT | O_TRUNC, 0666);
 			if (fd->fd == -1)
 				return (NULL);
 		}
@@ -123,28 +125,6 @@ t_redir	*get_fd_out(t_cmd *cmd)
 	}
 	cmd->redir = head;
 	return (fd);
-}
-
-void	execute_cmd(t_cmd **cmd, char **env)
-{
-	t_cmd		*node;
-	t_redir		*fdin;
-	t_redir		*fdout;
-
-	node = (*cmd);
-	while (node)
-	{
-		fdin = NULL;
-		fdout = NULL;
-		if (node->redir)
-		{
-			fdin = get_fd_in(node);
-			fdout = get_fd_out(node);
-		}
-		pipex(&node, fdin, fdout, env);
-		//unlink("temp");
-		node = node->next;
-	}
 }
 
 void	parse_line(char *line, char **env)
@@ -166,7 +146,8 @@ void	parse_line(char *line, char **env)
 		if (parsed[i])
 			add_next_pipe(&cmd);
 	}
-	execute_cmd(&cmd, env);
+	pipex(&cmd, env);
+	unlink("temp");
 }
 
 int	main(int argc, char **argv, char **env)

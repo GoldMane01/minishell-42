@@ -118,7 +118,7 @@ char	*cmdpath(t_cmd *cmd, char **env)
 	return (path);
 }
 
-void	execute(t_cmd *cmd, t_redir *fdin, t_redir *fdout, int fd[])
+void	execute(t_cmd *cmd, t_redir *fdin, t_redir *fdout, int fd[], int fd_in)
 {
 	int	pid;
 
@@ -127,31 +127,46 @@ void	execute(t_cmd *cmd, t_redir *fdin, t_redir *fdout, int fd[])
 	{
 		if (fdin)
 			dup2(fdin->fd, STDIN_FILENO);
+		else if (fd_in != STDIN_FILENO)
+			dup2(fd_in, STDIN_FILENO);
 		if (fdout)
 			dup2(fdout->fd, STDOUT_FILENO);
-		if (cmd->next)
+		else if (cmd->next)
 			dup2(fd[1], STDOUT_FILENO);
 		close(fd[0]);
+		close(fd[1]);
 		if (execve(cmd->path, cmd->cmd, NULL) == -1)
 			exit(1);
 	}
+	close(fd[1]);
+	if (fd_in != STDIN_FILENO)
+		close(fd_in);
 	waitpid(pid, NULL, 0);
 }
 
-void	pipex(t_cmd **cmd, t_redir *fdin, t_redir *fdout, char **env)
+void	pipex(t_cmd **cmd, char **env)
 {
-	int		fd[2];
-	t_cmd	*node;
+	int			fd[2];
+	int			fd_in;
+	t_cmd		*node;
+	t_redir		*fdin;
+	t_redir		*fdout;
 
 	node = *cmd;
-	node->path = cmdpath(node, env);
-	if (pipe(fd) == -1)
-		exit(1);
+	fd_in = STDIN_FILENO;
 	while (node)
 	{
-		execute(node, fdin, fdout, fd);
+		fdin = get_fd_in(node);
+		fdout = get_fd_out(node);
+		if (pipe(fd) == -1)
+			exit(1);
+		node->path = cmdpath(node, env);
+		execute(node, fdin, fdout, fd, fd_in);
+		fd_in = fd[0];
 		node = node->next;
+		while (node && node->type == PIPE)
+			node = node->next;
 	}
-	close(fd[0]);
-	close(fd[1]);
+	if (fd_in != STDIN_FILENO)
+		close(fd_in);
 }
