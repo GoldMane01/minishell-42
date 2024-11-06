@@ -6,26 +6,11 @@
 /*   By: cris <cris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 19:06:58 by cris              #+#    #+#             */
-/*   Updated: 2024/11/06 17:18:08 by cris             ###   ########.fr       */
+/*   Updated: 2024/11/06 20:12:42 by cris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	ft_export(t_env *env, char **cmd)
-{
-	char	**key_value;
-	int		i;
-
-	i = 1;
-	while (cmd[i])
-	{
-		key_value = ft_split(cmd[i], '=');
-		ft_exporting(env, key_value[0], key_value[1]);
-		free_ptr(key_value);
-		i++;
-	}
-}
 
 void	ft_exporting(t_env *env, char *key, char *value) // nos pueden pasar varios keys y values, así que hay que llamar a esta función por cada uno de ellos
 {
@@ -45,6 +30,21 @@ void	ft_exporting(t_env *env, char *key, char *value) // nos pueden pasar varios
 		current = current->next;
 	}
 	add_env(env, new_env(ft_strdup(key), ft_strdup(value)));
+}
+
+void	ft_export(t_env *env, char **cmd)
+{
+	char	**key_value;
+	int		i;
+
+	i = 1;
+	while (cmd[i])
+	{
+		key_value = ft_split(cmd[i], '=');
+		ft_exporting(env, key_value[0], key_value[1]);
+		free_ptr(key_value);
+		i++;
+	}
 }
 
 int	ft_unset(t_env	**env, char	*key) // si lo borra bien devuelve 0, si no -1
@@ -103,5 +103,3 @@ void	ft_echo(char **cmd)
 	if (!newline)
 		printf("\n");
 }
-
-v

@@ -6,7 +6,7 @@
 /*   By: cris <cris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 20:34:21 by cris              #+#    #+#             */
-/*   Updated: 2024/11/06 16:47:25 by cris             ###   ########.fr       */
+/*   Updated: 2024/11/06 20:15:07 by cris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ long	ft_atol(char *str)
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		n = (n * 10) + (str[i] - '0');
-		if ((sign == 1 && n > LONG_MAX) || (sign == -1 && n > (unsigned long)LONG_MAX + 1))
+		if ((sign == 1 && n > LONG_MAX) || (sign == -1 && (unsigned long)n > (unsigned long)LONG_MAX + 1))
 			return (0);
 		i++;
 	}

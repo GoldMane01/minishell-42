@@ -6,16 +6,16 @@
 /*   By: cris <cris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 12:54:10 by cris              #+#    #+#             */
-/*   Updated: 2024/11/06 19:54:49 by cris             ###   ########.fr       */
+/*   Updated: 2024/11/06 20:18:28 by cris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_builtins(t_env *env, t_cmd *cmd) //si devuelve 0 es que el cmd era uno de la lista y lo ha ejecutado
+int	ft_builtins(t_env *env, t_cmd *cmd)
 {
 	if (ft_strcmp(cmd->cmd[0], "unset") == 0)
-		ft_unset(env, cmd->cmd[1]);
+		ft_unset(&env, cmd->cmd[1]);
 	else if (ft_strcmp(cmd->cmd[0], "cd") == 0)
 		ft_cd(cmd->cmd);
 	else if (ft_strcmp(cmd->cmd[0], "export") == 0)

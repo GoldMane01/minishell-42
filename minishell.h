@@ -6,7 +6,7 @@
 /*   By: cris <cris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 18:23:41 by crmunoz-          #+#    #+#             */
-/*   Updated: 2024/11/06 19:56:42 by cris             ###   ########.fr       */
+/*   Updated: 2024/11/06 20:18:40 by cris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ t_cmd	*ft_lstlast(t_cmd *lst);
 void	quote_state(int *state, char c);
 
 /* EXPAND ARG*/
-char	*expand_arg(char *arg, t_env *env, int	i);
+char	*expand_arg(char *arg, t_env *env);
 
 /* BUILTINS */
 void	print_env(t_env *env);
@@ -129,8 +129,8 @@ int		ft_unset(t_env	**env, char	*key);
 void	ft_echo(char **cmd);
 void	ft_pwd(void);
 int		ft_cd(char **cmd);
-void	ft_exit(t_cmd *command);
-void	ft_builtins(t_env *env, t_cmd *cmd) 
+void	ft_exit(char **cmd);
+int		ft_builtins(t_env *env, t_cmd *cmd);
 
 /* PIPEX */
 void	pipex(t_cmd **cmd, char **env);
