@@ -6,7 +6,7 @@
 /*   By: cris <cris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 20:34:21 by cris              #+#    #+#             */
-/*   Updated: 2024/11/05 20:44:17 by cris             ###   ########.fr       */
+/*   Updated: 2024/11/06 12:30:16 by cris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,20 +46,20 @@ long	ft_atol(char *str)
 	return (n * sign);
 }
 
-void	ft_exit(t_cmd *command)
+void	ft_exit(char **cmd)
 {
 	long	exit_code;
 
-	if (command->cmd[1] && command->cmd[2])
+	if (cmd[1] && cmd[2])
 	{
 		write(2, "exit: too many arguments\n", 25);
 		return;
 	}
-	if (command->cmd[1])
+	if (cmd[1])
 	{
-		exit_code = ft_atol(command->cmd[1]);
-		if (exit_code == 0 && command->cmd[1][0] != '0')
-			print_errexit(command->cmd[1]);
+		exit_code = ft_atol(cmd[1]);
+		if (exit_code == 0 && cmd[1][0] != '0')
+			print_errexit(cmd[1]);
 		exit((unsigned char)exit_code);
 	}
 	else
