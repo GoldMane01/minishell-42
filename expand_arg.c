@@ -6,7 +6,7 @@
 /*   By: cris <cris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 19:22:11 by cris              #+#    #+#             */
-/*   Updated: 2024/11/04 20:44:52 by cris             ###   ########.fr       */
+/*   Updated: 2024/11/05 19:02:49 by cris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ char	*change_len(char *arg, char *value) //pendiente gestionar bien la memoria d
 	int		j;
 	int		stateq;
 	char	*chop;
+	char	*temp;
 
 	i = 0;
 	j = 0;
@@ -53,8 +54,10 @@ char	*change_len(char *arg, char *value) //pendiente gestionar bien la memoria d
 		j++;
 	chop = ft_substr(arg, j, (ft_strlen(arg) - j));
 	newarg = ft_substr(arg, 0, i);
-	newarg = ft_strjoin(newarg, value);
+	temp = ft_strjoin(newarg, value);
+	free_ptr(&newarg);
 	newarg = ft_strjoin(newarg, chop);
+	free_ptr(&temp);
 	free_ptr(&chop);
 	return (newarg);
 }
