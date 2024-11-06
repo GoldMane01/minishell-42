@@ -85,7 +85,6 @@ char	**args_split(char *cmd)
 	int		n_args;
 	int		len_arg;
 	int		i;
-	int		start;
 
 	i = 0;
 	while (*cmd && ft_isspace(*cmd))

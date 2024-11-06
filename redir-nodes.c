@@ -93,6 +93,7 @@ int	get_redir_type(char *str)
 		return (OUT);
 	if (str[i] == '<' && str[i + 1] != '<')
 		return (IN);
+	return (0);
 }
 
 t_redir	*init_redir(char *str)
@@ -137,8 +138,3 @@ t_redir	*get_redirs(char **str)
 	return (redirs);
 }
 
-
-t_redir	*create_redir()
-{
-	//TODO
-}

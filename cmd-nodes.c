@@ -15,7 +15,6 @@
 char	return_quote(char *str)
 {
 	int		i;
-	int		j;
 	char	quote;
 
 	i = 0;

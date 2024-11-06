@@ -154,10 +154,12 @@ int	main(int argc, char **argv, char **env)
 {
 	char	*line;
 	char	*dir;
-	t_env	*str_env;
+	//t_env	*str_env;
 	char	*expand_line;
 
-	str_env = create_env(env);
+	if (argc != 1 || !argv)
+		exit(1);
+	//str_env = create_env(env);
 	//line = "ls -alh >>out < in | grep <<inn mini | wc -l > out";
 	while (1 + 1 == 2)
 	{
@@ -165,7 +167,8 @@ int	main(int argc, char **argv, char **env)
 		line = NULL;
 		line = readline(dir);
 		add_history(line);
-		expand_line = expand_arg(line, str_env, 0);
+		expand_line = line;
+		//expand_line = expand_arg(line, str_env, 0);
 		//printf("%s\n", expand_line);
 		parse_line(expand_line, env);
 		free(line);

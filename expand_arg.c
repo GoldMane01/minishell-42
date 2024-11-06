@@ -69,6 +69,12 @@ char *expand_arg(char *arg, t_env *env, int	i) //  la i hay que pasarla a 0, me 
 
 	check = 0;
 	stateq = 0;
+
+	//ESTO ES PARA QUE NO SE QUEJE, QUITAR
+	i = 0;
+	if (i != 0)
+		printf("COJONES");
+	
 	cpyarg = arg;
 	while (*arg)
 	{

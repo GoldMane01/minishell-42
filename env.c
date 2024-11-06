@@ -97,7 +97,6 @@ t_env	*create_env(char **env)
 char	*get_env_value(char *key, t_env *head)
 {
 	t_env	*node;
-	int		i;
 
 	node = head;
 	while (node)

@@ -102,7 +102,7 @@ size_t	count_strs(char const *s, char c);
 char	**free_ptr(char	**ptr);
 char	**ft_split(char const *s, char c);
 char	*ft_strdup(char *s1);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	*ft_substr(char const *s, int start, int len);
 
 //SPLITEO
 size_t	n_str(char *s, char c);

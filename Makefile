@@ -12,7 +12,7 @@
 
 NAME		:= minishell
 CC			:= gcc
-FLAGS		:= -g #-Wall -Wextra -Werror 
+FLAGS		:= -g -Wall -Wextra -Werror
 SRCS		:=	env.c \
 				minishell.c \
 				parseito.c \
