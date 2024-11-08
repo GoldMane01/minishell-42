@@ -150,10 +150,25 @@ void	parse_line(char *line, char **env)
 	unlink("temp");
 }
 
-void	ctrl_handler(int sig)
+void	ctrl_c_handler(int sig)
 {
 	signal(sig, SIG_IGN);
-	printf("COÑOS");
+	printf("\n");
+	rl_on_new_line();
+    rl_replace_line("", 0);
+    rl_redisplay();
+	signal(SIGINT, ctrl_c_handler);
+}
+
+void	ctrl_quit_handler(int sig)
+{
+	signal(sig, SIG_IGN);
+	printf("\n");
+	printf("Quit (core dumped)\n");
+	rl_on_new_line();
+    rl_replace_line("", 0);
+    rl_redisplay(); 
+	signal(SIGQUIT, ctrl_quit_handler);
 }
 
 int	main(int argc, char **argv, char **env)
@@ -165,7 +180,8 @@ int	main(int argc, char **argv, char **env)
 
 	if (argc != 1 || !argv)
 		exit(1);
-	signal(SIGINT, ctrl_handler);
+	signal(SIGINT, ctrl_c_handler);
+	signal(SIGQUIT, ctrl_quit_handler);
 	//str_env = create_env(env);
 	//line = "ls -alh >>out < in | grep <<inn mini | wc -l > out";
 	while (1 + 1 == 2)
@@ -173,6 +189,8 @@ int	main(int argc, char **argv, char **env)
 		dir = get_dir();
 		line = NULL;
 		line = readline(dir);
+		if (line == NULL)
+			exit(0);
 		add_history(line);
 		expand_line = line;
 		//expand_line = expand_arg(line, str_env, 0);
