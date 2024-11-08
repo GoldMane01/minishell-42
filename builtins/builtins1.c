@@ -1,28 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.c                                         :+:      :+:    :+:   */
+/*   builtins1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cris <cris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 19:06:58 by cris              #+#    #+#             */
-/*   Updated: 2024/11/05 18:52:25 by cris             ###   ########.fr       */
+/*   Updated: 2024/11/06 20:12:42 by cris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-void	print_env(t_env *env)
-{
-	while (env)
-	{
-		if (env->value)
-			printf("%s=%s\n", env->key, env->value);
-		env = env->next;
-	}
-}
-
-void	ft_export(t_env *env, char *key, char *value) // nos pueden pasar varios keys y values, así que hay que llamar a esta función por cada uno de ellos
+void	ft_exporting(t_env *env, char *key, char *value) // nos pueden pasar varios keys y values, así que hay que llamar a esta función por cada uno de ellos
 {
 	t_env	*current;
 
@@ -40,6 +30,21 @@ void	ft_export(t_env *env, char *key, char *value) // nos pueden pasar varios ke
 		current = current->next;
 	}
 	add_env(env, new_env(ft_strdup(key), ft_strdup(value)));
+}
+
+void	ft_export(t_env *env, char **cmd)
+{
+	char	**key_value;
+	int		i;
+
+	i = 1;
+	while (cmd[i])
+	{
+		key_value = ft_split(cmd[i], '=');
+		ft_exporting(env, key_value[0], key_value[1]);
+		free_ptr(key_value);
+		i++;
+	}
 }
 
 int	ft_unset(t_env	**env, char	*key) // si lo borra bien devuelve 0, si no -1
@@ -98,45 +103,3 @@ void	ft_echo(char **cmd)
 	if (!newline)
 		printf("\n");
 }
-
-void	ft_pwd(void)
-{
-	char current_directory[PATH_MAX];
-
-	if (getcwd(current_directory, sizeof(current_directory)) != NULL)
-		printf("Directorio actual: %s\n", current_directory);
-	else
-		perror("Error al obtener el directorio actual");
-}
-
-int changedir(char *path)
-{
-	if (chdir(path) != 0)
-	{
-		perror("Error al cambiar de directorio");
-		return (-1);
-	}
-	return (0);
-}
-
-int ft_cd(char **cmd) //estoy dando por hecho que cmd[0]= "cd", y que por siguiente, lo que haya en cmd[1] será la ruta
-{
-	char *home_dir;
-
-	if (cmd[1] == NULL) 
-	{
-		home_dir = getenv("HOME");
-		if (home_dir != NULL) 
-		{
-			changedir(home_dir);
-		} else 
-		{
-			printf("No se proporcionó directorio y no se pudo obtener HOME.\n");
-			return (-1);
-		}
-	}
-	else
-		changedir(cmd[1]);
-	return (0);
-}
-

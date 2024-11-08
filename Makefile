@@ -6,7 +6,7 @@
 #    By: cris <cris@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/28 16:44:54 by crmunoz-          #+#    #+#              #
-#    Updated: 2024/11/05 20:46:09 by cris             ###   ########.fr        #
+#    Updated: 2024/11/06 20:12:03 by cris             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,8 +23,7 @@ SRCS		:=	env.c \
 				spliteo.c \
 				parsing.c \
 				expand_arg.c \
-				builtins.c \
-				ft_exit.c \
+				builtins/builtins1.c builtins/builtins2.c builtins/ft_exit.c builtins/check_built.c \
 				pipex.c \
 
 OBJS		:= $(SRCS:.c=.o)

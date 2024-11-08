@@ -6,7 +6,7 @@
 /*   By: cris <cris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 19:22:11 by cris              #+#    #+#             */
-/*   Updated: 2024/11/05 19:02:49 by cris             ###   ########.fr       */
+/*   Updated: 2024/11/06 20:02:24 by cris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	*change_len(char *arg, char *value) //pendiente gestionar bien la memoria d
 	return (newarg);
 }
 
-char *expand_arg(char *arg, t_env *env, int	i) //  la i hay que pasarla a 0, me faltaban variables
+char *expand_arg(char *arg, t_env *env)
 {
 	int		check;
 	int		stateq;
@@ -73,11 +73,6 @@ char *expand_arg(char *arg, t_env *env, int	i) //  la i hay que pasarla a 0, me 
 	check = 0;
 	stateq = 0;
 
-	//ESTO ES PARA QUE NO SE QUEJE, QUITAR
-	i = 0;
-	if (i != 0)
-		printf("COJONES");
-	
 	cpyarg = arg;
 	while (*arg)
 	{
