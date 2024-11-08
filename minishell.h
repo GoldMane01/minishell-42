@@ -21,6 +21,7 @@
 #include <linux/limits.h>
 #include <sys/wait.h>
 #include <errno.h>
+#include <signal.h>
 
 typedef enum s_type
 {

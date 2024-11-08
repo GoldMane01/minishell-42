@@ -150,6 +150,12 @@ void	parse_line(char *line, char **env)
 	unlink("temp");
 }
 
+void	ctrl_handler(int sig)
+{
+	signal(sig, SIG_IGN);
+	printf("COÑOS");
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	char	*line;
@@ -159,6 +165,7 @@ int	main(int argc, char **argv, char **env)
 
 	if (argc != 1 || !argv)
 		exit(1);
+	signal(SIGINT, ctrl_handler);
 	//str_env = create_env(env);
 	//line = "ls -alh >>out < in | grep <<inn mini | wc -l > out";
 	while (1 + 1 == 2)
