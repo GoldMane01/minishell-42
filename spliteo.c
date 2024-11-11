@@ -6,7 +6,7 @@
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 16:35:38 by crmunoz-          #+#    #+#             */
-/*   Updated: 2024/09/05 19:55:53 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/11/11 16:08:12 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ size_t	n_str(char *s, char c)
 		return (0);
 	while (s[i])
 	{
-		if ((((s[i + 1] == c) || s[i + 1] == '\0') && s[i] != c) && (s[i] != '\\'))
+		if ((((s[i + 1] == c) || s[i + 1] == '\0')
+				&& s[i] != c) && (s[i] != '\\'))
 			n++;
 		i++;
 	}
@@ -44,7 +45,7 @@ char	**spliteo_cmd(char *s, char c)
 		return (NULL);
 	while (s[++i])
 	{
-		if (s[i] != c || (s[i] == c && i > 0 && s[i - 1] == '\\')) 
+		if (s[i] != c || (s[i] == c && i > 0 && s[i - 1] == '\\'))
 		{
 			j = 0;
 			while (s[i + j] != c && s[i + j])

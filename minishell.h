@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cris <cris@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 18:23:41 by crmunoz-          #+#    #+#             */
-/*   Updated: 2024/11/06 20:18:40 by cris             ###   ########.fr       */
+/*   Updated: 2024/11/11 15:57:36 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char	*get_env_value(char *key, t_env *head);
 int		ft_isspace(char c);
 int		close_quote(char *str);
 int		get_n_pipe(char *str);
-char	 **split_pipe(char *str);
+char	**split_pipe(char *str);
 
 //JOIN
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
@@ -91,7 +91,8 @@ t_redir	*get_redirs(char **str);
 //CMD-NODES
 char	return_quote(char *str);
 char	**add_cmd1(char **totalcmd, char **cmd, int *j);
-char	**fill_total_cmd(char **totalcmd, char **cmd, char **cmd2, char **quote);
+char	**fill_total_cmd(char **totalcmd, char **cmd,
+			char **cmd2, char **quote);
 char	**create_new_cmd(char **cmd, int count);
 char	**remove_redirs(char **cmd);
 char	*ft_strchr(const char *s, int c);
@@ -111,7 +112,6 @@ char	**spliteo_cmd(char *s, char c);
 
 char	**args_split(char *cmd);
 char	**remove_redirs(char **cmd);
-
 
 t_cmd	*init_cmd(char **cmd, int type);
 

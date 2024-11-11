@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   join.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cris <cris@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 16:22:41 by dramos-n          #+#    #+#             */
-/*   Updated: 2024/10/10 19:51:00 by cris             ###   ########.fr       */
+/*   Updated: 2024/11/11 15:54:49 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ int	ft_isalnum(char c)
 	else
 		return (0);
 }
+//HAY QUE CAMBIAR LAS SIGUIENTES FUNCIONES A OTRO ARCHIVO
 
 int	ft_strcmp(char *s1, char *s2)
 {

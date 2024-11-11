@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cris <cris@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 13:34:42 by crmunoz-          #+#    #+#             */
-/*   Updated: 2024/11/04 19:51:35 by cris             ###   ########.fr       */
+/*   Updated: 2024/11/11 16:05:36 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void quote_state(int *state, char c)
+void	quote_state(int *state, char c)
 {
 	if (c == '\'')
 	{
@@ -40,7 +40,7 @@ int	len_each_arg(char *cmd)
 	while (cmd[i])
 	{
 		if (cmd[i] == '\\' && (cmd[i + 1] == '\'' || cmd[i + 1] == '\"'))
-			i+=2;
+			i += 2;
 		if (cmd[i] == '\'' || cmd[i] == '\"')
 			quote_state(&stateq, cmd[i]);
 		i++;
@@ -99,7 +99,7 @@ char	**args_split(char *cmd)
 		len_arg = len_each_arg(cmd);
 		args[i] = ft_substr(cmd, 0, len_arg);
 		if (!args[i])
-			return(free_ptr(args));
+			return (free_ptr(args));
 		cmd += len_arg;
 		while (*cmd && ft_isspace(*cmd))
 			cmd++;

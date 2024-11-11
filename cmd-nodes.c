@@ -6,7 +6,7 @@
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 18:51:09 by crmunoz-          #+#    #+#             */
-/*   Updated: 2024/09/06 10:31:16 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/11/11 15:46:29 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ char	**create_new_cmd(char **cmd, int count)
 				i++;
 		}
 		if (!cmd[i])
-			break;
+			break ;
 		new[k] = malloc(sizeof(char) * (ft_strlen(cmd[i]) + 1));
 		if (!new[k])
 			free_ptr(new);
@@ -145,6 +145,7 @@ char	**create_new_cmd(char **cmd, int count)
 	return (new);
 }
 
+//DESDE AQUÍ HACIA ABAJO HAY QUE CAMBIAR LAS FUNCIONES A OTRO ARCHIVO
 char	**remove_redirs(char **cmd)
 {
 	int		i;

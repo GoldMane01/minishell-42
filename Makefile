@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cris <cris@student.42.fr>                  +#+  +:+       +#+         #
+#    By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/28 16:44:54 by crmunoz-          #+#    #+#              #
-#    Updated: 2024/11/06 20:12:03 by cris             ###   ########.fr        #
+#    Updated: 2024/11/11 15:54:56 by crmunoz-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		:= minishell
 CC			:= gcc
-FLAGS		:= -g #-Wall -Wextra -Werror
+FLAGS		:= -g -Wall -Wextra -Werror
 SRCS		:=	env.c \
 				minishell.c \
 				parseito.c \

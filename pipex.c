@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipex.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/11 16:06:16 by crmunoz-          #+#    #+#             */
+/*   Updated: 2024/11/11 16:07:18 by crmunoz-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static int	check_strequal(char *ptr, const char *needle, size_t len)
@@ -84,6 +96,7 @@ char	*get_path(char *path, char *command)
 	return (ptr);
 }
 
+// A PARTIR DE AQUÍ HAY QUE PASAR TODAS LAS FUNCIONES A OTRO ARCHIVO
 char	*check_paths(char **allpaths, char *command)
 {
 	char	*path;
@@ -113,7 +126,8 @@ char	*cmdpath(t_cmd *cmd, char **env)
 	if (!command)
 		return (NULL);
 	ft_strlcpy(command, "/", 2);
-	ft_strlcat(command, cmd->cmd[0], ft_strlen(cmd->cmd[0]) + ft_strlen(command) + 1);
+	ft_strlcat(command, cmd->cmd[0],
+		ft_strlen(cmd->cmd[0]) + ft_strlen(command) + 1);
 	path = check_paths(allpaths, command);
 	return (path);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cris <cris@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 16:12:09 by dramos-n          #+#    #+#             */
-/*   Updated: 2024/10/15 18:13:11 by cris             ###   ########.fr       */
+/*   Updated: 2024/11/11 15:47:11 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*set_env_key(char *env)
 {
 	char	*key;
 	int		i;
-	
+
 	i = 0;
 	while (env[i] != '=')
 		i++;
@@ -35,7 +35,7 @@ char	*set_env_value(char *env)
 	char	*value;
 	int		i;
 	int		j;
-	
+
 	i = 0;
 	j = 0;
 	while (env[i] != '=')
@@ -88,13 +88,14 @@ t_env	*create_env(char **env)
 	struct_env = new_env(set_env_key(env[0]), set_env_value(env[0]));
 	while (env[i])
 	{
-		add_env(struct_env, new_env(set_env_key(env[i]), set_env_value(env[i])));
+		add_env(struct_env, new_env(set_env_key(env[i]),
+				set_env_value(env[i])));
 		i++;
 	}
 	return (struct_env);
 }
 
-char	*get_env_value(char *key, t_env *head)
+char	*get_env_value(char *key, t_env *head) //HAY QUE PONER ESTA FUNCIÓN EN OTRO ARCHIVO
 {
 	t_env	*node;
 

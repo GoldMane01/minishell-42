@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parseito.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cris <cris@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 18:34:42 by crmunoz-          #+#    #+#             */
-/*   Updated: 2024/10/14 18:30:52 by cris             ###   ########.fr       */
+/*   Updated: 2024/11/11 16:00:40 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,14 @@ int	close_quote(char *str)
 
 int	get_n_pipe(char *str)
 {
-	int pipes;
-	char quote;
-	int i;
+	int		pipes;
+	char	quote;
+	int		i;
 
 	i = 0;
 	quote = '\0';
 	pipes = 1;
-	while(str[i])
+	while (str[i])
 	{
 		if (!quote && (str[i] == '\'' || str[i] == '\"'))
 			quote = str[i];
@@ -68,13 +68,13 @@ int	get_n_pipe(char *str)
 	return (pipes);
 }
 
-char **split_pipe(char *str)
+char	**split_pipe(char *str)
 {
-	char **commands;
-	int i;
-	char quote;
-	int j;
-	int k;
+	char	**commands;
+	int		i;
+	char	quote;
+	int		j;
+	int		k;
 
 	i = 0;
 	quote = '\0';
@@ -84,7 +84,6 @@ char **split_pipe(char *str)
 	while (str[i])
 	{
 		j = i;
-		
 		while (str[i] && (str[i] != '|' || quote))
 		{
 			if (str[i] == '\\' && str[i + 1])
@@ -102,4 +101,3 @@ char **split_pipe(char *str)
 	commands[k] = NULL;
 	return (commands);
 }
-

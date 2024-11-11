@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cris <cris@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 18:18:28 by dramos-n          #+#    #+#             */
-/*   Updated: 2024/10/15 19:31:58 by cris             ###   ########.fr       */
+/*   Updated: 2024/11/11 15:57:10 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+//HAY QUE QUITAR 5 FUNCIONES DE AQUÍ Y PASARLAS A OTRO ARCHIVO
 #include "minishell.h"
 
 char	*get_dir(void)
@@ -69,7 +70,7 @@ int	open_here_doc(t_redir *fd)
 {
 	int		temp_fd;
 	char	*line;
-	
+
 	temp_fd = open("temp", O_RDWR | O_CREAT | O_TRUNC, 0666);
 	line = readline("> ");
 	while (here_doc_eof(line, fd->name))
@@ -86,7 +87,7 @@ t_redir	*get_fd_in(t_cmd *cmd)
 
 	fd = NULL;
 	head = cmd->redir;
-	while(cmd->redir)
+	while (cmd->redir)
 	{
 		if (cmd->redir->type == INN)
 		{
@@ -112,7 +113,7 @@ t_redir	*get_fd_out(t_cmd *cmd)
 
 	fd = NULL;
 	head = cmd->redir;
-	while(cmd->redir)
+	while (cmd->redir)
 	{
 		if (cmd->redir->type == OUTT || cmd->redir->type == OUT)
 		{
@@ -142,7 +143,8 @@ void	parse_line(char *line, char **env)
 	while (parsed[i])
 	{
 		split = args_split(parsed[i++]);
-		add_next_cmd(&cmd, init_cmd(remove_redirs(split), COMMAND), get_redirs(split));
+		add_next_cmd(&cmd, init_cmd(remove_redirs(split), COMMAND),
+			get_redirs(split));
 		if (parsed[i])
 			add_next_pipe(&cmd);
 	}
@@ -155,8 +157,8 @@ void	ctrl_c_handler(int sig)
 	signal(sig, SIG_IGN);
 	printf("\n");
 	rl_on_new_line();
-    rl_replace_line("", 0);
-    rl_redisplay();
+	rl_replace_line("", 0);
+	rl_redisplay();
 	signal(SIGINT, ctrl_c_handler);
 }
 
@@ -166,8 +168,8 @@ void	ctrl_quit_handler(int sig)
 	printf("\n");
 	printf("Quit (core dumped)\n");
 	rl_on_new_line();
-    rl_replace_line("", 0);
-    rl_redisplay(); 
+	rl_replace_line("", 0);
+	rl_redisplay();
 	signal(SIGQUIT, ctrl_quit_handler);
 }
 

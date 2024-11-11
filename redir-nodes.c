@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   nodes.c                                            :+:      :+:    :+:   */
+/*   redir-nodes.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 19:43:54 by crmunoz-          #+#    #+#             */
-/*   Updated: 2024/08/30 18:05:02 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/11/11 16:07:48 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ int	get_redir_type(char *str)
 		return (IN);
 	return (0);
 }
+//A PARTIR DE AQUÍ HAY QUE PASAR LAS FUNCIONES A OTRO ARCHIVO
 
 t_redir	*init_redir(char *str)
 {
@@ -137,4 +138,3 @@ t_redir	*get_redirs(char **str)
 	}
 	return (redirs);
 }
-

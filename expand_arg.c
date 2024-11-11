@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_arg.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cris <cris@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 19:22:11 by cris              #+#    #+#             */
-/*   Updated: 2024/11/06 20:02:24 by cris             ###   ########.fr       */
+/*   Updated: 2024/11/11 16:09:52 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*get_value(char *arg, t_env *env)
 	int		i;
 
 	i = 1;
-	while(ft_isalnum(arg[i]))
+	while (ft_isalnum(arg[i]))
 		i++;
 	key = ft_substr(arg, 1, i - 1);
 	value = get_env_value(key, env);
@@ -27,28 +27,35 @@ char	*get_value(char *arg, t_env *env)
 	return (value);
 }
 
-char	*change_len(char *arg, char *value) //pendiente gestionar bien la memoria de newarg para evitar leaks
+int	count_len(char	*arg)
 {
-	char	*newarg;
-	int		i;
-	int		j;
-	int		stateq;
-	char	*chop;
-	char	*temp;
+	int	i;
+	int	stateq;
 
 	i = 0;
-	j = 0;
 	stateq = 0;
 	while (arg[i])
 	{
 		if (arg[i] == '\\')
 			i++;
-		else if(arg[i] == '\'' || arg[i] == '\"')
+		else if (arg[i] == '\'' || arg[i] == '\"')
 			quote_state(&stateq, arg[i]);
-		else if(arg[i] == '$' && stateq != 1)
-			break;
+		else if (arg[i] == '$' && stateq != 1)
+			break ;
 		i++;
 	}
+	return (i);
+}
+
+char	*change_len(char *arg, char *value)
+{
+	char	*newarg;
+	int		i;
+	int		j;
+	char	*chop;
+	char	*temp;
+
+	i = count_len(arg);
 	j = i + 1;
 	while (ft_isalnum(arg[j]))
 		j++;
@@ -62,17 +69,14 @@ char	*change_len(char *arg, char *value) //pendiente gestionar bien la memoria d
 	return (newarg);
 }
 
-char *expand_arg(char *arg, t_env *env)
+char	*expand_arg(char *arg, t_env *env)
 {
-	int		check;
 	int		stateq;
 	char	*value;
 	char	*newarg;
 	char	*cpyarg;
 
-	check = 0;
 	stateq = 0;
-
 	cpyarg = arg;
 	while (*arg)
 	{
@@ -81,13 +85,10 @@ char *expand_arg(char *arg, t_env *env)
 		else if (*arg == '\'' || *arg == '\"')
 			quote_state(&stateq, *arg);
 		else if (*arg == '$' && stateq != 1)
-		{
 			value = get_value(arg, env);
-			check = 1;
-		}
 		arg++;
 	}
-	if (check == 1)
+	if (value)
 		newarg = change_len(cpyarg, value);
 	else
 		newarg = cpyarg;

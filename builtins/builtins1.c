@@ -6,7 +6,7 @@
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 19:06:58 by cris              #+#    #+#             */
-/*   Updated: 2024/11/11 15:39:30 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/11/11 16:10:59 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	ft_export(t_env *env, char **cmd)
 	}
 }
 
-void	ft_cont_unset(t_env	**current, t_env **temp, char *key)
+int	ft_cont_unset(t_env	**current, t_env **temp, char *key)
 {
 	while (*current && (*current)->next)
 	{
@@ -62,6 +62,7 @@ void	ft_cont_unset(t_env	**current, t_env **temp, char *key)
 		}
 		(*current) = (*current)->next;
 	}
+	return (-1);
 }
 
 int	ft_unset(t_env	**env, char	*key) // si lo borra bien devuelve 0, si no -1
@@ -82,8 +83,7 @@ int	ft_unset(t_env	**env, char	*key) // si lo borra bien devuelve 0, si no -1
 		(*env) = temp;
 		return (0);
 	}
-	ft_cont_unset(&current, &temp, key);
-	return (-1);
+	return (ft_cont_unset(&current, &temp, key));
 }
 
 void	ft_echo(char **cmd)
