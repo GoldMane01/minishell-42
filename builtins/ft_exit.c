@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cris <cris@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 20:34:21 by cris              #+#    #+#             */
-/*   Updated: 2024/11/06 20:15:07 by cris             ###   ########.fr       */
+/*   Updated: 2024/11/11 15:41:04 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,13 @@ void	print_errexit(char *str)
 
 long	ft_atol(char *str)
 {
-	int		i = 0;
-	long	sign = 1;
-	long	n = 0;
+	int		i;
+	long	sign;
+	long	n;
 
+	i = 0;
+	sign = 1;
+	n = 0;
 	if (str[i] == '-')
 	{
 		sign = -1;
@@ -37,7 +40,8 @@ long	ft_atol(char *str)
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		n = (n * 10) + (str[i] - '0');
-		if ((sign == 1 && n > LONG_MAX) || (sign == -1 && (unsigned long)n > (unsigned long)LONG_MAX + 1))
+		if ((sign == 1 && n > LONG_MAX)
+			|| (sign == -1 && (unsigned long)n > (unsigned long)LONG_MAX + 1))
 			return (0);
 		i++;
 	}
@@ -53,7 +57,7 @@ void	ft_exit(char **cmd)
 	if (cmd[1] && cmd[2])
 	{
 		write(2, "exit: too many arguments\n", 25);
-		return;
+		return ;
 	}
 	if (cmd[1])
 	{

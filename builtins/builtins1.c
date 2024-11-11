@@ -3,21 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   builtins1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cris <cris@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 19:06:58 by cris              #+#    #+#             */
-/*   Updated: 2024/11/06 20:12:42 by cris             ###   ########.fr       */
+/*   Updated: 2024/11/11 15:39:30 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_exporting(t_env *env, char *key, char *value) // nos pueden pasar varios keys y values, así que hay que llamar a esta función por cada uno de ellos
+void	ft_exporting(t_env *env, char *key, char *value) // nos pueden pasar varios keys y values
 {
 	t_env	*current;
 
 	current = env;
-
 	while (current)
 	{
 		if (ft_strcmp(current->key, key) == 0 && value)
@@ -25,7 +24,7 @@ void	ft_exporting(t_env *env, char *key, char *value) // nos pueden pasar varios
 			if (current->value)
 				free(current->value);
 			current->value = ft_strdup(value);
-			return;
+			return ;
 		}
 		current = current->next;
 	}
@@ -47,6 +46,24 @@ void	ft_export(t_env *env, char **cmd)
 	}
 }
 
+void	ft_cont_unset(t_env	**current, t_env **temp, char *key)
+{
+	while (*current && (*current)->next)
+	{
+		if (ft_strcmp((*current)->next->key, key) == 0)
+		{
+			*temp = (*current)->next->next;
+			if ((*current)->next->value)
+				free((*current)->next->value);
+			free((*current)->next->key);
+			free ((*current)->next);
+			(*current)->next = *temp;
+			return (0);
+		}
+		(*current) = (*current)->next;
+	}
+}
+
 int	ft_unset(t_env	**env, char	*key) // si lo borra bien devuelve 0, si no -1
 {
 	t_env	*current;
@@ -63,30 +80,17 @@ int	ft_unset(t_env	**env, char	*key) // si lo borra bien devuelve 0, si no -1
 		free(current->key);
 		free (current);
 		(*env) = temp;
-		return(0);
+		return (0);
 	}
-	while (current && current->next)
-	{
-		if (ft_strcmp(current->next->key, key) == 0)
-		{
-			temp = current->next->next;
-			if (current->next->value)
-				free(current->next->value);
-			free(current->next->key);
-			free (current->next);
-			current->next = temp;
-			return (0);
-		}
-		current = current->next;
-	}
+	ft_cont_unset(&current, &temp, key);
 	return (-1);
 }
 
 void	ft_echo(char **cmd)
 {
-	int i;
-	int newline;
-	
+	int	i;
+	int	newline;
+
 	i = 1;
 	newline = 0;
 	if (ft_strcmp(cmd[1], "-n") == 0)
@@ -99,7 +103,7 @@ void	ft_echo(char **cmd)
 		printf("%s ", cmd[i]);
 		i++;
 	}
-		printf("%s", cmd[i]);
+	printf("%s", cmd[i]);
 	if (!newline)
 		printf("\n");
 }
