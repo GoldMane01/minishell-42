@@ -6,7 +6,7 @@
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 16:22:41 by dramos-n          #+#    #+#             */
-/*   Updated: 2024/11/11 15:54:49 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/11/20 16:29:21 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ int	ft_strlen(const char *s)
 	int	i;
 
 	i = 0;
+	if (!s)
+		return (0);
 	while (s[i] != '\0')
 		i++;
 	return (i);
@@ -74,6 +76,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*ptr;
 
+	if (!s1 || !s2)
+		return (NULL);
 	ptr = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (ptr)
 	{

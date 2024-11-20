@@ -6,7 +6,7 @@
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 18:18:28 by dramos-n          #+#    #+#             */
-/*   Updated: 2024/11/11 15:57:10 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/11/20 16:04:40 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	here_doc_eof(char *line, char *eof)
 			j++;
 		}
 	}
-	if (!strcmp(line + i + 1, eof))
+	if (!ft_strcmp(line + i + 1, eof))
 		return (0);
 	return (1);
 }
@@ -177,14 +177,14 @@ int	main(int argc, char **argv, char **env)
 {
 	char	*line;
 	char	*dir;
-	//t_env	*str_env;
+	t_env	*str_env;
 	char	*expand_line;
 
 	if (argc != 1 || !argv)
 		exit(1);
 	signal(SIGINT, ctrl_c_handler);
 	signal(SIGQUIT, ctrl_quit_handler);
-	//str_env = create_env(env);
+	str_env = create_env(env);
 	//line = "ls -alh >>out < in | grep <<inn mini | wc -l > out";
 	while (1 + 1 == 2)
 	{
@@ -194,8 +194,8 @@ int	main(int argc, char **argv, char **env)
 		if (line == NULL)
 			exit(0);
 		add_history(line);
-		expand_line = line;
-		//expand_line = expand_arg(line, str_env, 0);
+		//expand_line = line;
+		expand_line = expand_arg(line, str_env);
 		//printf("%s\n", expand_line);
 		parse_line(expand_line, env);
 		free(line);

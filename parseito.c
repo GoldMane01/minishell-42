@@ -6,7 +6,7 @@
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 18:34:42 by crmunoz-          #+#    #+#             */
-/*   Updated: 2024/11/11 16:00:40 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/11/20 16:50:21 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	close_quote(char *str)
 
 	i = 0;
 	quote = '\0';
-	while (str[i])
+	while (str && str[i])
 	{
 		while (!quote && ft_isspace(str[i]))
 			i++;

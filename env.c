@@ -6,7 +6,7 @@
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 16:12:09 by dramos-n          #+#    #+#             */
-/*   Updated: 2024/11/11 15:47:11 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/11/20 16:46:16 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,5 +106,5 @@ char	*get_env_value(char *key, t_env *head) //HAY QUE PONER ESTA FUNCIÓN EN OTR
 			return (node->value);
 		node = node->next;
 	}
-	return ("");
+	return (ft_strdup(""));
 }

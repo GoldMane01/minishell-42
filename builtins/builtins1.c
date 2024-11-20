@@ -6,13 +6,13 @@
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 19:06:58 by cris              #+#    #+#             */
-/*   Updated: 2024/11/11 16:10:59 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/11/11 16:12:56 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_exporting(t_env *env, char *key, char *value) // nos pueden pasar varios keys y values
+void	ft_exporting(t_env *env, char *key, char *value) //pueden pasar varios keys y values
 {
 	t_env	*current;
 

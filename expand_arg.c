@@ -6,7 +6,7 @@
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 19:22:11 by cris              #+#    #+#             */
-/*   Updated: 2024/11/11 16:09:52 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/11/20 16:55:53 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*get_value(char *arg, t_env *env)
 		i++;
 	key = ft_substr(arg, 1, i - 1);
 	value = get_env_value(key, env);
-	free_ptr(&key);
+	free(key);
 	return (value);
 }
 
@@ -55,17 +55,21 @@ char	*change_len(char *arg, char *value)
 	char	*chop;
 	char	*temp;
 
+	if (!arg)
+		return (NULL);
 	i = count_len(arg);
 	j = i + 1;
-	while (ft_isalnum(arg[j]))
+	while (arg[i] && ft_isalnum(arg[j]))
 		j++;
 	chop = ft_substr(arg, j, (ft_strlen(arg) - j));
 	newarg = ft_substr(arg, 0, i);
+	if (!newarg || !value)
+		return (arg);
 	temp = ft_strjoin(newarg, value);
-	free_ptr(&newarg);
-	newarg = ft_strjoin(newarg, chop);
-	free_ptr(&temp);
-	free_ptr(&chop);
+	free(newarg);
+	newarg = ft_strjoin(temp, chop);
+	free(temp);
+	free(chop);
 	return (newarg);
 }
 
@@ -76,6 +80,7 @@ char	*expand_arg(char *arg, t_env *env)
 	char	*newarg;
 	char	*cpyarg;
 
+	value = NULL;
 	stateq = 0;
 	cpyarg = arg;
 	while (*arg)
@@ -88,10 +93,9 @@ char	*expand_arg(char *arg, t_env *env)
 			value = get_value(arg, env);
 		arg++;
 	}
-	if (value)
+	if (value && cpyarg)
 		newarg = change_len(cpyarg, value);
 	else
 		newarg = cpyarg;
-	free_ptr(&cpyarg);
 	return (newarg);
 }
