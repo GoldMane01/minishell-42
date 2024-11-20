@@ -6,7 +6,7 @@
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 18:23:41 by crmunoz-          #+#    #+#             */
-/*   Updated: 2024/11/11 15:57:36 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/11/20 18:46:23 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ void	quote_state(int *state, char c);
 
 /* EXPAND ARG*/
 char	*expand_arg(char *arg, t_env *env);
+char	*expand_all(char *arg, t_env *env);
 
 /* BUILTINS */
 void	print_env(t_env *env);

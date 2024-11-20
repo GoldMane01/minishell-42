@@ -6,7 +6,7 @@
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 18:18:28 by dramos-n          #+#    #+#             */
-/*   Updated: 2024/11/20 16:04:40 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/11/20 18:46:21 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,7 +195,7 @@ int	main(int argc, char **argv, char **env)
 			exit(0);
 		add_history(line);
 		//expand_line = line;
-		expand_line = expand_arg(line, str_env);
+		expand_line = expand_all(line, str_env);
 		//printf("%s\n", expand_line);
 		parse_line(expand_line, env);
 		free(line);

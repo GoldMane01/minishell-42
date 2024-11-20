@@ -6,7 +6,7 @@
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 16:06:16 by crmunoz-          #+#    #+#             */
-/*   Updated: 2024/11/11 16:07:18 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/11/20 17:51:29 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ char	*cmdpath(t_cmd *cmd, char **env)
 	return (path);
 }
 
-void	execute(t_cmd *cmd, t_redir *fdin, t_redir *fdout, int fd[], int fd_in)
+void	execute(t_cmd *cmd, t_redir *fdin, t_redir *fdout, int fd[], int fd_in) //esta función tiene muchos argumentos
 {
 	int	pid;
 

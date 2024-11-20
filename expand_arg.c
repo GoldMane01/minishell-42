@@ -6,7 +6,7 @@
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 19:22:11 by cris              #+#    #+#             */
-/*   Updated: 2024/11/20 16:55:53 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/11/20 18:55:27 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,19 @@ char	*change_len(char *arg, char *value)
 	char	*chop;
 	char	*temp;
 
-	if (!arg)
+	if (!arg || !value)
 		return (NULL);
 	i = count_len(arg);
 	j = i + 1;
 	while (arg[i] && ft_isalnum(arg[j]))
 		j++;
+	if (arg[i - 1] == '\"')
+	{
+		i--;
+		j++;
+	}
 	chop = ft_substr(arg, j, (ft_strlen(arg) - j));
 	newarg = ft_substr(arg, 0, i);
-	if (!newarg || !value)
-		return (arg);
 	temp = ft_strjoin(newarg, value);
 	free(newarg);
 	newarg = ft_strjoin(temp, chop);
@@ -93,9 +96,33 @@ char	*expand_arg(char *arg, t_env *env)
 			value = get_value(arg, env);
 		arg++;
 	}
-	if (value && cpyarg)
+	if (value && arg)
+	{
 		newarg = change_len(cpyarg, value);
-	else
-		newarg = cpyarg;
-	return (newarg);
+		return (newarg);
+	}
+	return (cpyarg);
+}
+
+char	*expand_all(char *arg, t_env *env)
+{
+	int		i;
+	char	*newarg;
+	char	*definitive;
+
+	newarg = NULL;
+	definitive = NULL;
+	i = 0;
+	while (*arg & arg[i])
+	{
+		if (arg[i] == '$')
+		{
+			newarg = expand_arg(arg, env);
+			definitive = expand_all(newarg, env);
+		}
+		i++;
+	}
+	if (definitive)
+		return (definitive);
+	return (arg);
 }
