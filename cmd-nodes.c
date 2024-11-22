@@ -222,7 +222,7 @@ char	*ft_strchr(const char *s, int c)
 	return (ptr);
 }
 
-t_cmd	*init_cmd(char **cmd, int type)
+t_cmd	*init_cmd(char **cmd, int type, t_env *env)
 {
 	t_cmd	*command;
 
@@ -231,7 +231,10 @@ t_cmd	*init_cmd(char **cmd, int type)
 	if (!command)
 		exit(1);
 	if (type != PIPE)
+	{
 		command->cmd = cmd;
+		command->env = env;
+	}
 	else
 		command->cmd = NULL;
 	command->type = type;

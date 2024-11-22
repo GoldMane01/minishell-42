@@ -128,7 +128,7 @@ t_redir	*get_fd_out(t_cmd *cmd)
 	return (fd);
 }
 
-void	parse_line(char *line, char **env)
+void	parse_line(char *line, char **env, t_env *str_env)
 {
 	char	**parsed;
 	char	**split;
@@ -143,7 +143,7 @@ void	parse_line(char *line, char **env)
 	while (parsed[i])
 	{
 		split = args_split(parsed[i++]);
-		add_next_cmd(&cmd, init_cmd(remove_redirs(split), COMMAND),
+		add_next_cmd(&cmd, init_cmd(remove_redirs(split), COMMAND, str_env),
 			get_redirs(split));
 		if (parsed[i])
 			add_next_pipe(&cmd);
@@ -197,7 +197,7 @@ int	main(int argc, char **argv, char **env)
 		//expand_line = line;
 		expand_line = expand_all(line, str_env);
 		//printf("%s\n", expand_line);
-		parse_line(expand_line, env);
+		parse_line(expand_line, env, str_env);
 		free(line);
 		free(dir);
 	}

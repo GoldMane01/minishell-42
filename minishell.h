@@ -55,6 +55,7 @@ typedef struct s_cmd
 	int				type;
 	char			*path;
 	struct s_redir	*redir;
+	struct s_env	*env;
 	struct s_cmd	*prev;
 	struct s_cmd	*next;
 }					t_cmd;
@@ -113,7 +114,7 @@ char	**spliteo_cmd(char *s, char c);
 char	**args_split(char *cmd);
 char	**remove_redirs(char **cmd);
 
-t_cmd	*init_cmd(char **cmd, int type);
+t_cmd	*init_cmd(char **cmd, int type, t_env *env);
 
 t_cmd	*ft_lstlast(t_cmd *lst);
 
@@ -133,6 +134,7 @@ void	ft_pwd(void);
 int		ft_cd(char **cmd);
 void	ft_exit(char **cmd);
 int		ft_builtins(t_env *env, t_cmd *cmd);
+int 	is_builtin(t_cmd *cmd);
 
 /* PIPEX */
 void	pipex(t_cmd **cmd, char **env);

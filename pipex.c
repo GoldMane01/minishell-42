@@ -149,8 +149,9 @@ void	execute(t_cmd *cmd, t_redir *fdin, t_redir *fdout, int fd[], int fd_in) //e
 			dup2(fd[1], STDOUT_FILENO);
 		close(fd[0]);
 		close(fd[1]);
-		if (execve(cmd->path, cmd->cmd, NULL) == -1)
-			exit(1);
+		if (ft_builtins(cmd->env, cmd) == -1)
+			if (execve(cmd->path, cmd->cmd, NULL) == -1)
+				exit(1);
 	}
 	close(fd[1]);
 	if (fd_in != STDIN_FILENO)
