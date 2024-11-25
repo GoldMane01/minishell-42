@@ -164,3 +164,22 @@ char **cont_quo_split(char **cmd, char **quote)
 	totalcmd = fill_total_cmd(totalcmd, cmd, cmd2, quote);
 	return (totalcmd);
 }
+
+int is_builtin(t_cmd *cmd)
+{
+	if (ft_strcmp(cmd->cmd[0], "unset") == 0)
+		return (1);
+	else if (ft_strcmp(cmd->cmd[0], "cd") == 0)
+		return (1);
+	else if (ft_strcmp(cmd->cmd[0], "export") == 0)
+		return (1);
+	else if (ft_strcmp(cmd->cmd[0], "exit") == 0)
+		return (1);
+	else if (ft_strcmp(cmd->cmd[0], "env") == 0)
+		return (1);
+	else if (ft_strcmp(cmd->cmd[0], "echo") == 0)
+		return (1);
+	else if (ft_strcmp(cmd->cmd[0], "pwd") == 0)
+		return (1);
+	return (0);
+}

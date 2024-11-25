@@ -6,13 +6,13 @@
 #    By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/28 16:44:54 by crmunoz-          #+#    #+#              #
-#    Updated: 2024/11/20 16:48:34 by crmunoz-         ###   ########.fr        #
+#    Updated: 2024/11/25 14:01:34 by crmunoz-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		:= minishell
 CC			:= gcc
-FLAGS		:= -g -Wall -Wextra -Werror -fsanitize=address
+FLAGS		:= -g -Wall -Wextra -Werror #-fsanitize=address
 SRCS		:=	env.c \
 				minishell.c \
 				parseito.c \

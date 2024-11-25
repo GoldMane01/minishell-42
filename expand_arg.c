@@ -6,7 +6,7 @@
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 19:22:11 by cris              #+#    #+#             */
-/*   Updated: 2024/11/20 18:55:27 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/11/25 15:37:34 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*get_value(char *arg, t_env *env)
 	int		i;
 
 	i = 1;
-	while (ft_isalnum(arg[i]))
+	while (ft_isalun(arg[i]))
 		i++;
 	key = ft_substr(arg, 1, i - 1);
 	value = get_env_value(key, env);
@@ -59,7 +59,7 @@ char	*change_len(char *arg, char *value)
 		return (NULL);
 	i = count_len(arg);
 	j = i + 1;
-	while (arg[i] && ft_isalnum(arg[j]))
+	while (arg[i] && ft_isalun(arg[j]))
 		j++;
 	if (arg[i - 1] == '\"')
 	{
@@ -80,7 +80,6 @@ char	*expand_arg(char *arg, t_env *env)
 {
 	int		stateq;
 	char	*value;
-	char	*newarg;
 	char	*cpyarg;
 
 	value = NULL;
@@ -94,13 +93,12 @@ char	*expand_arg(char *arg, t_env *env)
 			quote_state(&stateq, *arg);
 		else if (*arg == '$' && stateq != 1)
 			value = get_value(arg, env);
+		if (value)
+			break ;
 		arg++;
 	}
 	if (value && arg)
-	{
-		newarg = change_len(cpyarg, value);
-		return (newarg);
-	}
+		return (change_len(cpyarg, value));
 	return (cpyarg);
 }
 
@@ -108,21 +106,18 @@ char	*expand_all(char *arg, t_env *env)
 {
 	int		i;
 	char	*newarg;
-	char	*definitive;
 
 	newarg = NULL;
-	definitive = NULL;
 	i = 0;
 	while (*arg & arg[i])
 	{
 		if (arg[i] == '$')
 		{
 			newarg = expand_arg(arg, env);
-			definitive = expand_all(newarg, env);
+			free (arg);
+			return (expand_all(newarg, env));
 		}
 		i++;
 	}
-	if (definitive)
-		return (definitive);
 	return (arg);
 }
