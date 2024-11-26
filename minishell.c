@@ -6,7 +6,7 @@
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 18:18:28 by dramos-n          #+#    #+#             */
-/*   Updated: 2024/11/25 16:48:55 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/11/26 17:59:58 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,11 +228,8 @@ int	main(int argc, char **argv, char **env)
 		if (line == NULL)
 			exit(0);
 		add_history(line);
-<<<<<<< HEAD
 		while (close_quote(line))
 			line = concat_quote(line, "quote> ");
-=======
->>>>>>> 3cdf8c6b36a97f4223abf9202077172e3c926266
 		expand_line = expand_all(line, str_env);
 		parse_line(expand_line, env, str_env);
 		free(line);
