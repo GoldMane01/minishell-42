@@ -6,7 +6,7 @@
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 16:22:41 by dramos-n          #+#    #+#             */
-/*   Updated: 2024/11/25 14:05:12 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/11/26 20:45:43 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 int	ft_isalun(char c)
 {
 	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')
-	 || c == '_')
+			|| c == '_')
 		return (1);
 	else
 		return (0);
