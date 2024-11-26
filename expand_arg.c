@@ -6,7 +6,7 @@
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 19:22:11 by cris              #+#    #+#             */
-/*   Updated: 2024/11/25 15:37:34 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/11/25 16:50:14 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ char	*get_value(char *arg, t_env *env)
 	i = 1;
 	while (ft_isalun(arg[i]))
 		i++;
-	key = ft_substr(arg, 1, i - 1);
+	if (arg[i] != '\0')
+		key = ft_substr(arg, 1, i - 1);
+	else
+		key = ft_substr(arg, 1, i);
 	value = get_env_value(key, env);
 	free(key);
 	return (value);
@@ -111,7 +114,7 @@ char	*expand_all(char *arg, t_env *env)
 	i = 0;
 	while (*arg & arg[i])
 	{
-		if (arg[i] == '$')
+		if ((arg[i] == '$') && (arg[i - 1] != '\''))
 		{
 			newarg = expand_arg(arg, env);
 			free (arg);

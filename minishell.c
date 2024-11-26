@@ -6,7 +6,7 @@
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 18:18:28 by dramos-n          #+#    #+#             */
-/*   Updated: 2024/11/20 18:46:21 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/11/25 16:48:55 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,8 +136,6 @@ void	parse_line(char *line, char **env, t_env *str_env)
 	t_cmd	*cmd;
 
 	cmd = NULL;
-	while (close_quote(line))
-		line = concat_quote(line, "quote> ");
 	parsed = split_pipe(line);
 	i = 0;
 	while (parsed[i])
@@ -185,7 +183,6 @@ int	main(int argc, char **argv, char **env)
 	signal(SIGINT, ctrl_c_handler);
 	signal(SIGQUIT, ctrl_quit_handler);
 	str_env = create_env(env);
-	//line = "ls -alh >>out < in | grep <<inn mini | wc -l > out";
 	while (1 + 1 == 2)
 	{
 		dir = get_dir();
@@ -194,9 +191,9 @@ int	main(int argc, char **argv, char **env)
 		if (line == NULL)
 			exit(0);
 		add_history(line);
-		//expand_line = line;
+		while (close_quote(line))
+			line = concat_quote(line, "quote> ");
 		expand_line = expand_all(line, str_env);
-		//printf("%s\n", expand_line);
 		parse_line(expand_line, env, str_env);
 		free(line);
 		free(dir);
