@@ -165,6 +165,7 @@ void	execute(t_cmd *cmd, t_redir *fdin, t_redir *fdout, int fd[], int fd_in) //e
 		if (ft_builtins(cmd->env, cmd) == -1)
 			if (execve(cmd->path, cmd->cmd, NULL) == -1)
 				exit(1);
+		exit(0);
 	}
 	close(fd[1]);
 	if (fd_in != STDIN_FILENO)
