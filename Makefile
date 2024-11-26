@@ -12,7 +12,7 @@
 
 NAME		:= minishell
 CC			:= gcc
-FLAGS		:= -g -Wall -Wextra -Werror #-fsanitize=address
+FLAGS		:= -g -Wall -Wextra -Werror -lreadline #-fsanitize=address
 SRCS		:=	env.c \
 				minishell.c \
 				parseito.c \

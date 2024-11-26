@@ -63,22 +63,29 @@ int	check_access(char *path, char *command)
 		return (0);
 	ft_strlcpy(ptr, path, ft_strlen(path) + 1);
 	ft_strlcat(ptr, cmdsplit[0], ft_strlen(path) + ft_strlen(cmdsplit[0]) + 1);
+	free_ptr(cmdsplit);
 	if (access(ptr, F_OK) != 0)
+	{
+		free(ptr);
 		return (0);
+	}
+	free(ptr);
 	return (1);
 }
 
 char	**find_paths(char *envp[])
 {
 	char	**paths;
+	int		i;
 
-	while (*envp != NULL)
+	i = 0;
+	while (envp[i] != NULL)
 	{
-		if (ft_strnstr(*envp, "PATH", 5))
+		if (ft_strnstr(envp[i], "PATH", 5))
 			break ;
-		envp++;
+		i++;
 	}
-	paths = ft_split(*envp, ':');
+	paths = ft_split(envp[i], ':');
 	return (paths);
 }
 
@@ -93,6 +100,7 @@ char	*get_path(char *path, char *command)
 		return (0);
 	ft_strlcpy(ptr, path, ft_strlen(path) + 1);
 	ft_strlcat(ptr, cmdsplit[0], ft_strlen(path) + ft_strlen(cmdsplit[0]) + 1);
+	free_ptr(cmdsplit);
 	return (ptr);
 }
 
@@ -100,16 +108,18 @@ char	*get_path(char *path, char *command)
 char	*check_paths(char **allpaths, char *command)
 {
 	char	*path;
+	int		i;
 
 	path = NULL;
+	i = 0;
 	while (*allpaths)
 	{
-		if (check_access(*allpaths, command))
+		if (check_access(allpaths[i], command))
 		{
-			path = get_path(*allpaths, command);
+			path = get_path(allpaths[i], command);
 			break ;
 		}
-		allpaths++;
+		i++;
 	}
 	return (path);
 }
@@ -121,7 +131,7 @@ char	*cmdpath(t_cmd *cmd, char **env)
 	char	*command;
 
 	allpaths = find_paths(env);
-	*allpaths += 5;
+	allpaths[0] += 5;
 	command = malloc(sizeof(char) * (ft_strlen(cmd->cmd[0]) + 2));
 	if (!command)
 		return (NULL);
@@ -129,6 +139,9 @@ char	*cmdpath(t_cmd *cmd, char **env)
 	ft_strlcat(command, cmd->cmd[0],
 		ft_strlen(cmd->cmd[0]) + ft_strlen(command) + 1);
 	path = check_paths(allpaths, command);
+	allpaths[0] -= 5;
+	free_ptr(allpaths);
+	free(command);
 	return (path);
 }
 
@@ -152,6 +165,7 @@ void	execute(t_cmd *cmd, t_redir *fdin, t_redir *fdout, int fd[], int fd_in) //e
 		if (ft_builtins(cmd->env, cmd) == -1)
 			if (execve(cmd->path, cmd->cmd, NULL) == -1)
 				exit(1);
+		exit(0);
 	}
 	close(fd[1]);
 	if (fd_in != STDIN_FILENO)
