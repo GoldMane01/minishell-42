@@ -6,7 +6,7 @@
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 16:06:16 by crmunoz-          #+#    #+#             */
-/*   Updated: 2024/11/28 15:40:44 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/11/28 18:42:29 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,8 +197,6 @@ void	pipex(t_cmd **cmd, char **env)
 		if (pipe(fd) == -1)
 			exit(1);
 		node->path = cmdpath(node, env);
-		if (node->path == NULL)
-			break;
 		execute(node, fdin, fdout, fd, fd_in);
 		fd_in = fd[0];
 		node = node->next;
