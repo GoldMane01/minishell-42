@@ -6,7 +6,7 @@
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 16:06:16 by crmunoz-          #+#    #+#             */
-/*   Updated: 2024/11/26 17:52:23 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/11/28 15:40:44 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,7 +189,7 @@ void	pipex(t_cmd **cmd, char **env)
 		fdout = get_fd_out(node);
 		if (pipe(fd) == -1)
 			exit(1);
-		node->path = cmdpath(node, env);
+		node->path = cmdpath(node, env); //ESTA LINEA PETA MUY FUERTE
 		execute(node, fdin, fdout, fd, fd_in);
 		fd_in = fd[0];
 		node = node->next;

@@ -6,7 +6,7 @@
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 19:06:58 by cris              #+#    #+#             */
-/*   Updated: 2024/11/25 17:01:09 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/11/28 15:40:20 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,24 @@ void	ft_export(t_env *env, char **cmd)
 	int		i;
 
 	i = 1;
-	while (cmd[i])
+	if (!cmd[1][0])
 	{
-		key_value = ft_split(cmd[i], '=');
-		ft_exporting(env, key_value[0], key_value[1]);
-		free_ptr(key_value);
-		i++;
+		while (env)
+		{
+			if (env->value)
+				printf("declare -x %s=%s\n", env->key, env->value);
+			env = env->next;
+		}
+	}
+	else
+	{
+		while (cmd[i])
+		{
+			key_value = ft_split(cmd[i], '=');
+			ft_exporting(env, key_value[0], key_value[1]);
+			free_ptr(key_value);
+			i++;
+		}
 	}
 }
 
