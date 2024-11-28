@@ -6,7 +6,7 @@
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 19:06:58 by cris              #+#    #+#             */
-/*   Updated: 2024/11/28 15:40:20 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/11/28 18:37:45 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	ft_export(t_env *env, char **cmd)
 	int		i;
 
 	i = 1;
-	if (!cmd[1][0])
+	if (!cmd[1])
 	{
 		while (env)
 		{
