@@ -134,7 +134,7 @@ void	ft_pwd(void);
 int		ft_cd(char **cmd);
 void	ft_exit(char **cmd);
 int		ft_builtins(t_env *env, t_cmd *cmd);
-int 	is_builtin(t_cmd *cmd);
+int		is_builtin(char *cmd);
 
 /* PIPEX */
 void	pipex(t_cmd **cmd, char **env);

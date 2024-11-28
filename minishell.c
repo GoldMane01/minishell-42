@@ -153,7 +153,8 @@ void	free_cmd(t_cmd *cmd)
 		if (cmd->type == COMMAND)
 		{	
 			free_ptr(cmd->cmd);
-			free(cmd->path);
+			if (cmd->path != NULL)
+				free(cmd->path);
 			free_redir(cmd->redir);
 		}
 		free(cmd);

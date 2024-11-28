@@ -112,7 +112,7 @@ char	*check_paths(char **allpaths, char *command)
 
 	path = NULL;
 	i = 0;
-	while (*allpaths)
+	while (allpaths[0])
 	{
 		if (check_access(allpaths[i], command))
 		{
@@ -130,17 +130,21 @@ char	*cmdpath(t_cmd *cmd, char **env)
 	char	*path;
 	char	*command;
 
-	allpaths = find_paths(env);
-	allpaths[0] += 5;
+	path = NULL;
 	command = malloc(sizeof(char) * (ft_strlen(cmd->cmd[0]) + 2));
 	if (!command)
 		return (NULL);
 	ft_strlcpy(command, "/", 2);
 	ft_strlcat(command, cmd->cmd[0],
 		ft_strlen(cmd->cmd[0]) + ft_strlen(command) + 1);
-	path = check_paths(allpaths, command);
-	allpaths[0] -= 5;
-	free_ptr(allpaths);
+	if (is_builtin(cmd->cmd[0]) == 1)
+	{
+		allpaths = find_paths(env);
+		allpaths[0] += 5;
+		path = check_paths(allpaths, command);
+		allpaths[0] -= 5;
+		free_ptr(allpaths);
+	}
 	free(command);
 	return (path);
 }
