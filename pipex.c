@@ -153,28 +153,31 @@ void	execute(t_cmd *cmd, t_redir *fdin, t_redir *fdout, int fd[], int fd_in) //e
 {
 	int	pid;
 
-	pid = fork();
-	if (pid == 0)
+	if (ft_builtins(cmd->env, cmd) == -1)
 	{
-		if (fdin)
-			dup2(fdin->fd, STDIN_FILENO);
-		else if (fd_in != STDIN_FILENO)
-			dup2(fd_in, STDIN_FILENO);
-		if (fdout)
-			dup2(fdout->fd, STDOUT_FILENO);
-		else if (cmd->next)
-			dup2(fd[1], STDOUT_FILENO);
-		close(fd[0]);
+		pid = fork();
+		if (pid == 0)
+		{
+			if (fdin)
+				dup2(fdin->fd, STDIN_FILENO);
+			else if (fd_in != STDIN_FILENO)
+				dup2(fd_in, STDIN_FILENO);
+			if (fdout)
+				dup2(fdout->fd, STDOUT_FILENO);
+			else if (cmd->next)
+				dup2(fd[1], STDOUT_FILENO);
+			close(fd[0]);
+			close(fd[1]);
+			//if (ft_builtins(cmd->env, cmd) == -1)
+				if (execve(cmd->path, cmd->cmd, NULL) == -1)
+					exit(1);
+			exit(0);
+		}
 		close(fd[1]);
-		if (ft_builtins(cmd->env, cmd) == -1)
-			if (execve(cmd->path, cmd->cmd, NULL) == -1)
-				exit(1);
-		exit(0);
+		if (fd_in != STDIN_FILENO)
+			close(fd_in);
+		waitpid(pid, NULL, 0);
 	}
-	close(fd[1]);
-	if (fd_in != STDIN_FILENO)
-		close(fd_in);
-	waitpid(pid, NULL, 0);
 }
 
 void	pipex(t_cmd **cmd, char **env)
