@@ -64,8 +64,12 @@ void	ft_exit(char **cmd)
 		exit_code = ft_atol(cmd[1]);
 		if (exit_code == 0 && cmd[1][0] != '0')
 			print_errexit(cmd[1]);
+		rl_clear_history();
 		exit((unsigned char)exit_code);
 	}
 	else
+	{
+		rl_clear_history();
 		exit(0);
+	}
 }
