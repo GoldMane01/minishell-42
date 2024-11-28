@@ -31,7 +31,20 @@ int	is_builtin(char *cmd)
 	return (1);
 }
 
-int	ft_builtins(t_env *env, t_cmd *cmd)
+int	ft_builtins_pipe(t_env *env, t_cmd *cmd)
+{
+	if (ft_strcmp(cmd->cmd[0], "env") == 0)
+		print_env(env);
+	else if (ft_strcmp(cmd->cmd[0], "echo") == 0)
+		ft_echo(cmd->cmd);
+	else if (ft_strcmp(cmd->cmd[0], "pwd") == 0)
+		ft_pwd();
+	else
+		return (-1);
+	return (0);
+}
+
+int	ft_builtins_nopipe(t_env *env, t_cmd *cmd)
 {
 	if (ft_strcmp(cmd->cmd[0], "unset") == 0)
 		ft_unset(&env, cmd->cmd[1]);
@@ -41,12 +54,6 @@ int	ft_builtins(t_env *env, t_cmd *cmd)
 		ft_export(env, cmd->cmd);
 	else if (ft_strcmp(cmd->cmd[0], "exit") == 0)
 		ft_exit(cmd->cmd);
-	else if (ft_strcmp(cmd->cmd[0], "env") == 0)
-		print_env(env);
-	else if (ft_strcmp(cmd->cmd[0], "echo") == 0)
-		ft_echo(cmd->cmd);
-	else if (ft_strcmp(cmd->cmd[0], "pwd") == 0)
-		ft_pwd();
 	else
 		return (-1);
 	return (0);

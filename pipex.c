@@ -112,7 +112,7 @@ char	*check_paths(char **allpaths, char *command)
 
 	path = NULL;
 	i = 0;
-	while (allpaths[0])
+	while (allpaths[i])
 	{
 		if (check_access(allpaths[i], command))
 		{
@@ -153,7 +153,7 @@ void	execute(t_cmd *cmd, t_redir *fdin, t_redir *fdout, int fd[], int fd_in) //e
 {
 	int	pid;
 
-	if (ft_builtins(cmd->env, cmd) == -1)
+	if (ft_builtins_nopipe(cmd->env, cmd) == -1)
 	{
 		pid = fork();
 		if (pid == 0)
@@ -168,7 +168,7 @@ void	execute(t_cmd *cmd, t_redir *fdin, t_redir *fdout, int fd[], int fd_in) //e
 				dup2(fd[1], STDOUT_FILENO);
 			close(fd[0]);
 			close(fd[1]);
-			//if (ft_builtins(cmd->env, cmd) == -1)
+			if (ft_builtins_pipe(cmd->env, cmd) == -1)
 				if (execve(cmd->path, cmd->cmd, NULL) == -1)
 					exit(1);
 			exit(0);
@@ -196,7 +196,9 @@ void	pipex(t_cmd **cmd, char **env)
 		fdout = get_fd_out(node);
 		if (pipe(fd) == -1)
 			exit(1);
-		node->path = cmdpath(node, env); //ESTA LINEA PETA MUY FUERTE
+		node->path = cmdpath(node, env);
+		if (node->path == NULL)
+			break;
 		execute(node, fdin, fdout, fd, fd_in);
 		fd_in = fd[0];
 		node = node->next;
