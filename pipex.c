@@ -6,7 +6,7 @@
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 16:06:16 by crmunoz-          #+#    #+#             */
-/*   Updated: 2024/11/28 18:42:29 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/12/03 17:40:03 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,8 @@ char	*cmdpath(t_cmd *cmd, char **env)
 	return (path);
 }
 
-void	execute(t_cmd *cmd, t_redir *fdin, t_redir *fdout, int fd[], int fd_in) //esta función tiene muchos argumentos
+//esta función tiene muchos argumentos
+void	execute(t_cmd *cmd, t_redir *fdin, t_redir *fdout, int fd[], int fd_in) 
 {
 	int	pid;
 
@@ -169,7 +170,7 @@ void	execute(t_cmd *cmd, t_redir *fdin, t_redir *fdout, int fd[], int fd_in) //e
 			close(fd[0]);
 			close(fd[1]);
 			if (ft_builtins_pipe(cmd->env, cmd) == -1)
-				if (execve(cmd->path, cmd->cmd, NULL) == -1)
+				if (execve(cmd->path, cmd->cmd, NULL) == -1) //hay que guardar el número que devuelve execve en alguna estructura
 					exit(1);
 			exit(0);
 		}
