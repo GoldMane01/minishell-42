@@ -6,7 +6,7 @@
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 18:23:41 by crmunoz-          #+#    #+#             */
-/*   Updated: 2024/11/25 14:05:38 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/12/05 17:31:22 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,3 +142,7 @@ void	pipex(t_cmd **cmd, char **env);
 //void	execute(t_cmd *cmd, t_redir *fdin, t_redir *fdout, int fd[]);
 t_redir	*get_fd_in(t_cmd *cmd);
 t_redir	*get_fd_out(t_cmd *cmd);
+
+/* REMOVE QUOTES */
+char	*remove_quote(char *str);
+void	process_quotes(t_cmd *command);
