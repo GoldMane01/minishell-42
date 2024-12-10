@@ -54,6 +54,7 @@ typedef struct s_cmd
 	char			**cmd;
 	int				type;
 	char			*path;
+	int				status;
 	struct s_redir	*redir;
 	struct s_env	*env;
 	struct s_cmd	*prev;

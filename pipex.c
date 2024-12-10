@@ -150,10 +150,12 @@ char	*cmdpath(t_cmd *cmd, char **env)
 }
 
 //esta función tiene muchos argumentos
-void	execute(t_cmd *cmd, t_redir *fdin, t_redir *fdout, int fd[], int fd_in) 
+int	execute(t_cmd *cmd, t_redir *fdin, t_redir *fdout, int fd[], int fd_in) 
 {
 	int	pid;
+	int status;
 
+	status = 0;
 	if (cmd->next == NULL && cmd->prev == NULL &&
 		is_builtin_nopipe(cmd->cmd[0]) == 0)
 		ft_builtins_nopipe(cmd->env, cmd);
@@ -180,8 +182,9 @@ void	execute(t_cmd *cmd, t_redir *fdin, t_redir *fdout, int fd[], int fd_in)
 		close(fd[1]);
 		if (fd_in != STDIN_FILENO)
 			close(fd_in);
-		waitpid(pid, NULL, 0);
+		waitpid(pid, &status, 0);
 	}
+	return (status);
 }
 
 void	pipex(t_cmd **cmd, char **env)
@@ -202,11 +205,9 @@ void	pipex(t_cmd **cmd, char **env)
 		if (pipe(fd) == -1)
 			exit(1);
 		node->path = cmdpath(node, env);
-		execute(node, fdin, fdout, fd, fd_in);
+		node->status = execute(node, fdin, fdout, fd, fd_in);
 		fd_in = fd[0];
 		node = node->next;
-		while (node && node->type == PIPE)
-			node = node->next;
 	}
 	if (fd_in != STDIN_FILENO)
 		close(fd_in);

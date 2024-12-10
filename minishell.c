@@ -178,8 +178,6 @@ void	parse_line(char *line, char **env, t_env *str_env)
 		split = args_split(parsed[i++]);
 		add_next_cmd(&cmd, init_cmd(remove_redirs(split), COMMAND, str_env),
 			get_redirs(split));
-		if (parsed[i])
-			add_next_pipe(&cmd);
 		free_ptr(split);
 	}
 	pipex(&cmd, env);
