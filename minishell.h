@@ -136,6 +136,7 @@ void	ft_exit(char **cmd);
 int		ft_builtins_nopipe(t_env *env, t_cmd *cmd);
 int		ft_builtins_pipe(t_env *env, t_cmd *cmd);
 int		is_builtin(char *cmd);
+int		is_builtin_nopipe(char *cmd);
 
 /* PIPEX */
 void	pipex(t_cmd **cmd, char **env);

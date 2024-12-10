@@ -222,6 +222,38 @@ char	*ft_strchr(const char *s, int c)
 	return (ptr);
 }
 
+int	last_char(const char *s, int c)
+{
+	int	last;
+	int	i;
+
+	last = 0;
+	i = 0;
+	while (s[i] != '\0')
+	{
+		if (s[i] == (char)c)
+			last = i;
+		i++;
+	}
+	return (last);
+}
+
+char	**remove_path(char **cmd)
+{
+	int		last;
+	char	*name;
+
+	last = 0;
+	if (cmd[0][0] == '/')
+	{
+		last = last_char(cmd[0], '/');
+		name = ft_substr(cmd[0], last + 1, ft_strlen(cmd[0]) - last);
+		free(cmd[0]);
+		cmd[0] = name;
+	}
+	return (cmd);
+}
+
 t_cmd	*init_cmd(char **cmd, int type, t_env *env)
 {
 	t_cmd	*command;
@@ -232,7 +264,7 @@ t_cmd	*init_cmd(char **cmd, int type, t_env *env)
 		exit(1);
 	if (type != PIPE)
 	{
-		command->cmd = cmd;
+		command->cmd = remove_path(cmd);
 		command->env = env;
 	}
 	else

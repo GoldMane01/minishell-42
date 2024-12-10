@@ -31,6 +31,19 @@ int	is_builtin(char *cmd)
 	return (1);
 }
 
+int	is_builtin_nopipe(char *cmd)
+{
+	if (ft_strcmp(cmd, "unset") == 0)
+		return (0);
+	else if (ft_strcmp(cmd, "cd") == 0)
+		return (0);
+	else if (ft_strcmp(cmd, "export") == 0)
+		return (0);
+	else if (ft_strcmp(cmd, "exit") == 0)
+		return (0);
+	return (1);
+}
+
 int	ft_builtins_pipe(t_env *env, t_cmd *cmd)
 {
 	if (ft_strcmp(cmd->cmd[0], "env") == 0)

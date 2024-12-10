@@ -154,7 +154,10 @@ void	execute(t_cmd *cmd, t_redir *fdin, t_redir *fdout, int fd[], int fd_in)
 {
 	int	pid;
 
-	if (ft_builtins_nopipe(cmd->env, cmd) == -1)
+	if (cmd->next == NULL && cmd->prev == NULL &&
+		is_builtin_nopipe(cmd->cmd[0]) == 0)
+		ft_builtins_nopipe(cmd->env, cmd);
+	else
 	{
 		pid = fork();
 		if (pid == 0)
