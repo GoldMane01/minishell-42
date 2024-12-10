@@ -6,7 +6,7 @@
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 19:22:11 by cris              #+#    #+#             */
-/*   Updated: 2024/11/25 16:50:14 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/12/05 15:31:47 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,6 @@ char	*expand_all(char *arg, t_env *env)
 		if ((arg[i] == '$') && (arg[i - 1] != '\''))
 		{
 			newarg = expand_arg(arg, env);
-			free (arg);
 			return (expand_all(newarg, env));
 		}
 		i++;
