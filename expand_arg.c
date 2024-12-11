@@ -6,7 +6,7 @@
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 19:22:11 by cris              #+#    #+#             */
-/*   Updated: 2024/12/05 15:31:47 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/12/11 19:54:42 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,28 @@ int	count_len(char	*arg)
 	return (i);
 }
 
+char	*expand_dollar(char *arg, char *value)
+{
+	char	*newarg;
+	int		i;
+	int		j;
+	char	*chop;
+	char	*temp;
+
+	if (!arg || !value)
+		return (NULL);
+	i = count_len(arg);
+	j = i + 2;
+	chop = ft_substr(arg, j, (ft_strlen(arg) - j));
+	newarg = ft_substr(arg, 0, i);
+	temp = ft_strjoin(newarg, value);
+	free(newarg);
+	newarg = ft_strjoin(temp, chop);
+	free(temp);
+	free(chop);
+	return (newarg);
+}
+
 char	*change_len(char *arg, char *value)
 {
 	char	*newarg;
@@ -61,6 +83,8 @@ char	*change_len(char *arg, char *value)
 	if (!arg || !value)
 		return (NULL);
 	i = count_len(arg);
+	if (arg[i] == '$' && arg[i + 1] == '?')
+		return (expand_dollar(arg, value));
 	j = i + 1;
 	while (arg[i] && ft_isalun(arg[j]))
 		j++;
@@ -79,7 +103,7 @@ char	*change_len(char *arg, char *value)
 	return (newarg);
 }
 
-char	*expand_arg(char *arg, t_env *env)
+char	*expand_arg(char *arg, t_env *env, int last_status)
 {
 	int		stateq;
 	char	*value;
@@ -94,6 +118,8 @@ char	*expand_arg(char *arg, t_env *env)
 			arg++;
 		else if (*arg == '\'' || *arg == '\"')
 			quote_state(&stateq, *arg);
+		else if (arg[0] == '$' && arg[1] == '?' && stateq != 1)
+			value = ft_itoa(last_status);
 		else if (*arg == '$' && stateq != 1)
 			value = get_value(arg, env);
 		if (value)
@@ -105,7 +131,7 @@ char	*expand_arg(char *arg, t_env *env)
 	return (cpyarg);
 }
 
-char	*expand_all(char *arg, t_env *env)
+char	*expand_all(char *arg, t_env *env, int last_status)
 {
 	int		i;
 	char	*newarg;
@@ -116,8 +142,8 @@ char	*expand_all(char *arg, t_env *env)
 	{
 		if ((arg[i] == '$') && (arg[i - 1] != '\''))
 		{
-			newarg = expand_arg(arg, env);
-			return (expand_all(newarg, env));
+			newarg = expand_arg(arg, env, last_status);
+			return (expand_all(newarg, env, last_status));
 		}
 		i++;
 	}

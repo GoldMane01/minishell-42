@@ -6,7 +6,7 @@
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 16:06:16 by crmunoz-          #+#    #+#             */
-/*   Updated: 2024/12/05 17:28:52 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/12/11 17:07:16 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,7 @@ int	execute(t_cmd *cmd, t_redir *fdin, t_redir *fdout, int fd[], int fd_in)
 			close(fd[0]);
 			close(fd[1]);
 			if (ft_builtins_pipe(cmd->env, cmd) == -1)
-				if (execve(cmd->path, cmd->cmd, NULL) == -1) //hay que guardar el número que devuelve execve en alguna estructura
+				if (execve(cmd->path, cmd->cmd, NULL) == -1)
 					exit(1);
 			exit(0);
 		}

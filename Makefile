@@ -6,7 +6,7 @@
 #    By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/28 16:44:54 by crmunoz-          #+#    #+#              #
-#    Updated: 2024/12/05 17:34:33 by crmunoz-         ###   ########.fr        #
+#    Updated: 2024/12/11 17:49:44 by crmunoz-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRCS		:=	env.c \
 				expand_arg.c \
 				builtins/builtins1.c builtins/builtins2.c builtins/ft_exit.c builtins/check_built.c \
 				pipex.c \
+				ft_itoa.c \
 				remove_quotes.c \
 
 OBJS		:= $(SRCS:.c=.o)

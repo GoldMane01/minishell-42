@@ -6,7 +6,7 @@
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 18:18:28 by dramos-n          #+#    #+#             */
-/*   Updated: 2024/11/28 15:40:34 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/12/11 17:43:40 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ void	free_cmd(t_cmd *cmd)
 	{
 		aux = cmd->next;
 		if (cmd->type == COMMAND)
-		{	
+		{
 			free_ptr(cmd->cmd);
 			if (cmd->path != NULL)
 				free(cmd->path);
@@ -163,7 +163,14 @@ void	free_cmd(t_cmd *cmd)
 
 }
 
-void	parse_line(char *line, char **env, t_env *str_env)
+int	get_last_status(t_cmd *cmd)
+{
+	while (cmd && cmd->next)
+		cmd = cmd->next;
+	return (cmd->status);
+}
+
+int	parse_line(char *line, char **env, t_env *str_env)
 {
 	char	**parsed;
 	char	**split;
@@ -184,6 +191,7 @@ void	parse_line(char *line, char **env, t_env *str_env)
 	free_ptr(parsed);
 	free_cmd(cmd);
 	unlink("temp");
+	return (get_last_status(cmd));
 }
 
 void	ctrl_c_handler(int sig)
@@ -213,7 +221,9 @@ int	main(int argc, char **argv, char **env)
 	char	*dir;
 	t_env	*str_env;
 	char	*expand_line;
+	int		last_status;
 
+	last_status = 0;
 	if (argc != 1 || !argv)
 		exit(1);
 	signal(SIGINT, ctrl_c_handler);
@@ -229,8 +239,8 @@ int	main(int argc, char **argv, char **env)
 		add_history(line);
 		while (close_quote(line))
 			line = concat_quote(line, "quote> ");
-		expand_line = expand_all(line, str_env);
-		parse_line(expand_line, env, str_env);
+		expand_line = expand_all(line, str_env, last_status);
+		last_status = parse_line(expand_line, env, str_env);
 		free(line);
 		free(dir);
 	}
