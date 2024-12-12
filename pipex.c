@@ -131,6 +131,8 @@ char	*cmdpath(t_cmd *cmd, char **env)
 	char	*command;
 
 	path = NULL;
+	if (ft_strcmp(get_env_value("PATH", cmd->env), "") == 0)
+		return (path);
 	command = malloc(sizeof(char) * (ft_strlen(cmd->cmd[0]) + 2));
 	if (!command)
 		return (NULL);
