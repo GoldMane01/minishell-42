@@ -10,9 +10,27 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-int	execute(t_cmd *cmd, t_redir *fdin, t_redir *fdout, int fd[], int fd_in) 
+void	child_process(t_cmd *cmd, t_fd *fd_pipe, int fd[], int fd_in)
+{
+	if (fd_pipe->fdin)
+		dup2(fd_pipe->fdin->fd, STDIN_FILENO);
+	else if (fd_in != STDIN_FILENO)
+		dup2(fd_in, STDIN_FILENO);
+	if (fd_pipe->fdout)
+		dup2(fd_pipe->fdout->fd, STDOUT_FILENO);
+	else if (cmd->next)
+		dup2(fd[1], STDOUT_FILENO);
+	close(fd[0]);
+	close(fd[1]);
+	if (ft_builtins_pipe(cmd->env, cmd) == -1)
+		if (execve(cmd->path, cmd->cmd, NULL) == -1)
+			exit(1);
+	exit(0);
+}
+
+int	execute(t_cmd *cmd, t_fd *fd_pipe, int fd[], int fd_in) 
 {
 	int	pid;
 	int status;
@@ -25,22 +43,7 @@ int	execute(t_cmd *cmd, t_redir *fdin, t_redir *fdout, int fd[], int fd_in)
 	{
 		pid = fork();
 		if (pid == 0)
-		{
-			if (fdin)
-				dup2(fdin->fd, STDIN_FILENO);
-			else if (fd_in != STDIN_FILENO)
-				dup2(fd_in, STDIN_FILENO);
-			if (fdout)
-				dup2(fdout->fd, STDOUT_FILENO);
-			else if (cmd->next)
-				dup2(fd[1], STDOUT_FILENO);
-			close(fd[0]);
-			close(fd[1]);
-			if (ft_builtins_pipe(cmd->env, cmd) == -1)
-				if (execve(cmd->path, cmd->cmd, NULL) == -1)
-					exit(1);
-			exit(0);
-		}
+			child_process(cmd, fd_pipe, fd, fd_in);
 		close(fd[1]);
 		if (fd_in != STDIN_FILENO)
 			close(fd_in);
@@ -54,23 +57,24 @@ void	pipex(t_cmd **cmd, char **env)
 	int			fd[2];
 	int			fd_in;
 	t_cmd		*node;
-	t_redir		*fdin;
-	t_redir		*fdout;
+	t_fd		*fd_pipe;
 
 	node = *cmd;
 	fd_in = STDIN_FILENO;
+	fd_pipe = malloc(sizeof(t_fd) * 1);
 	while (node)
 	{
-		fdin = get_fd_in(node);
-		fdout = get_fd_out(node);
+		fd_pipe->fdin = get_fd_in(node);
+		fd_pipe->fdout = get_fd_out(node);
 		process_quotes(node);
 		if (pipe(fd) == -1)
 			exit(1);
 		node->path = cmdpath(node, env);
-		node->status = execute(node, fdin, fdout, fd, fd_in);
+		node->status = execute(node, fd_pipe, fd, fd_in);
 		fd_in = fd[0];
 		node = node->next;
 	}
+	free(fd_pipe);
 	if (fd_in != STDIN_FILENO)
 		close(fd_in);
 }

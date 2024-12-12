@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 char	**second_cmd(char **total, char **cmd2, char **quote, int *j)
 {
@@ -57,7 +57,7 @@ char	**first_cmd(char **total, char **cmd, int *j)
 		total[*j][i] = '\0';
 		*j = *j + 1;
 	}
-	return (totalcmd);
+	return (total);
 }
 
 char	**totalcmd(char **total, char **cmd, char **cmd2, char **quote)

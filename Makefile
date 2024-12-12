@@ -1,37 +1,63 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/08/28 16:44:54 by crmunoz-          #+#    #+#              #
-#    Updated: 2024/12/11 17:49:44 by crmunoz-         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+#  |  |  ___ \    \  |         |
+#  |  |     ) |  |\/ |   _  |  |  /   _ 
+# ___ __|  __/   |   |  (   |    <    __/ 
+#    _|  _____| _|  _| \__,_| _|\_\ \___|
+#                              by jcluzet
+################################################################################
+#                                     CONFIG                                   #
+################################################################################
 
-NAME		:= minishell
-CC			:= gcc
-FLAGS		:= -g -Wall -Wextra -Werror -lreadline #-fsanitize=address
-SRCS		:=	env.c \
-				minishell.c \
-				parseito.c \
-				join.c \
-				redir-nodes.c \
-				split.c \
-				cmd-nodes.c \
-				spliteo.c \
-				parsing.c \
-				expand_arg.c \
-				builtins/builtins1.c builtins/builtins2.c builtins/ft_exit.c builtins/check_built.c \
-				pipex.c \
-				ft_itoa.c \
-				remove_quotes.c \
+NAME        := minishell
+CC        := gcc
+FLAGS    := -g -lreadline #-Wall -Wextra -Werror 
+################################################################################
+#                                 PROGRAM'S SRCS                               #
+################################################################################
 
-OBJS		:= $(SRCS:.c=.o)
+SRCS        :=      minishell.c \
+                          builtins/ft_exit.c \
+                          builtins/builtins_first.c \
+                          builtins/builtins_second.c \
+                          builtins/check_built.c \
+                          utils/path.c \
+                          utils/fd.c \
+                          utils/cmd.c \
+                          utils/signals.c \
+                          utils/parsing.c \
+                          utils/utils.c \
+                          utils/pipex.c \
+                          utils/env.c \
+                          utils/free.c \
+                          utils/init.c \
+                          utils/expand.c \
+                          utils/splitting.c \
+                          utils/quotes.c \
+                          utils/args.c \
+                          utils/redir.c \
+                          lib/ft_strnstr.c \
+                          lib/ft_split.c \
+                          lib/ft_substr.c \
+                          lib/ft_itoa.c \
+                          lib/ft_isspace.c \
+                          lib/ft_strdup.c \
+                          lib/ft_strlcat.c \
+                          lib/ft_strchr.c \
+                          lib/ft_lstlast.c \
+                          lib/ft_strcmp.c \
+                          lib/ft_strlcpy.c \
+                          lib/ft_isalun.c \
+                          lib/ft_strjoin.c \
+                          lib/ft_strlen.c \
+                          
+OBJS        := $(SRCS:.c=.o)
 
 .c.o:
 	${CC} ${FLAGS} -c $< -o ${<:.c=.o}
+
+################################################################################
+#                                  Makefile  objs                              #
+################################################################################
+
 
 CLR_RMV		:= \033[0m
 RED		    := \033[1;31m
@@ -48,6 +74,8 @@ ${NAME}:	${OBJS}
 
 all:		${NAME}
 
+bonus:		all
+
 clean:
 			@ ${RM} *.o */*.o */*/*.o
 			@ echo "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)objs ✔️"
@@ -59,3 +87,5 @@ fclean:		clean
 re:			fclean all
 
 .PHONY:		all clean fclean re
+
+

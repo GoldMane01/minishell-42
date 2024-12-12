@@ -49,6 +49,12 @@ typedef struct s_redir
 	struct s_redir	*next;
 }					t_redir;
 
+typedef struct s_fd
+{
+	t_redir		*fdin;
+	t_redir		*fdout;
+}				t_fd;
+
 typedef struct s_cmd
 {
 	char			**cmd;
@@ -119,11 +125,11 @@ t_env		*create_env(char **env);
 char		*get_env_value(char *key, t_env *head);
 
 //EXPAND
-char		*set_env_key(char *env);
-char		*set_env_value(char *env);
-void		add_env(t_env *head, t_env *new);
-t_env		*create_env(char **env);
-char		*get_env_value(char *key, t_env *head);
+char		*get_value(char *arg, t_env *env);
+char		*expand_dollar(char *arg, char *value);
+char		*change_len(char *arg, char *value);
+char		*expand_arg(char *arg, t_env *env, int last_status);
+char		*expand_all(char *arg, t_env *env, int last_status);
 
 //FD
 int			here_doc_eof(char *line, char *eof);
@@ -148,14 +154,14 @@ int			parse_line(char *line, char **env, t_env *str_env);
 
 //PATH
 int			check_access(char *path, char *command);
-char		**find_paths(char *envp[]);
 char		*get_path(char *path, char *command);
 char		*check_paths(char **allpaths, char *command);
 char		*cmdpath(t_cmd *cmd, char **env);
 
 //PIPEX
-int			execute(t_cmd *cmd, t_redir *fdin, t_redir *fdout, int fd[], int fd_in);
+int			execute(t_cmd *cmd, t_fd *fd_pipe, int fd[], int fd_in);
 void		pipex(t_cmd **cmd, char **env);
+void		child_process(t_cmd *cmd, t_fd *fd_pipe, int fd[], int fd_in);
 
 //QUOTES
 char		*remove_quote(char *str);

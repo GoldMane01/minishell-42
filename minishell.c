@@ -34,20 +34,14 @@ char	*get_dir(void)
 	return (dir);
 }
 
-int	main(int argc, char **argv, char **env)
+void	loop(t_env *str_env, char **env)
 {
 	char	*line;
 	char	*dir;
-	t_env	*str_env;
 	char	*expand_line;
 	int		last_status;
 
 	last_status = 0;
-	if (argc != 1 || !argv)
-		exit(1);
-	signal(SIGINT, ctrl_c_handler);
-	signal(SIGQUIT, ctrl_quit_handler);
-	str_env = create_env(env);
 	while (1 + 1 == 2)
 	{
 		dir = get_dir();
@@ -63,6 +57,18 @@ int	main(int argc, char **argv, char **env)
 		free(line);
 		free(dir);
 	}
+}
+
+int	main(int argc, char **argv, char **env)
+{
+	t_env	*str_env;
+
+	if (argc != 1 || !argv)
+		exit(1);
+	signal(SIGINT, ctrl_c_handler);
+	signal(SIGQUIT, ctrl_quit_handler);
+	str_env = create_env(env);
+	loop(str_env, env);
 	rl_clear_history();
 	free(str_env);
 }

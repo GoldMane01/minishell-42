@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../minishell.h"
 
 int	check_access(char *path, char *command)
 {
@@ -19,22 +19,6 @@ int	check_access(char *path, char *command)
 	}
 	free(ptr);
 	return (1);
-}
-
-char	**find_paths(char *envp[])
-{
-	char	**paths;
-	int		i;
-
-	i = 0;
-	while (envp[i] != NULL)
-	{
-		if (ft_strnstr(envp[i], "PATH", 5))
-			break ;
-		i++;
-	}
-	paths = ft_split(envp[i], ':');
-	return (paths);
 }
 
 char	*get_path(char *path, char *command)
@@ -88,7 +72,7 @@ char	*cmdpath(t_cmd *cmd, char **env)
 		ft_strlen(cmd->cmd[0]) + ft_strlen(command) + 1);
 	if (is_builtin(cmd->cmd[0]) == 1)
 	{
-		allpaths = find_paths(ft_split(get_env_value("PATH", cmd->env), ' '));
+		allpaths = ft_split(get_env_value("PATH", cmd->env), ':');
 		allpaths[0] += 5;
 		path = check_paths(allpaths, command);
 		allpaths[0] -= 5;
