@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-void	ft_exporting(t_env *env, char *key, char *value) //pueden pasar varios keys y values
+void	ft_exporting(t_env *env, char *key, char *value)
 {
 	t_env	*current;
 
@@ -77,7 +77,7 @@ int	ft_cont_unset(t_env	**current, t_env **temp, char *key)
 	return (-1);
 }
 
-int	ft_unset(t_env	**env, char	*key) // si lo borra bien devuelve 0, si no -1
+int	ft_unset(t_env	**env, char	*key)
 {
 	t_env	*current;
 	t_env	*temp;
