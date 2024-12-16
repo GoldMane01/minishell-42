@@ -34,7 +34,7 @@ char	*get_dir(void)
 	return (dir);
 }
 
-void	loop(t_env *str_env, char **env)
+void	loop(t_env *str_env)
 {
 	char	*line;
 	char	*dir;
@@ -53,7 +53,7 @@ void	loop(t_env *str_env, char **env)
 		while (close_quote(line))
 			line = concat_quote(line, "quote> ");
 		expand_line = expand_all(line, str_env, last_status);
-		last_status = parse_line(expand_line, env, str_env);
+		last_status = parse_line(expand_line, str_env);
 		free(line);
 		free(dir);
 	}
@@ -68,7 +68,7 @@ int	main(int argc, char **argv, char **env)
 	signal(SIGINT, ctrl_c_handler);
 	signal(SIGQUIT, ctrl_quit_handler);
 	str_env = create_env(env);
-	loop(str_env, env);
+	loop(str_env);
 	rl_clear_history();
 	free(str_env);
 }

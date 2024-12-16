@@ -150,17 +150,17 @@ t_redir		*init_redir(char *str);
 //PARSING
 char		*concat_quote(char *line, char *quote);
 int			get_last_status(t_cmd *cmd);
-int			parse_line(char *line, char **env, t_env *str_env);
+int			parse_line(char *line, t_env *str_env);
 
 //PATH
 int			check_access(char *path, char *command);
 char		*get_path(char *path, char *command);
 char		*check_paths(char **allpaths, char *command);
-char		*cmdpath(t_cmd *cmd, char **env);
+char		*cmdpath(t_cmd *cmd);
 
 //PIPEX
 int			execute(t_cmd *cmd, t_fd *fd_pipe, int fd[], int fd_in);
-void		pipex(t_cmd **cmd, char **env);
+void		pipex(t_cmd **cmd);
 void		child_process(t_cmd *cmd, t_fd *fd_pipe, int fd[], int fd_in);
 
 //QUOTES

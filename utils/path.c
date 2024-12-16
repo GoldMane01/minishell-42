@@ -67,7 +67,7 @@ char	*check_paths(char **allpaths, char *command)
 	return (path);
 }
 
-char	*cmdpath(t_cmd *cmd, char **env)
+char	*cmdpath(t_cmd *cmd)
 {
 	char	**allpaths;
 	char	*path;

@@ -28,7 +28,7 @@ int	get_last_status(t_cmd *cmd)
 	return (cmd->status);
 }
 
-int	parse_line(char *line, char **env, t_env *str_env)
+int	parse_line(char *line, t_env *str_env)
 {
 	char	**parsed;
 	char	**split;
@@ -45,7 +45,7 @@ int	parse_line(char *line, char **env, t_env *str_env)
 			get_redirs(split));
 		free_ptr(split);
 	}
-	pipex(&cmd, env);
+	pipex(&cmd);
 	free_ptr(parsed);
 	free_cmd(cmd);
 	unlink("temp");

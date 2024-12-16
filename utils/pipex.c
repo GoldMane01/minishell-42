@@ -52,7 +52,7 @@ int	execute(t_cmd *cmd, t_fd *fd_pipe, int fd[], int fd_in)
 	return (status);
 }
 
-void	pipex(t_cmd **cmd, char **env)
+void	pipex(t_cmd **cmd)
 {
 	int			fd[2];
 	int			fd_in;
@@ -69,7 +69,7 @@ void	pipex(t_cmd **cmd, char **env)
 		process_quotes(node);
 		if (pipe(fd) == -1)
 			exit(1);
-		node->path = cmdpath(node, env);
+		node->path = cmdpath(node);
 		node->status = execute(node, fd_pipe, fd, fd_in);
 		fd_in = fd[0];
 		node = node->next;
