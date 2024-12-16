@@ -83,7 +83,14 @@ t_redir	*get_fd_out(t_cmd *cmd)
 	head = cmd->redir;
 	while (cmd->redir)
 	{
-		if (cmd->redir->type == OUTT || cmd->redir->type == OUT)
+		if (cmd->redir->type == OUTT)
+		{
+			fd = cmd->redir;
+			fd->fd = open(fd->name, O_WRONLY | O_CREAT | O_APPEND, 0666);
+			if (fd->fd == -1)
+				return (NULL);
+		}
+		if (cmd->redir->type == OUT)
 		{
 			fd = cmd->redir;
 			fd->fd = open(fd->name, O_WRONLY | O_CREAT | O_TRUNC, 0666);
