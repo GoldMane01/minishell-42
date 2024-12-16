@@ -34,6 +34,8 @@ char	**remove_path(char **cmd)
 	char	*name;
 
 	last = 0;
+	if (cmd[0][0] == '\'' || cmd[0][0] == '\"')
+		cmd[0] = ft_substr(cmd[0], 1, ft_strlen(cmd[0]) - 2);
 	if (cmd[0][0] == '/')
 	{
 		last = last_char(cmd[0], '/');

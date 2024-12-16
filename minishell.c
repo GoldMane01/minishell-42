@@ -49,13 +49,16 @@ void	loop(t_env *str_env)
 		line = readline(dir);
 		if (line == NULL)
 			exit(0);
-		add_history(line);
-		while (close_quote(line))
-			line = concat_quote(line, "quote> ");
-		expand_line = expand_all(line, str_env, last_status);
-		last_status = parse_line(expand_line, str_env);
-		free(line);
-		free(dir);
+		if (ft_strcmp(line, ""))
+		{
+			add_history(line);
+			while (close_quote(line))
+				line = concat_quote(line, "quote> ");
+			expand_line = expand_all(line, str_env, last_status);
+			last_status = parse_line(expand_line, str_env);
+			free(line);
+			free(dir);
+		}
 	}
 }
 
