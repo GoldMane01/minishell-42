@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/16 19:34:35 by crmunoz-          #+#    #+#             */
+/*   Updated: 2024/12/16 19:34:45 by crmunoz-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 void	free_redir(t_redir *redir)
@@ -17,7 +29,7 @@ void	free_redir(t_redir *redir)
 void	free_cmd(t_cmd *cmd)
 {
 	t_cmd	*aux;
-	
+
 	aux = cmd;
 	while (aux)
 	{
@@ -32,7 +44,6 @@ void	free_cmd(t_cmd *cmd)
 		free(cmd);
 		cmd = aux;
 	}
-
 }
 
 char	**free_ptr(char	**ptr)

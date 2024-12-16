@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand_arg.c                                       :+:      :+:    :+:   */
+/*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 19:22:11 by cris              #+#    #+#             */
-/*   Updated: 2024/12/11 19:54:42 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/12/16 19:31:37 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,6 @@ char	*change_len(char *arg, char *value)
 	j = i + 1;
 	while (arg[i] && ft_isalun(arg[j]))
 		j++;
-	if (arg[i - 1] == '\"')
-	{
-		i--;
-		j++;
-	}
 	chop = ft_substr(arg, j, (ft_strlen(arg) - j));
 	newarg = ft_substr(arg, 0, i);
 	temp = ft_strjoin(newarg, value);
