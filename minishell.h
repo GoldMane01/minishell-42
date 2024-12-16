@@ -83,6 +83,7 @@ size_t		ft_strlcpy(char *dst, const char *src, size_t dstsize);
 int			ft_strlen(const char *s);
 char		*ft_strnstr(const char *haystack, const char *needle, size_t len);
 char		*ft_substr(char const *s, int start, int len);
+int			ft_lstsize(t_env *lst);
 
 //BUILTINS
 void		ft_exporting(t_env *env, char *key, char *value);

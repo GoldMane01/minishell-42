@@ -12,6 +12,24 @@
 
 #include "../minishell.h"
 
+char	**transform_env(t_env *env)
+{
+	char	**new_env;
+	int		i;
+
+	new_env = malloc(sizeof(char *) * (ft_lstsize(env) + 1));
+	i = 0;
+	while (env)
+	{
+		new_env[i] = ft_strjoin(env->key, "=");
+		new_env[i] = ft_strjoin(new_env[i], env->value);
+		env = env->next;
+		i++;
+	}
+	new_env[i] = NULL;
+	return (new_env);
+}
+
 void	child_process(t_cmd *cmd, t_fd *fd_pipe, int fd[], int fd_in)
 {
 	if (fd_pipe->fdin)
@@ -25,7 +43,7 @@ void	child_process(t_cmd *cmd, t_fd *fd_pipe, int fd[], int fd_in)
 	close(fd[0]);
 	close(fd[1]);
 	if (ft_builtins_pipe(cmd->env, cmd) == -1)
-		if (execve(cmd->path, cmd->cmd, NULL) == -1)
+		if (execve(cmd->path, cmd->cmd, transform_env(cmd->env)) == -1)
 		{
 			printf("Error: command \"%s\" not found\n", cmd->cmd[0]);
 			exit(1);

@@ -51,6 +51,7 @@ SRCS        :=      minishell.c \
                           lib/ft_isalun.c \
                           lib/ft_strjoin.c \
                           lib/ft_strlen.c \
+                          lib/ft_lstsize.c \
                           
 OBJS        := $(SRCS:.c=.o)
 
