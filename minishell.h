@@ -6,7 +6,7 @@
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 18:23:41 by crmunoz-          #+#    #+#             */
-/*   Updated: 2024/12/11 17:48:56 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/12/16 20:35:03 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef struct s_cmd
 
 //LIB
 int			ft_isalun(char c);
+int			ft_isdigit(char *str);
 int			ft_isspace(char c);
 char		*ft_itoa(int n);
 t_cmd		*ft_lstlast(t_cmd *lst);
