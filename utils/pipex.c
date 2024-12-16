@@ -26,7 +26,10 @@ void	child_process(t_cmd *cmd, t_fd *fd_pipe, int fd[], int fd_in)
 	close(fd[1]);
 	if (ft_builtins_pipe(cmd->env, cmd) == -1)
 		if (execve(cmd->path, cmd->cmd, NULL) == -1)
+		{
+			printf("Error: command \"%s\" not found\n", cmd->cmd[0]);
 			exit(1);
+		}
 	exit(0);
 }
 
