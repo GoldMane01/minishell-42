@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   spliteo.c                                          :+:      :+:    :+:   */
+/*   splitting.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 16:35:38 by crmunoz-          #+#    #+#             */
-/*   Updated: 2024/11/11 16:08:12 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/12/16 19:58:20 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,16 @@ int	get_n_pipe(char *str)
 	return (pipes);
 }
 
+void	cont_split_pipe(char *str, int *i, char *quote)
+{
+	if (str[*i] == '\\' && str[*i + 1])
+		(*i)++;
+	else if (!*quote && (str[*i] == '\'' || str[*i] == '\"'))
+		*quote = str[*i];
+	else if (*quote && str[*i] == *quote)
+		*quote = '\0';
+}
+
 char	**split_pipe(char *str)
 {
 	char	**commands;
@@ -100,12 +110,7 @@ char	**split_pipe(char *str)
 		j = i;
 		while (str[i] && (str[i] != '|' || quote))
 		{
-			if (str[i] == '\\' && str[i + 1])
-				i++;
-			else if (!quote && (str[i] == '\'' || str[i] == '\"'))
-				quote = str[i];
-			else if (quote && str[i] == quote)
-				quote = '\0';
+			cont_split_pipe(str, &i, &quote);
 			i++;
 		}
 		commands[k++] = ft_substr(str, j, i - j);

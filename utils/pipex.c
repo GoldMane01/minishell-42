@@ -6,7 +6,7 @@
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 16:06:16 by crmunoz-          #+#    #+#             */
-/*   Updated: 2024/12/11 17:07:16 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/12/16 19:45:21 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ void	child_process(t_cmd *cmd, t_fd *fd_pipe, int fd[], int fd_in)
 	exit(0);
 }
 
-int	execute(t_cmd *cmd, t_fd *fd_pipe, int fd[], int fd_in) 
+int	execute(t_cmd *cmd, t_fd *fd_pipe, int fd[], int fd_in)
 {
 	int	pid;
-	int status;
+	int	status;
 
 	status = 0;
-	if (cmd->next == NULL && cmd->prev == NULL &&
-		is_builtin_nopipe(cmd->cmd[0]) == 0)
+	if (cmd->next == NULL && cmd->prev == NULL
+		&& is_builtin_nopipe(cmd->cmd[0]) == 0)
 		ft_builtins_nopipe(cmd->env, cmd);
 	else
 	{

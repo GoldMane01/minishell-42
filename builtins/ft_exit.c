@@ -6,7 +6,7 @@
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 20:34:21 by cris              #+#    #+#             */
-/*   Updated: 2024/11/11 15:41:04 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/12/16 20:04:01 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,11 @@ void	ft_exit(char **cmd)
 	if (cmd[1])
 	{
 		exit_code = ft_atol(cmd[1]);
+		if (exit_code <= '0' && exit_code >= '9')
+		{
+			write(2, "exit: numeric argument required\n", 32);
+			return ;
+		}
 		if (exit_code == 0 && cmd[1][0] != '0')
 			print_errexit(cmd[1]);
 		rl_clear_history();
