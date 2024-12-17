@@ -32,9 +32,6 @@ char	**transform_env(t_env *env)
 
 void	child_process(t_cmd *cmd, t_fd *fd_pipe, int fd[], int fd_in)
 {
-	char	**env;
-
-	env = transform_env(cmd->env);
 	if (fd_pipe->fdin)
 		dup2(fd_pipe->fdin->fd, STDIN_FILENO);
 	else if (fd_in != STDIN_FILENO)
@@ -46,11 +43,13 @@ void	child_process(t_cmd *cmd, t_fd *fd_pipe, int fd[], int fd_in)
 	close(fd[0]);
 	close(fd[1]);
 	if (ft_builtins_pipe(cmd->env, cmd) == -1)
-		if (execve(cmd->path, cmd->cmd, env) == -1)
+	{
+		if (execve(cmd->path, cmd->cmd, transform_env(cmd->env)) == -1)
 		{
 			printf("Error: command \"%s\" not found\n", cmd->cmd[0]);
 			exit(1);
 		}
+	}
 	exit(0);
 }
 
