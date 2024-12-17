@@ -48,7 +48,10 @@ void	loop(t_env *str_env)
 		line = NULL;
 		line = readline(dir);
 		if (line == NULL)
-			exit(0);
+		{
+			free(dir);
+			break ;
+		}
 		if (ft_strcmp(line, ""))
 		{
 			add_history(line);
@@ -73,5 +76,5 @@ int	main(int argc, char **argv, char **env)
 	str_env = create_env(env);
 	loop(str_env);
 	rl_clear_history();
-	free(str_env);
+	free_env(str_env);
 }

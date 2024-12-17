@@ -92,7 +92,8 @@ void	pipex(t_cmd **cmd)
 		process_quotes(node);
 		if (pipe(fd) == -1)
 			exit(1);
-		node->path = cmdpath(node);
+		if (node->path == NULL)
+			node->path = cmdpath(node);
 		node->status = execute(node, fd_pipe, fd, fd_in);
 		fd_in = fd[0];
 		node = node->next;

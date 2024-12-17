@@ -1,0 +1,9 @@
+builtins
+lib
+Makefile
+minishell
+minishell.c
+minishell.h
+minishell.o
+out
+utils

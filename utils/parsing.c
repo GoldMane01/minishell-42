@@ -34,6 +34,7 @@ int	parse_line(char *line, t_env *str_env)
 	char	**split;
 	int		i;
 	t_cmd	*cmd;
+	int		status;
 
 	cmd = NULL;
 	parsed = split_pipe(line);
@@ -46,8 +47,9 @@ int	parse_line(char *line, t_env *str_env)
 		free_ptr(split);
 	}
 	pipex(&cmd);
+	status = get_last_status(cmd);
 	free_ptr(parsed);
 	free_cmd(cmd);
 	unlink("temp");
-	return (get_last_status(cmd));
+	return (status);
 }

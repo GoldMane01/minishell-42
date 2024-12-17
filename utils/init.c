@@ -33,16 +33,14 @@ t_cmd	*init_cmd(char **cmd, int type, t_env *env)
 	command = malloc(sizeof(t_cmd));
 	if (!command)
 		exit(1);
-	if (type != PIPE)
-	{
-		command->cmd = remove_path(cmd);
-		command->env = env;
-	}
+	if (has_path(cmd))
+		command->path = ft_strdup(cmd[0]);
 	else
-		command->cmd = NULL;
+		command->path = NULL;
+	command->cmd = remove_path(cmd);
+	command->env = env;
 	command->type = type;
 	command->next = NULL;
-	command->path = NULL;
 	command->prev = NULL;
 	command->redir = NULL;
 	return (command);
@@ -60,5 +58,6 @@ t_redir	*init_redir(char *str)
 	redir->type = get_redir_type(str);
 	redir->fd = -1;
 	redir->next = NULL;
+	free (str);
 	return (redir);
 }

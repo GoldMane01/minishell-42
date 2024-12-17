@@ -93,3 +93,14 @@ char	*cmdpath(t_cmd *cmd)
 	free(command);
 	return (path);
 }
+
+int	has_path(char **cmd)
+{
+	if (cmd[0][0] == '\'' || cmd[0][0] == '\"')
+		cmd[0] = ft_substr(cmd[0], 1, ft_strlen(cmd[0]) - 2);
+	if (ft_strchr(cmd[0], '/'))
+		return (1);
+	if (cmd[0][0] == '.' && cmd[0][1] == '/')
+		return (1);
+	return (0);
+}

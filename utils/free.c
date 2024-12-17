@@ -34,15 +34,27 @@ void	free_cmd(t_cmd *cmd)
 	while (aux)
 	{
 		aux = cmd->next;
-		if (cmd->type == COMMAND)
-		{
-			free_ptr(cmd->cmd);
-			if (cmd->path != NULL)
-				free(cmd->path);
-			free_redir(cmd->redir);
-		}
+		if (cmd->path != NULL)
+			free(cmd->path);
+		free_ptr(cmd->cmd);
+		free_redir(cmd->redir);
 		free(cmd);
 		cmd = aux;
+	}
+}
+
+void	free_env(t_env *env)
+{
+	t_env	*aux;
+
+	aux = env;
+	while (aux)
+	{
+		aux = env->next;
+		free(env->key);
+		free(env->value);
+		free(env);
+		env = aux;
 	}
 }
 

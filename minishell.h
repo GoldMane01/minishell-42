@@ -143,6 +143,7 @@ t_redir		*get_fd_out(t_cmd *cmd);
 void		free_redir(t_redir *redir);
 void		free_cmd(t_cmd *cmd);
 char		**free_ptr(char	**ptr);
+void		free_env(t_env *env);
 
 //INIT
 t_env		*new_env(char *key_data, char *val_data);
@@ -159,6 +160,7 @@ int			check_access(char *path, char *command);
 char		*get_path(char *path, char *command);
 char		*check_paths(char **allpaths, char *command);
 char		*cmdpath(t_cmd *cmd);
+int			has_path(char **cmd);
 
 //PIPEX
 int			execute(t_cmd *cmd, t_fd *fd_pipe, int fd[], int fd_in);
