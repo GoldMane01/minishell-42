@@ -6,7 +6,7 @@
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 18:51:09 by crmunoz-          #+#    #+#             */
-/*   Updated: 2024/12/16 19:27:54 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/12/17 16:54:53 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,45 +84,6 @@ char	**totalcmd(char **total, char **cmd, char **cmd2, char **quote)
 	total = second_cmd(total, cmd2, quote, &j);
 	total[++j] = NULL;
 	return (total);
-}
-
-char	**create_new_cmd(char **cmd, int count)
-{
-	char	**new;
-	int		i;
-	int		j;
-	int		k;
-
-	new = malloc(sizeof(char *) * (count + 1));
-	if (!new)
-		return (NULL);
-	i = 0;
-	k = 0;
-	while (cmd[i])
-	{
-		while (cmd[i] && (cmd[i][0] == '<' || cmd[i][0] == '>'))
-		{
-			i++;
-			if (ft_strlen(cmd[i - 1]) <= 2)
-				i++;
-		}
-		if (!cmd[i])
-			break ;
-		new[k] = malloc(sizeof(char) * (ft_strlen(cmd[i]) + 1));
-		if (!new[k])
-			free_ptr(new);
-		j = 0;
-		while (cmd[i][j])
-		{
-			new[k][j] = cmd[i][j];
-			j++;
-		}
-		new[k][j] = '\0';
-		i++;
-		k++;
-	}
-	new[k] = NULL;
-	return (new);
 }
 
 t_cmd	*add_next_cmd(t_cmd **head, t_cmd *new, t_redir *redirs)
