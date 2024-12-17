@@ -92,16 +92,19 @@ t_redir	*get_redirs(char **str)
 	i = 0;
 	while (str[i])
 	{
-		if ((str[i][0] == '<' || str[i][0] == '>') && str[i + 1])
+		if ((str[i][0] == '<' || str[i][0] == '>'))
 		{
-			if ((ft_strlen(str[i]) <= 2) && str[i + 1])
+			if (!((ft_strlen(str[i]) <= 2) && !str[i + 1]))
 			{
-				join = ft_strjoin(str[i], str[i + 1]);
-				i++;
+				if ((ft_strlen(str[i]) <= 2) && str[i + 1])
+				{
+					join = ft_strjoin(str[i], str[i + 1]);
+					i++;
+				}
+				else
+					join = str_redir(str[i]);
+				add_next_redir(&redirs, init_redir(join));
 			}
-			else
-				join = str_redir(str[i]);
-			add_next_redir(&redirs, init_redir(join));
 		}
 		i++;
 	}

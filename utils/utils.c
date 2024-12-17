@@ -51,20 +51,30 @@ char	**remove_redirs(char **cmd)
 	int		i;
 	char	**new;
 	int		count;
+	int		flag;
 
 	count = 0;
 	i = 0;
+	flag = 0;
 	while (cmd[i])
 	{
-		if (cmd[i][0] == '<' || cmd[i][0] == '>')
+		if ((cmd[i][0] == '<' || cmd[i][0] == '>'))
 		{
-			count--;
+			if (ft_strlen(cmd[i]) <= 2 &&
+				cmd[i][1] != '\0' && cmd[i][1] != '<' && cmd[i][1] != '>')
+				flag = 1;
+		}
+		else if (flag == 0)
+			count++;
+
+
+			/*count--;
 			if ((ft_strlen(cmd[i]) <= 2))
 				count--;
 			if (cmd[i][1] != '\0' && cmd[i][1] != '<' && cmd[i][1] != '>')
 				count++;
-		}
-		count++;
+		}*/
+		//count++;
 		i++;
 	}
 	new = create_new_cmd(cmd, count);

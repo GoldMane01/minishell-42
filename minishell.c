@@ -52,7 +52,8 @@ void	loop(t_env *str_env)
 			free(dir);
 			break ;
 		}
-		if (ft_strcmp(line, ""))
+		if (ft_strcmp(line, "") && ft_strcmp(line, "<") &&
+			ft_strcmp(line, ">"))
 		{
 			add_history(line);
 			while (close_quote(line))

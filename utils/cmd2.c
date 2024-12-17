@@ -59,7 +59,7 @@ char	**create_new_cmd(char **cmd, int count)
 		while (cmd[i] && (cmd[i][0] == '<' || cmd[i][0] == '>'))
 		{
 			i++;
-			if (ft_strlen(cmd[i - 1]) <= 2)
+			if (cmd[i] && ft_strlen(cmd[i - 1]) <= 2)
 				i++;
 		}
 		if (!cmd[i])
