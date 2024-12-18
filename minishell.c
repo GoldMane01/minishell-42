@@ -6,7 +6,7 @@
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 18:18:28 by dramos-n          #+#    #+#             */
-/*   Updated: 2024/12/11 17:43:40 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/12/18 10:20:42 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ void	loop(t_env *str_env)
 			free(dir);
 			break ;
 		}
-		if (ft_strcmp(line, "") && ft_strcmp(line, "<") &&
-			ft_strcmp(line, ">"))
+		if (ft_strcmp(line, "") && ft_strcmp(line, "<")
+			&& ft_strcmp(line, ">"))
 		{
 			add_history(line);
 			while (close_quote(line))

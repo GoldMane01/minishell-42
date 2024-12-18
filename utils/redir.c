@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redir-nodes.c                                      :+:      :+:    :+:   */
+/*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 19:43:54 by crmunoz-          #+#    #+#             */
-/*   Updated: 2024/11/11 16:07:48 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/12/18 10:31:28 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,8 @@ t_redir	*get_redirs(char **str)
 
 	redirs = NULL;
 	join = NULL;
-	i = 0;
-	while (str[i])
+	i = -1;
+	while (str[++i])
 	{
 		if ((str[i][0] == '<' || str[i][0] == '>'))
 		{
@@ -106,7 +106,6 @@ t_redir	*get_redirs(char **str)
 				add_next_redir(&redirs, init_redir(join));
 			}
 		}
-		i++;
 	}
 	return (redirs);
 }

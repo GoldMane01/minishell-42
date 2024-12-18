@@ -6,7 +6,7 @@
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 19:36:25 by crmunoz-          #+#    #+#             */
-/*   Updated: 2024/12/16 19:46:09 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/12/18 10:33:39 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,21 +60,12 @@ char	**remove_redirs(char **cmd)
 	{
 		if ((cmd[i][0] == '<' || cmd[i][0] == '>'))
 		{
-			if (ft_strlen(cmd[i]) <= 2 &&
-				cmd[i][1] != '\0' && cmd[i][1] != '<' && cmd[i][1] != '>')
+			if (ft_strlen(cmd[i]) <= 2
+				&& cmd[i][1] != '\0' && cmd[i][1] != '<' && cmd[i][1] != '>')
 				flag = 1;
 		}
 		else if (flag == 0)
 			count++;
-
-
-			/*count--;
-			if ((ft_strlen(cmd[i]) <= 2))
-				count--;
-			if (cmd[i][1] != '\0' && cmd[i][1] != '<' && cmd[i][1] != '>')
-				count++;
-		}*/
-		//count++;
 		i++;
 	}
 	new = create_new_cmd(cmd, count);
