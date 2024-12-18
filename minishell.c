@@ -6,7 +6,7 @@
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 18:18:28 by dramos-n          #+#    #+#             */
-/*   Updated: 2024/12/18 10:20:42 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/12/18 11:34:05 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,23 @@ char	*get_dir(void)
 	return (dir);
 }
 
+void	next_loop(char *line, t_env *str_env, char *dir, int *last_status)
+{
+	char	*expand_line;
+
+	add_history(line);
+	while (close_quote(line))
+		line = concat_quote(line, "quote> ");
+	expand_line = expand_all(line, str_env, *last_status);
+	*last_status = parse_line(expand_line, str_env);
+	free(line);
+	free(dir);
+}
+
 void	loop(t_env *str_env)
 {
 	char	*line;
 	char	*dir;
-	char	*expand_line;
 	int		last_status;
 
 	last_status = 0;
@@ -54,15 +66,7 @@ void	loop(t_env *str_env)
 		}
 		if (ft_strcmp(line, "") && ft_strcmp(line, "<")
 			&& ft_strcmp(line, ">"))
-		{
-			add_history(line);
-			while (close_quote(line))
-				line = concat_quote(line, "quote> ");
-			expand_line = expand_all(line, str_env, last_status);
-			last_status = parse_line(expand_line, str_env);
-			free(line);
-			free(dir);
-		}
+			next_loop(line, str_env, dir, &last_status);
 	}
 }
 

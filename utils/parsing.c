@@ -6,7 +6,7 @@
 /*   By: crmunoz- <crmunoz-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 19:36:04 by crmunoz-          #+#    #+#             */
-/*   Updated: 2024/12/16 19:44:49 by crmunoz-         ###   ########.fr       */
+/*   Updated: 2024/12/18 11:23:22 by crmunoz-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,12 @@ char	*concat_quote(char *line, char *quote)
 
 int	get_last_status(t_cmd *cmd)
 {
-	while (cmd && cmd->next)
+	while (cmd && cmd->next && cmd->next->next)
 		cmd = cmd->next;
-	return (cmd->status);
+	if (cmd)
+		return (cmd->status);
+	else
+		return (127);
 }
 
 int	parse_line(char *line, t_env *str_env)
